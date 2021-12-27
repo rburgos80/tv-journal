@@ -1,13 +1,6 @@
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
-const showSchema = new Schema({
-  apiId: Number,
-  name: String,
-  image: String,
-  lastUpdated: { type: Date, default: () => Date.now() },
-});
-
 const collectionSchema = new Schema(
   {
     version: {
