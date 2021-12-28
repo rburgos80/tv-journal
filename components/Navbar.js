@@ -8,7 +8,8 @@ import {
   Typography,
 } from "@material-ui/core";
 import { Search, Cancel } from "@material-ui/icons";
-import { useState, useContext } from "react";
+import Link from "next/link";
+import { useState, useContext, useRef } from "react";
 import userContext from "../context/userContext";
 
 const useStyles = makeStyles((theme) => ({
@@ -16,7 +17,7 @@ const useStyles = makeStyles((theme) => ({
     display: "flex",
     justifyContent: "space-between",
   },
-  logo: {},
+  logo: { color: "white" },
   search: {
     display: "flex",
     alignItems: "center",
@@ -53,15 +54,14 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const Navbar = () => {
+  const userData = useContext(userContext);
+  const loggedIn = useRef(userData.user === undefined);
   const [open, setOpen] = useState(false);
   const classes = useStyles({ open });
-  const userData = useContext(userContext);
   return (
-    <AppBar position="fixed">
+    <AppBar position="static">
       <Toolbar className={classes.toolbar}>
-        <Typography variant="h6" className={classes.logo}>
-          TVjournal
-        </Typography>
+        <Typography variant="h4">TVjournal</Typography>
         <div className={classes.search}>
           <Search />
           <InputBase placeholder="Search..." className={classes.input} />
@@ -72,7 +72,13 @@ const Navbar = () => {
             className={classes.searchButton}
             onClick={() => setOpen(true)}
           />
-          <Avatar alt="Remy Sharp" src="" />
+          {loggedIn.current ? (
+            <Link href={"login"}>
+              <a> Login / Register </a>
+            </Link>
+          ) : (
+            <Avatar alt="Remy Sharp" src="" />
+          )}
         </div>
       </Toolbar>
     </AppBar>
