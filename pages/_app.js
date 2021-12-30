@@ -1,25 +1,12 @@
 import "../styles/globals.css";
+import "bootstrap/dist/css/bootstrap.min.css";
 import userContext from "../context/userContext";
-import Navbar from "../components/Navbar";
+import Navbar from "../components/Navbars";
 import { useState, useEffect, useMemo } from "react";
 import axios from "axios";
-import {
-  CircularProgress,
-  CssBaseline,
-  ThemeProvider,
-} from "@material-ui/core";
-import PropTypes from "prop-types";
 import Head from "next/head";
-import { CacheProvider } from "@emotion/react";
-import theme from "../src/theme";
-import createEmotionCache from "../src/createEmotionCache";
 
-// Client-side cache, shared for the whole session of the user in the browser.
-const clientSideEmotionCache = createEmotionCache();
-
-function MyApp(props) {
-  const { Component, emotionCache = clientSideEmotionCache, pageProps } = props;
-
+function MyApp({ Component, pageProps }) {
   const [userData, setUserData] = useState({
     token: undefined,
     user: undefined,
@@ -69,16 +56,8 @@ function MyApp(props) {
     };
   }, []);
 
-  useEffect(() => {
-    // Remove the server-side injected CSS.
-    const jssStyles = document.querySelector("#jss-server-side");
-    if (jssStyles) {
-      jssStyles.parentElement.removeChild(jssStyles);
-    }
-  }, []);
-
   return (
-    <CacheProvider value={emotionCache}>
+    <>
       <Head>
         <title>TVjournal</title>
         <meta
@@ -86,22 +65,13 @@ function MyApp(props) {
           content="minimum-scale=1, initial-scale=1, width=device-width"
         />
       </Head>
-      <ThemeProvider theme={theme}>
-        <userContext.Provider value={userContextValue}>
-          {/* {userData.loading ? <CircularProgress /> : <Component {...pageProps} />} */}
-          <CssBaseline />
-          <Navbar />
-          <Component {...pageProps} />
-        </userContext.Provider>
-      </ThemeProvider>
-    </CacheProvider>
+      <userContext.Provider value={userContextValue}>
+        {/* {userData.loading ? <CircularProgress /> : <Component {...pageProps} />} */}
+        <Navbar />
+        <Component {...pageProps} />
+      </userContext.Provider>
+    </>
   );
 }
-
-MyApp.propTypes = {
-  Component: PropTypes.elementType.isRequired,
-  emotionCache: PropTypes.object,
-  pageProps: PropTypes.object.isRequired,
-};
 
 export default MyApp;
