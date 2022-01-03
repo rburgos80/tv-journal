@@ -49,7 +49,10 @@ const JournalEntry = ({ show, openDefault = false }) => {
             <Card.Link>Go to details page</Card.Link>
           </Col>
         </Row>
-        <Button variant="secondary" onClick={() => setOpen((open) => !open)}>
+        <Button
+          variant="outline-primary"
+          onClick={() => setOpen((open) => !open)}
+        >
           {open ? "Hide Episodes" : "Show Episodes"}
         </Button>
         {open ? (

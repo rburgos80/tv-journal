@@ -22,7 +22,7 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <Showcard show={show} />
-      <JournalEntry show={show} openDefault />
+      <JournalEntry show={show} />
     </div>
   );
 }

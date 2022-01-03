@@ -1,10 +1,11 @@
 import "../styles/globals.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 import userContext from "../context/userContext";
-import Navbar from "../components/Navbars";
+import Navbars from "../components/Navbars";
 import { useState, useEffect, useMemo } from "react";
 import axios from "axios";
 import Head from "next/head";
+import SSRProvider from "react-bootstrap/SSRProvider";
 
 function MyApp({ Component, pageProps }) {
   const [userData, setUserData] = useState({
@@ -57,9 +58,9 @@ function MyApp({ Component, pageProps }) {
   }, []);
 
   return (
-    <>
+    <SSRProvider>
       <Head>
-        <title>TVjournal</title>
+        <title>TV Journal</title>
         <meta
           name="viewport"
           content="minimum-scale=1, initial-scale=1, width=device-width"
@@ -67,10 +68,10 @@ function MyApp({ Component, pageProps }) {
       </Head>
       <userContext.Provider value={userContextValue}>
         {/* {userData.loading ? <CircularProgress /> : <Component {...pageProps} />} */}
-        <Navbar />
+        <Navbars />
         <Component {...pageProps} />
       </userContext.Provider>
-    </>
+    </SSRProvider>
   );
 }
 
