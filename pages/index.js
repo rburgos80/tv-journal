@@ -1,8 +1,5 @@
 import Head from "next/head";
-import Image from "next/image";
-import JournalEntry from "../components/JournalEntry";
-import Navbar from "../components/Navbars";
-import Showcard from "../components/Showcard";
+import Journal from "../components/Journal";
 
 export default function Home() {
   const show = {
@@ -11,8 +8,10 @@ export default function Home() {
       "https://static.tvmaze.com/uploads/images/medium_portrait/4/11341.jpg",
   };
 
+  const entries = [show, show, show, show];
+
   return (
-    <div>
+    <>
       <Head>
         <title>TV Journal</title>
         <meta
@@ -21,8 +20,7 @@ export default function Home() {
         />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <Showcard show={show} />
-      <JournalEntry show={show} />
-    </div>
+      <Journal entries={entries} />
+    </>
   );
 }

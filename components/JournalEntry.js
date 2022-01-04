@@ -31,74 +31,68 @@ const JournalEntry = ({ show, openDefault = false }) => {
   };
 
   return (
-    <Container>
-      <Card className="p-2" bg="light" border="dark">
-        <Row>
-          <Col>
-            <Image
-              src={show.image}
-              alt={`${show.name} poster`}
-              width={210}
-              height={295}
-            />
-          </Col>
-          <Col xs={9}>
-            <Card.Title as="h2">{show.name}</Card.Title>
-            <Card.Body className="px-0">Last Watched:</Card.Body>
-            <Card.Body className="px-0">Episodes Watched:</Card.Body>
-            <Card.Link>Go to details page</Card.Link>
-          </Col>
-        </Row>
-        <Button
-          variant="outline-primary"
-          onClick={() => setOpen((open) => !open)}
-        >
-          {open ? "Hide Episodes" : "Show Episodes"}
-        </Button>
-        {open ? (
-          <>
-            <hr />
-            <DropdownButton
-              title={`Season ${displaySeason} `}
-              onSelect={(value) => {
-                handleSelect(0);
-                setDisplaySeason(value);
-              }}
-              variant="secondary"
-            >
-              {seasons.map((season) => (
-                <Dropdown.Item key={season} eventKey={season}>
-                  Season {season}
-                </Dropdown.Item>
-              ))}
-            </DropdownButton>
-            <Carousel
-              ref={carouselRef}
-              variant="dark"
-              interval={null}
-              wrap={false}
-              slide={false}
-              className="my-5"
-              indicators={false}
-              activeIndex={displayEpisode}
-              onSelect={handleSelect}
-            >
-              {episodes[displaySeason]
-                ? episodes[displaySeason].map((episode) => (
-                    <Carousel.Item
-                      key={episode}
-                      as="h5"
-                      className="text-center"
-                    >
-                      Episode {episode}
-                    </Carousel.Item>
-                  ))
-                : null}
-            </Carousel>
-          </>
-        ) : null}
-      </Card>
-    </Container>
+    <Card className="p-2 my-4" bg="light" border="dark">
+      <Row>
+        <Col>
+          <Image
+            src={show.image}
+            alt={`${show.name} poster`}
+            width={210}
+            height={295}
+          />
+        </Col>
+        <Col xs={9}>
+          <Card.Title as="h2">{show.name}</Card.Title>
+          <Card.Body className="px-0">Last Watched:</Card.Body>
+          <Card.Body className="px-0">Episodes Watched:</Card.Body>
+          <Card.Link>Go to details page</Card.Link>
+        </Col>
+      </Row>
+      <Button
+        variant="outline-primary"
+        onClick={() => setOpen((open) => !open)}
+      >
+        {open ? "Hide Episodes" : "Show Episodes"}
+      </Button>
+      {open ? (
+        <>
+          <hr />
+          <DropdownButton
+            title={`Season ${displaySeason} `}
+            onSelect={(value) => {
+              handleSelect(0);
+              setDisplaySeason(value);
+            }}
+            variant="secondary"
+          >
+            {seasons.map((season) => (
+              <Dropdown.Item key={season} eventKey={season}>
+                Season {season}
+              </Dropdown.Item>
+            ))}
+          </DropdownButton>
+          <Carousel
+            ref={carouselRef}
+            variant="dark"
+            interval={null}
+            wrap={false}
+            slide={false}
+            className="my-5"
+            indicators={false}
+            activeIndex={displayEpisode}
+            onSelect={handleSelect}
+          >
+            {episodes[displaySeason]
+              ? episodes[displaySeason].map((episode) => (
+                  <Carousel.Item key={episode} as="h5" className="text-center">
+                    Episode {episode}
+                  </Carousel.Item>
+                ))
+              : null}
+          </Carousel>
+        </>
+      ) : null}
+    </Card>
   );
 };
 
