@@ -4,7 +4,7 @@ import userContext from "../context/userContext";
 import Nav from "react-bootstrap/Nav";
 import Navbar from "react-bootstrap/Navbar";
 import NavDropdown from "react-bootstrap/NavDropdown";
-import { Container } from "react-bootstrap";
+import { Button, Col, Container, Form, Row } from "react-bootstrap";
 
 const Navbars = () => {
   const userData = useContext(userContext);
@@ -28,20 +28,45 @@ const Navbars = () => {
               TV Journal
             </Navbar.Brand>
           </Link>
-          <Container className="justify-content-end">
-            <Nav activeKey={null} className="justify-content-end">
-              <Nav.Item>
-                <Link href="/login" passHref>
-                  <Nav.Link>Login/Register</Nav.Link>
-                </Link>
-              </Nav.Item>
-              <Nav.Item>
-                <Link href="/about" passHref>
-                  <Nav.Link>About</Nav.Link>
-                </Link>
-              </Nav.Item>
-            </Nav>
-          </Container>
+          <Row
+            className="justify-content-space-between"
+            style={{ width: "60%" }}
+          >
+            <Form
+              style={{ display: "flex" }}
+              onSubmit={(e) => e.preventDefault()}
+            >
+              <Col xs={9}>
+                <Form.Control
+                  type="text"
+                  variant="dark"
+                  placeholder="Search"
+                  className="rounded-0"
+                />
+              </Col>
+              <Col>
+                <Button
+                  type="submit"
+                  variant="outline-light"
+                  className="rounded-0"
+                >
+                  Search
+                </Button>
+              </Col>
+            </Form>
+          </Row>
+          <Nav activeKey={null} className="justify-content-end">
+            <Nav.Item>
+              <Link href="/login" passHref>
+                <Nav.Link>Login/Register</Nav.Link>
+              </Link>
+            </Nav.Item>
+            <Nav.Item>
+              <Link href="/about" passHref>
+                <Nav.Link>About</Nav.Link>
+              </Link>
+            </Nav.Item>
+          </Nav>
         </Container>
       </Navbar>
     </header>
