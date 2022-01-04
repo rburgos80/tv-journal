@@ -10,7 +10,7 @@ const Journal = ({ entries }) => {
     <Container>
       <h1>Your Journal</h1>
       {entries.length ? (
-        entries.map((entry) => <JournalEntry show={entry} />)
+        entries.map((entry, index) => <JournalEntry show={entry} key={index} />)
       ) : (
         <h1>
           Your journal is empty. Search for a show to add to your journal.

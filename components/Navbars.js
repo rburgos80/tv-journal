@@ -1,14 +1,32 @@
 import Link from "next/link";
-import { useState, useContext, useRef } from "react";
+import { useState, useContext, useRef, useEffect } from "react";
 import userContext from "../context/userContext";
 import Nav from "react-bootstrap/Nav";
 import Navbar from "react-bootstrap/Navbar";
 import NavDropdown from "react-bootstrap/NavDropdown";
 import { Button, Col, Container, Form, Row } from "react-bootstrap";
+import { useRouter } from "next/router";
 
 const Navbars = () => {
+  const router = useRouter();
   const userData = useContext(userContext);
   const [open, setOpen] = useState(false);
+  const [searchQuery, setSearchQuery] = useState("");
+
+  useEffect(() => {
+    if (router.query && router.query.q) {
+      setSearchQuery(router.query.q);
+    }
+  }, [router.query]);
+
+  function handleSearch(e) {
+    e.preventDefault();
+    console.log(e.value);
+    router.push({
+      pathname: `/results`,
+      query: { q: searchQuery },
+    });
+  }
 
   const logout = () => {
     setUserData({
@@ -32,16 +50,15 @@ const Navbars = () => {
             className="justify-content-space-between"
             style={{ width: "60%" }}
           >
-            <Form
-              style={{ display: "flex" }}
-              onSubmit={(e) => e.preventDefault()}
-            >
+            <Form style={{ display: "flex" }} onSubmit={handleSearch}>
               <Col xs={9}>
                 <Form.Control
                   type="text"
                   variant="dark"
                   placeholder="Search"
                   className="rounded-0"
+                  value={searchQuery}
+                  onChange={(e) => setSearchQuery(e.target.value)}
                 />
               </Col>
               <Col>
