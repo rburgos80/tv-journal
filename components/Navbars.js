@@ -21,7 +21,6 @@ const Navbars = () => {
 
   function handleSearch(e) {
     e.preventDefault();
-    console.log(e.value);
     router.push({
       pathname: `/results`,
       query: { q: searchQuery },
@@ -39,7 +38,7 @@ const Navbars = () => {
 
   return (
     <header>
-      <Navbar bg="dark" variant="dark">
+      <Navbar bg="dark" variant="dark" className="mb-3">
         <Container>
           <Link href="/">
             <Navbar.Brand className="mx-3" style={{ cursor: "pointer" }}>

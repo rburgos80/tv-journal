@@ -9,7 +9,7 @@ export default function Results() {
   const [searchResults, setSearchResults] = useState([]);
 
   useEffect(async () => {
-    fetchSearchResults(router.query.q);
+    router.query.q && fetchSearchResults(router.query.q);
   }, [router.query.q]);
 
   const fetchSearchResults = async (query) => {
