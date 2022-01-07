@@ -11,7 +11,7 @@ const test = () => {
 
   const fetchEpisodeData = async () => {
     try {
-      const res = await axios.get("https://api.tvmaze.com/episodes/22");
+      const res = await axios.get("https://api.tvmaze.com/episodes/2");
       setEpisodeData(res.data);
     } catch (err) {
       console.log(err);

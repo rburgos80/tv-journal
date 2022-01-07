@@ -3,7 +3,7 @@
 }
 
 @media (max-width: 767px) {
-  .test {
+  .episode-card-image {
     display: flex;
     justify-content: center;
     margin-bottom: 8px;
