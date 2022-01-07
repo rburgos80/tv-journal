@@ -4,10 +4,10 @@ import { useRef } from "react";
 import { Card, Col, Row } from "react-bootstrap";
 
 const SearchResult = ({ show }) => {
-  const trimmedSummary = useRef(show.summary);
-  if (trimmedSummary.current.length > 450) {
-    trimmedSummary.current = `${trimmedSummary.current.slice(0, 449)}... `;
-  }
+  // const trimmedSummary = useRef(show.summary);
+  // if (trimmedSummary.current.length > 450) {
+  //   trimmedSummary.current = `${trimmedSummary.current.slice(0, 449)}... `;
+  // }
   return (
     <div>
       <Card className="p-2 my-4" variant="light" border="light">
@@ -32,7 +32,7 @@ const SearchResult = ({ show }) => {
             </Card.Body>
             <Card.Body className="px-0">
               <div
-                dangerouslySetInnerHTML={{ __html: trimmedSummary.current }}
+                dangerouslySetInnerHTML={{ __html: show.summary }}
                 style={{ textOverflow: "ellipsis" }}
               />
             </Card.Body>
