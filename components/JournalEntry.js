@@ -10,6 +10,7 @@ import {
   DropdownButton,
 } from "react-bootstrap";
 import { useRef, useState } from "react";
+import Link from "next/link";
 
 const JournalEntry = ({ show, openDefault = false }) => {
   const [open, setOpen] = useState(openDefault);
@@ -42,7 +43,9 @@ const JournalEntry = ({ show, openDefault = false }) => {
           />
         </Col>
         <Col xs={9}>
-          <Card.Title as="h2">{show.name}</Card.Title>
+          <Link href={`show/${show.id}`} passHref>
+            <Card.Title as="h2">{show.name}</Card.Title>
+          </Link>
           <Card.Body className="px-0">Last Watched:</Card.Body>
           <Card.Body className="px-0">Episodes Watched:</Card.Body>
           <Card.Link>Go to details page</Card.Link>

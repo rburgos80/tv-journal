@@ -3,9 +3,10 @@ import { useState, useEffect } from "react";
 import Head from "next/head";
 import Image from "next/image";
 import axios from "axios";
+import EpisodeCard from "../../components/EpisodeCard";
 
 const ShowPage = () => {
-  const [showData, setShowData] = useState([]);
+  const [showData, setShowData] = useState({});
   const router = useRouter();
 
   async function getData() {
@@ -32,6 +33,12 @@ const ShowPage = () => {
         <title>{`${showData.name} - TVbase`}</title>
       </Head>
       {console.log(showData)}
+
+      {/* <h1>{showData.name}</h1> */}
+      {showData._embedded &&
+        showData._embedded.episodes.map((episode) => (
+          <EpisodeCard episode={episode} key={episode.id} />
+        ))}
       {/* 
       <div className="container" className={styles.container}>
         <h1 className={styles.title}>{showData.name}</h1>
