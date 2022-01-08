@@ -6,7 +6,7 @@ export default function Home() {
     name: "The Sopranos",
     image:
       "https://static.tvmaze.com/uploads/images/medium_portrait/4/11341.jpg",
-    id: 23,
+    id: 527,
   };
 
   const entries = [show, show, show, show];

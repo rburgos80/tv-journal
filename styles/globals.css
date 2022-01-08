@@ -2,7 +2,7 @@
   box-sizing: border-box;
 }
 
-@media (max-width: 767px) {
+@media (max-width: 991px) {
   .episode-card-image {
     display: flex;
     justify-content: center;
