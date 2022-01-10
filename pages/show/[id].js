@@ -3,7 +3,8 @@ import { useState, useEffect } from "react";
 import Head from "next/head";
 import axios from "axios";
 import EpisodeList from "../../components/EpisodeList";
-import { Container } from "react-bootstrap";
+import { Col, Container, Row } from "react-bootstrap";
+import Image from "next/image";
 
 const ShowPage = () => {
   const [showData, setShowData] = useState({});
@@ -33,11 +34,41 @@ const ShowPage = () => {
 
   return (
     <Container>
+      {console.log(showData)}
       <Head>
         <title>
           {showData.name ? `${showData.name} - TVbase` : "Loading..."}
         </title>
       </Head>
+      <Row className="justify-content-center">
+        <Col md="auto">
+          {showData.image && showData.image.original && (
+            <div className="show-page-image">
+              <Image
+                src={showData.image.original}
+                width={256}
+                height={376}
+                layout="intrinsic"
+                className="mx-auto"
+                priority
+              />
+            </div>
+          )}
+        </Col>
+        <Col md="6">
+          <div>
+            <h2 className="text-md-start text-center my-3">
+              <span
+                className="show-title"
+                dangerouslySetInnerHTML={{ __html: showData.name }}
+              />
+            </h2>
+            <p className="show-summary">
+              <span dangerouslySetInnerHTML={{ __html: showData.summary }} />
+            </p>
+          </div>
+        </Col>
+      </Row>
       {showData.id && <EpisodeList showId={showData.id} />}
     </Container>
   );

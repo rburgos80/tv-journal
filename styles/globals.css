@@ -1,21 +1,18 @@
 :root {
-  --bg: #dfdfdf;
+  --bg: #eeeeee;
 }
 
 * {
   box-sizing: border-box;
 }
 
-@media (max-width: 991px) {
-  .episode-card-image {
-    display: flex;
-    justify-content: center;
+.show-summary {
+}
+@media (max-width: 576px) {
+  .show-page-image {
+    display: flex !important;
+    justify-content: center !important;
     margin-bottom: 8px;
-  }
-  .episode-card::after {
-    content: "" !important;
-    background-image: none !important;
-    width: 0;
   }
 }
 
@@ -31,6 +28,14 @@
     padding-left: 1rem !important;
     padding-right: 1rem !important;
   }
+}
+
+.episode-card-image {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 8px;
+}
+@media (max-width: 991px) {
 }
 
 .episode-title,

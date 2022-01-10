@@ -16,7 +16,7 @@ const EpisodeCard = ({ episode }) => {
       <Accordion className="shadow-sm mt-2">
         <Accordion.Item eventKey="0">
           <Accordion.Header>
-            <Row className="px-0 py-2 p-lg-3 m-auto m-lg-0">
+            <Row className="px-0 py-2 m-auto m-lg-0">
               <Col lg="auto">
                 <div className="episode-card-image">
                   {episode.image && (
@@ -26,7 +26,6 @@ const EpisodeCard = ({ episode }) => {
                       height={140}
                       layout="intrinsic"
                       alt="Episode poster"
-                      className=""
                     />
                   )}
                 </div>
