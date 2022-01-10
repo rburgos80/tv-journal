@@ -1,15 +1,22 @@
 import Image from "next/image";
 import { useState } from "react";
-import { Accordion, Col, Container, Row } from "react-bootstrap";
+import {
+  Accordion,
+  Col,
+  Container,
+  Row,
+  useAccordionButton,
+} from "react-bootstrap";
 
 const EpisodeCard = ({ episode }) => {
   const [open, setOpen] = useState(false);
+
   return (
-    <Container>
+    <div className="episode-card">
       <Accordion className="shadow-sm mt-2">
         <Accordion.Item eventKey="0">
           <Accordion.Header>
-            <Row className="p-3">
+            <Row className="px-0 py-2 p-lg-3 m-auto m-lg-0">
               <Col lg="auto">
                 <div className="episode-card-image">
                   {episode.image && (
@@ -24,10 +31,19 @@ const EpisodeCard = ({ episode }) => {
                   )}
                 </div>
               </Col>
-              <Col>
-                <div className="text-left">
-                  <h4 dangerouslySetInnerHTML={{ __html: episode.name }} />
-                  <p dangerouslySetInnerHTML={{ __html: episode.summary }} />
+              <Col className="align-self-center">
+                <div>
+                  <h4 className="text-lg-start text-center mb-2">
+                    <span
+                      className="episode-title"
+                      dangerouslySetInnerHTML={{ __html: episode.name }}
+                    />
+                  </h4>
+                  <p className="episode-summary">
+                    <span
+                      dangerouslySetInnerHTML={{ __html: episode.summary }}
+                    />
+                  </p>
                 </div>
               </Col>
             </Row>
@@ -40,7 +56,7 @@ const EpisodeCard = ({ episode }) => {
           </Accordion.Body>
         </Accordion.Item>
       </Accordion>
-    </Container>
+    </div>
   );
 };
 

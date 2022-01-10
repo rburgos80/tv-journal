@@ -12,11 +12,44 @@
     justify-content: center;
     margin-bottom: 8px;
   }
+  .episode-card::after {
+    content: "" !important;
+    background-image: none !important;
+    width: 0;
+  }
+}
+
+@media (max-width: 767px) {
+  .episode-summary {
+    font-size: 15px;
+    line-height: 1.4em;
+  }
+  .episode-title {
+    font-size: 20px;
+  }
+  .accordion-button {
+    padding-left: 1rem !important;
+    padding-right: 1rem !important;
+  }
+}
+
+.episode-title,
+.episode-summary {
+  display: block;
+  white-space: normal;
+  word-wrap: break-word;
+  word-break: break-word;
 }
 
 .accordion-button {
   background-color: white !important;
   color: black !important;
+  box-shadow: none !important;
+  outline: none !important;
+}
+
+.accordion-body {
+  border-top: 1px solid rgba(0, 0, 0, 0.125);
 }
 
 #__next {

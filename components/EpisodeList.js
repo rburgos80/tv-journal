@@ -29,7 +29,7 @@ const EpisodeList = ({ showId }) => {
       );
       const epData = epRes.data;
 
-      setEpisodes(epData);
+      setEpisodes(epData.filter((ep) => ep.type === "regular"));
     } catch (err) {
       throw new Error(
         `${err} \n Episode data api fetch failed: season: ${seasons[seasonIndex].id}`
@@ -56,7 +56,7 @@ const EpisodeList = ({ showId }) => {
   }, [seasonIndex]);
 
   return (
-    <Container>
+    <>
       <h2 className="py-2">Episodes</h2>
       {seasons[seasonIndex] && (
         <Dropdown onSelect={(e) => setSeasonIndex(e)} className="mb-4">
@@ -78,7 +78,7 @@ const EpisodeList = ({ showId }) => {
       <p className="top-of-list mt-3 text-center">
         <a href="#season-toggle">Top of list</a>
       </p>
-    </Container>
+    </>
   );
 };
 
