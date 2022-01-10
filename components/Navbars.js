@@ -58,6 +58,7 @@ const Navbars = () => {
                   className="rounded-0"
                   value={searchQuery}
                   onChange={(e) => setSearchQuery(e.target.value)}
+                  required
                 />
               </Col>
               <Col>

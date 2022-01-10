@@ -1,5 +1,6 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
+import { Accordion, Container } from "react-bootstrap";
 import EpisodeCard from "../components/EpisodeCard";
 
 const test = () => {
@@ -19,9 +20,9 @@ const test = () => {
   };
 
   return (
-    <div>
+    <Container>
       <EpisodeCard episode={episodeData} />
-    </div>
+    </Container>
   );
 };
 

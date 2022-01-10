@@ -3,6 +3,7 @@ import { useState, useEffect } from "react";
 import Head from "next/head";
 import axios from "axios";
 import EpisodeList from "../../components/EpisodeList";
+import { Container } from "react-bootstrap";
 
 const ShowPage = () => {
   const [showData, setShowData] = useState({});
@@ -31,24 +32,14 @@ const ShowPage = () => {
   }, [router.query.id]);
 
   return (
-    <>
+    <Container>
       <Head>
         <title>
           {showData.name ? `${showData.name} - TVbase` : "Loading..."}
         </title>
       </Head>
-      {/* <Container>
-        <ListGroup>
-          {showData._embedded &&
-            showData._embedded.episodes.map((episode) => (
-              <ListGroup.Item>
-                <EpisodeCard episode={episode} key={episode.id} />
-              </ListGroup.Item>
-            ))}
-        </ListGroup>
-      </Container> */}
       {showData.id && <EpisodeList showId={showData.id} />}
-    </>
+    </Container>
   );
 };
 

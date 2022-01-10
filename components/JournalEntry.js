@@ -25,7 +25,7 @@ const JournalEntry = ({ show, openDefault = false }) => {
   };
 
   return (
-    <Card className="p-2 my-4" bg="light" border="dark">
+    <Card className="p-2 mt-4 shadow border-0" bg="light" border="dark">
       <Row>
         <Col>
           <Image
@@ -37,15 +37,16 @@ const JournalEntry = ({ show, openDefault = false }) => {
         </Col>
         <Col xs={9}>
           <Link href={`show/${show.id}`} passHref>
-            <Card.Title as="h2">{show.name}</Card.Title>
+            <Card.Title as="h2" className="d-inline">
+              {show.name}
+            </Card.Title>
           </Link>
           <Card.Body className="px-0">Last Watched:</Card.Body>
           <Card.Body className="px-0">Episodes Watched:</Card.Body>
-          <Card.Link>Go to details page</Card.Link>
         </Col>
       </Row>
       <Button
-        variant="outline-primary"
+        variant="outline-secondary"
         onClick={() => setOpen((open) => !open)}
       >
         {open ? "Hide Episodes" : "Show Episodes"}

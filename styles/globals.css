@@ -1,3 +1,7 @@
+:root {
+  --bg: #dfdfdf;
+}
+
 * {
   box-sizing: border-box;
 }
@@ -8,4 +12,17 @@
     justify-content: center;
     margin-bottom: 8px;
   }
+}
+
+.accordion-button {
+  background-color: white !important;
+  color: black !important;
+}
+
+#__next {
+  background-color: var(--bg);
+}
+
+html {
+  background-color: var(--bg);
 }

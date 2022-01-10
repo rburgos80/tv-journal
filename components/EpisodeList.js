@@ -57,22 +57,10 @@ const EpisodeList = ({ showId }) => {
 
   return (
     <Container>
-      <h2 className="py-4">Episodes</h2>
-      {/* <select
-        name="seasons"
-        id="seasons"
-        className="season-select"
-        onChange={(e) => setDisplaySeason(e.target.value)}
-        {seasons.map((s) => (
-          <option key={s.id} value={s.id}>
-            Season {s.number}
-          </option>
-        ))}
-      </select>
-      > */}
+      <h2 className="py-2">Episodes</h2>
       {seasons[seasonIndex] && (
-        <Dropdown onSelect={(e) => setSeasonIndex(e)}>
-          <Dropdown.Toggle variant="primary" id="season-toggle">
+        <Dropdown onSelect={(e) => setSeasonIndex(e)} className="mb-4">
+          <Dropdown.Toggle variant="secondary" id="season-toggle">
             Season {seasons[seasonIndex].number}
           </Dropdown.Toggle>
           <Dropdown.Menu>
@@ -84,18 +72,12 @@ const EpisodeList = ({ showId }) => {
           </Dropdown.Menu>
         </Dropdown>
       )}
-      <ListGroup>
-        {seasonIndex != undefined
-          ? episodes.map((episode) => (
-              <ListGroup.Item key={episode.id}>
-                <EpisodeCard episode={episode} />
-              </ListGroup.Item>
-            ))
-          : null}
-      </ListGroup>
-      <a className="top-of-list" href="#season-toggle">
-        Top of list
-      </a>
+      {seasonIndex != undefined
+        ? episodes.map((episode) => <EpisodeCard episode={episode} />)
+        : null}
+      <p className="top-of-list mt-3 text-center">
+        <a href="#season-toggle">Top of list</a>
+      </p>
     </Container>
   );
 };
