@@ -34,7 +34,6 @@ const ShowPage = () => {
 
   return (
     <Container>
-      {console.log(showData)}
       <Head>
         <title>
           {showData.name ? `${showData.name} - TVbase` : "Loading..."}

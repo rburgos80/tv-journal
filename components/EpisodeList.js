@@ -73,7 +73,9 @@ const EpisodeList = ({ showId }) => {
         </Dropdown>
       )}
       {seasonIndex != undefined
-        ? episodes.map((episode) => <EpisodeCard episode={episode} />)
+        ? episodes.map((episode) => (
+            <EpisodeCard episode={episode} key={episode.id} />
+          ))
         : null}
       <p className="top-of-list mt-3 text-center">
         <a href="#season-toggle">Top of list</a>

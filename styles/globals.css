@@ -9,14 +9,14 @@
 .show-summary {
 }
 @media (max-width: 576px) {
+}
+
+@media (max-width: 767px) {
   .show-page-image {
     display: flex !important;
     justify-content: center !important;
     margin-bottom: 8px;
   }
-}
-
-@media (max-width: 767px) {
   .episode-summary {
     font-size: 15px;
     line-height: 1.4em;
