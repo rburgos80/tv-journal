@@ -1,4 +1,5 @@
 import Head from "next/head";
+import { Container } from "react-bootstrap";
 import ShowCard from "../components/ShowCard";
 
 export default function Home() {
@@ -21,9 +22,11 @@ export default function Home() {
         />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      {shows.map((show, index) => (
-        <ShowCard show={show} key={index} />
-      ))}
+      <Container>
+        {shows.map((show, index) => (
+          <ShowCard show={show} key={index} />
+        ))}
+      </Container>
     </>
   );
 }
