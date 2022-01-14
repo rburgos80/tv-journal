@@ -1,5 +1,5 @@
 import Head from "next/head";
-import Journal from "../components/Journal";
+import ShowCard from "../components/ShowCard";
 
 export default function Home() {
   const show = {
@@ -9,7 +9,7 @@ export default function Home() {
     id: 527,
   };
 
-  const entries = [show, show, show, show];
+  const shows = [show, show, show, show];
 
   return (
     <>
@@ -21,7 +21,9 @@ export default function Home() {
         />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <Journal entries={entries} />
+      {shows.map((show, index) => (
+        <ShowCard show={show} key={index} />
+      ))}
     </>
   );
 }
