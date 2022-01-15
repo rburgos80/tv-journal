@@ -13,7 +13,7 @@ const Journal = ({ data }) => {
   };
 
   return (
-    <Card className="p-3">
+    <Card className="p-3 border-0">
       <Form className="m-3" onSubmit={handleSubmit}>
         <Form.Group controlId="new-entry">
           <Form.Label>New Entry</Form.Label>
@@ -24,14 +24,15 @@ const Journal = ({ data }) => {
             value={newEntryText}
             onChange={(e) => setNewEntryText(e.target.value)}
             required
+            maxLength={10000}
             className="mb-2"
           />
         </Form.Group>
         <Button type="submit">Compose</Button>
       </Form>
-      <ListGroup>
-        {entries.length ? (
-          entries
+      {entries.length ? (
+        <ListGroup>
+          {entries
             .slice()
             .reverse()
             .map((entry, index) => (
@@ -39,13 +40,9 @@ const Journal = ({ data }) => {
                 <h6 style={{ color: "gray" }}>{entry.date}</h6>
                 <p>{entry.text} </p>
               </ListGroup.Item>
-            ))
-        ) : (
-          <h3>
-            Your journal is empty. Search for a show to add to your journal.
-          </h3>
-        )}
-      </ListGroup>
+            ))}
+        </ListGroup>
+      ) : null}
     </Card>
   );
 };

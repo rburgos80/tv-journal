@@ -1,6 +1,6 @@
 import axios from "axios";
 import { useState, useEffect } from "react";
-import { Container, Dropdown, ListGroup } from "react-bootstrap";
+import { Card, Container, Dropdown, ListGroup } from "react-bootstrap";
 import EpisodeCard from "./EpisodeCard.js";
 
 const EpisodeList = ({ showId }) => {
@@ -56,10 +56,9 @@ const EpisodeList = ({ showId }) => {
   }, [seasonIndex]);
 
   return (
-    <>
-      <h2 className="py-2">Episodes</h2>
+    <Card className="border-0">
       {seasons[seasonIndex] && (
-        <Dropdown onSelect={(e) => setSeasonIndex(e)} className="mb-4">
+        <Dropdown onSelect={(e) => setSeasonIndex(e)} className="m-4">
           <Dropdown.Toggle variant="secondary" id="season-toggle">
             Season {seasons[seasonIndex].number}
           </Dropdown.Toggle>
@@ -72,15 +71,17 @@ const EpisodeList = ({ showId }) => {
           </Dropdown.Menu>
         </Dropdown>
       )}
-      {seasonIndex != undefined
-        ? episodes.map((episode) => (
+      {seasonIndex != undefined ? (
+        <>
+          {episodes.map((episode) => (
             <EpisodeCard episode={episode} key={episode.id} />
-          ))
-        : null}
-      <p className="top-of-list mt-3 text-center">
-        <a href="#season-toggle">Top of list</a>
-      </p>
-    </>
+          ))}
+          <p className="top-of-list mt-3 text-center">
+            <a href="#season-toggle">Top of list</a>
+          </p>
+        </>
+      ) : null}
+    </Card>
   );
 };
 
