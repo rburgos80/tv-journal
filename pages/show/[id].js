@@ -3,11 +3,14 @@ import { useState, useEffect } from "react";
 import Head from "next/head";
 import axios from "axios";
 import EpisodeList from "../../components/EpisodeList";
-import { Col, Container, Row } from "react-bootstrap";
+import { Card, Col, Container, Nav, Row } from "react-bootstrap";
 import Image from "next/image";
+import Link from "next/link";
+import Journal from "../../components/Journal";
 
 const ShowPage = () => {
   const [showData, setShowData] = useState({});
+  const [activeTab, setActiveTab] = useState("journal");
   const router = useRouter();
 
   async function getData() {
@@ -39,36 +42,54 @@ const ShowPage = () => {
           {showData.name ? `${showData.name} - TVbase` : "Loading..."}
         </title>
       </Head>
-      <Row className="justify-content-center">
-        <Col md="auto">
-          {showData.image && showData.image.original && (
-            <div className="show-page-image">
-              <Image
-                src={showData.image.original}
-                width={256}
-                height={376}
-                layout="intrinsic"
-                className="mx-auto"
-                priority
-              />
+      <Card>
+        <Row className="justify-content-center m-3">
+          <Col md="auto">
+            {showData.image && showData.image.original && (
+              <div className="show-page-image">
+                <Image
+                  src={showData.image.original}
+                  width={256}
+                  height={376}
+                  layout="intrinsic"
+                  className="mx-auto"
+                  priority
+                />
+              </div>
+            )}
+          </Col>
+          <Col md="6">
+            <div>
+              <h2 className="text-md-start text-center my-3">
+                <span
+                  className="show-title"
+                  dangerouslySetInnerHTML={{ __html: showData.name }}
+                />
+              </h2>
+              <p className="show-summary">
+                <span dangerouslySetInnerHTML={{ __html: showData.summary }} />
+              </p>
             </div>
-          )}
-        </Col>
-        <Col md="6">
-          <div>
-            <h2 className="text-md-start text-center my-3">
-              <span
-                className="show-title"
-                dangerouslySetInnerHTML={{ __html: showData.name }}
-              />
-            </h2>
-            <p className="show-summary">
-              <span dangerouslySetInnerHTML={{ __html: showData.summary }} />
-            </p>
-          </div>
-        </Col>
-      </Row>
-      {showData.id && <EpisodeList showId={showData.id} />}
+          </Col>
+        </Row>
+        <Nav
+          fill
+          variant="tabs"
+          defaultActiveKey="journal"
+          onSelect={(e) => setActiveTab(e)}
+        >
+          <Nav.Item>
+            <Nav.Link eventKey="journal">Journal</Nav.Link>
+          </Nav.Item>
+          <Nav.Item>
+            <Nav.Link eventKey="episodes">Episodes</Nav.Link>
+          </Nav.Item>
+        </Nav>
+        {showData.id && activeTab === "journal" && <Journal data={[]} />}
+        {showData.id && activeTab === "episodes" && (
+          <EpisodeList showId={showData.id} />
+        )}
+      </Card>
     </Container>
   );
 };

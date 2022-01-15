@@ -1,21 +1,14 @@
 import Image from "next/image";
 import { useState } from "react";
-import {
-  Accordion,
-  Col,
-  Container,
-  Row,
-  useAccordionButton,
-} from "react-bootstrap";
+import Journal from "./Journal";
+import { Accordion, Col, Row } from "react-bootstrap";
 
 const EpisodeCard = ({ episode }) => {
-  const [open, setOpen] = useState(false);
-
   return (
     <div className="episode-card">
-      <Accordion className="shadow-sm mt-2">
-        <Accordion.Item eventKey="0">
-          <Accordion.Header>
+      <Accordion className="mt-0">
+        <Accordion.Item className="rounded-0 border-0" eventKey="0">
+          <Accordion.Header className="border-top">
             <Row className="px-0 py-2 m-auto m-lg-0">
               <Col lg="auto">
                 <div className="episode-card-image">
@@ -48,10 +41,7 @@ const EpisodeCard = ({ episode }) => {
             </Row>
           </Accordion.Header>
           <Accordion.Body>
-            Ipsum velit ex laboris sit laborum. Reprehenderit reprehenderit
-            dolore laborum labore excepteur sit Lorem aliqua cillum incididunt.
-            Nostrud et minim laborum veniam esse voluptate. Reprehenderit aute
-            nisi ut mollit eiusmod ad aliqua.
+            <Journal data={[]} />
           </Accordion.Body>
         </Accordion.Item>
       </Accordion>
