@@ -6,7 +6,6 @@ import { useState, useEffect, useMemo } from "react";
 import axios from "axios";
 import Head from "next/head";
 import SSRProvider from "react-bootstrap/SSRProvider";
-import { Container } from "react-bootstrap";
 
 function MyApp({ Component, pageProps }) {
   const [userData, setUserData] = useState({

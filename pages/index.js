@@ -1,5 +1,5 @@
 import Head from "next/head";
-import { Container } from "react-bootstrap";
+import Container from "react-bootstrap/Container";
 import ShowCard from "../components/ShowCard";
 
 export default function Home() {

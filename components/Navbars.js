@@ -1,10 +1,11 @@
 import Link from "next/link";
-import { useState, useContext, useRef, useEffect } from "react";
+import { useState, useContext, useEffect } from "react";
 import userContext from "../context/userContext";
 import Nav from "react-bootstrap/Nav";
 import Navbar from "react-bootstrap/Navbar";
-import NavDropdown from "react-bootstrap/NavDropdown";
-import { Button, Col, Container, Form, Row } from "react-bootstrap";
+import Button from "react-bootstrap/Button";
+import Container from "react-bootstrap/Container";
+import Form from "react-bootstrap/Form";
 import { useRouter } from "next/router";
 
 const Navbars = () => {

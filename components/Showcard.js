@@ -1,7 +1,11 @@
 import Carousel from "react-bootstrap/Carousel";
 import Image from "next/image";
 import Card from "react-bootstrap/Card";
-import { Col, Row, Button, Dropdown, DropdownButton } from "react-bootstrap";
+import Col from "react-bootstrap/Col";
+import Row from "react-bootstrap/Row";
+import Button from "react-bootstrap/Button";
+import Dropdown from "react-bootstrap/Dropdown";
+import DropdownButton from "react-bootstrap/DropdownButton";
 import { useRef, useState } from "react";
 import Link from "next/link";
 

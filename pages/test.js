@@ -1,6 +1,6 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
-import { Accordion, Container } from "react-bootstrap";
+import Container from "react-bootstrap/Container";
 import EpisodeCard from "../components/EpisodeCard";
 import Journal from "../components/Journal";
 

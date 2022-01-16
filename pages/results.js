@@ -30,12 +30,13 @@ export default function Results() {
         <title>Search - TV Journal</title>
         <meta
           name="description"
-          content="Explore TV shows and view their ratings per season and episode."
+          content="Keep a journal on your favorite TV Shows."
         />
       </Head>
       <div className="container">
         <h4 className="search-results">
-          Found {searchResults.length} results for "{router.query.q}"
+          {searchResults &&
+            `Found ${searchResults.length} results for "${router.query.q}"`}
         </h4>
         <div className="homeGrid">
           {searchResults &&

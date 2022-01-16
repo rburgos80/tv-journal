@@ -1,7 +1,9 @@
 import Image from "next/image";
 import { useState } from "react";
 import Journal from "./Journal";
-import { Accordion, Col, Row } from "react-bootstrap";
+import Accordion from "react-bootstrap/Accordion";
+import Col from "react-bootstrap/Col";
+import Row from "react-bootstrap/Row";
 
 const EpisodeCard = ({ show, episode }) => {
   return (

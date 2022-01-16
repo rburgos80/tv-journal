@@ -1,4 +1,5 @@
-import { Card, ListGroup } from "react-bootstrap";
+import ListGroup from "react-bootstrap/ListGroup";
+import Card from "react-bootstrap/Card";
 
 export default function JournalEntry({ entry, show, episode }) {
   return (

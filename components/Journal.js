@@ -1,5 +1,9 @@
 import { useState } from "react";
-import { Button, Card, Container, Form, ListGroup } from "react-bootstrap";
+import Button from "react-bootstrap/Button";
+import Card from "react-bootstrap/Card";
+import Form from "react-bootstrap/Form";
+import ListGroup from "react-bootstrap/ListGroup";
+
 import JournalEntry from "./JournalEntry";
 
 const Journal = ({ data, episode, show }) => {
