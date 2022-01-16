@@ -13,7 +13,7 @@ import Journal from "../../components/Journal";
 
 const ShowPage = () => {
   const [showData, setShowData] = useState({});
-  const [activeTab, setActiveTab] = useState("journal");
+  const [activeTab, setActiveTab] = useState("episodes");
   const router = useRouter();
 
   async function getData() {
@@ -78,14 +78,14 @@ const ShowPage = () => {
         <Nav
           fill
           variant="tabs"
-          defaultActiveKey="journal"
+          defaultActiveKey="episodes"
           onSelect={(e) => setActiveTab(e)}
         >
           <Nav.Item>
-            <Nav.Link eventKey="journal">Journal</Nav.Link>
+            <Nav.Link eventKey="episodes">Episodes</Nav.Link>
           </Nav.Item>
           <Nav.Item>
-            <Nav.Link eventKey="episodes">Episodes</Nav.Link>
+            <Nav.Link eventKey="journal">Journal</Nav.Link>
           </Nav.Item>
         </Nav>
         {showData.id && activeTab === "journal" && (
