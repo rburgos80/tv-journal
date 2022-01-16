@@ -3,7 +3,7 @@ import { useState } from "react";
 import Journal from "./Journal";
 import { Accordion, Col, Row } from "react-bootstrap";
 
-const EpisodeCard = ({ episode }) => {
+const EpisodeCard = ({ show, episode }) => {
   return (
     <div className="episode-card">
       <Accordion className="mt-0">
@@ -26,8 +26,9 @@ const EpisodeCard = ({ episode }) => {
               <Col className="align-self-center">
                 <div>
                   <h4 className="text-lg-start text-center mb-2">
+                    {episode.number && `${episode.number}. `}
                     <span
-                      className="episode-title"
+                      className="episode-title d-inline"
                       dangerouslySetInnerHTML={{ __html: episode.name }}
                     />
                   </h4>
@@ -41,7 +42,7 @@ const EpisodeCard = ({ episode }) => {
             </Row>
           </Accordion.Header>
           <Accordion.Body>
-            <Journal data={[]} />
+            <Journal data={[]} episode={episode} show={show} />
           </Accordion.Body>
         </Accordion.Item>
       </Accordion>

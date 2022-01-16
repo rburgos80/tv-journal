@@ -3,7 +3,7 @@ import { useState, useEffect } from "react";
 import { Card, Container, Dropdown, ListGroup } from "react-bootstrap";
 import EpisodeCard from "./EpisodeCard.js";
 
-const EpisodeList = ({ showId }) => {
+const EpisodeList = ({ show }) => {
   const [episodes, setEpisodes] = useState([]);
   const [seasons, setSeasons] = useState([]);
   const [seasonIndex, setSeasonIndex] = useState({});
@@ -11,13 +11,13 @@ const EpisodeList = ({ showId }) => {
   const fetchSeasonData = async () => {
     try {
       const seasonRes = await axios.get(
-        `https://api.tvmaze.com/shows/${showId}/seasons`
+        `https://api.tvmaze.com/shows/${show.id}/seasons`
       );
       const seasonData = seasonRes.data;
       setSeasons(seasonData);
     } catch (err) {
       throw new Error(
-        `${err}\nSeason data api fetch failed: showID = ${showId}`
+        `${err}\nSeason data api fetch failed: showID = ${show.id}`
       );
     }
   };
@@ -38,7 +38,7 @@ const EpisodeList = ({ showId }) => {
   };
 
   useEffect(() => {
-    if (showId) {
+    if (show && show.id) {
       fetchSeasonData();
     }
   }, []);
@@ -74,7 +74,7 @@ const EpisodeList = ({ showId }) => {
       {seasonIndex != undefined ? (
         <>
           {episodes.map((episode) => (
-            <EpisodeCard episode={episode} key={episode.id} />
+            <EpisodeCard show={show} episode={episode} key={episode.id} />
           ))}
           <p className="top-of-list mt-3 text-center">
             <a href="#season-toggle">Top of list</a>

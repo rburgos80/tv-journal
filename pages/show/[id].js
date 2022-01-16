@@ -85,9 +85,11 @@ const ShowPage = () => {
             <Nav.Link eventKey="episodes">Episodes</Nav.Link>
           </Nav.Item>
         </Nav>
-        {showData.id && activeTab === "journal" && <Journal data={[]} />}
+        {showData.id && activeTab === "journal" && (
+          <Journal data={[]} show={showData} />
+        )}
         {showData.id && activeTab === "episodes" && (
-          <EpisodeList showId={showData.id} />
+          <EpisodeList show={showData} />
         )}
       </Card>
     </Container>

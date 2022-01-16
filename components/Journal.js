@@ -2,13 +2,18 @@ import { useState } from "react";
 import { Button, Card, Container, Form, ListGroup } from "react-bootstrap";
 import JournalEntry from "./JournalEntry";
 
-const Journal = ({ data }) => {
+const Journal = ({ data, episode, show }) => {
   const [entries, setEntries] = useState(data);
   const [newEntryText, setNewEntryText] = useState("");
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    const newEntry = { date: new Date().toDateString(), text: newEntryText };
+    const newEntry = {
+      date: new Date().toDateString(),
+      text: newEntryText,
+      show: show,
+      episode: episode,
+    };
     setEntries((entries) => [...entries, newEntry]);
     setNewEntryText("");
   };
@@ -37,7 +42,12 @@ const Journal = ({ data }) => {
             .slice()
             .reverse()
             .map((entry, index) => (
-              <JournalEntry entry={entry} key={index} />
+              <JournalEntry
+                entry={entry}
+                show={show}
+                episode={episode}
+                key={index}
+              />
             ))}
         </ListGroup>
       ) : null}
