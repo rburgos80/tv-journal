@@ -20,7 +20,7 @@ export default function JournalEntry({ entry, show, episode }) {
             </div>
           </Card.Header>
           <Card.Body>
-            <p>{entry.text}</p>
+            <p className="mb-0">{entry.text}</p>
           </Card.Body>
         </ListGroup.Item>
       )}
