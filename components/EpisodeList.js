@@ -1,6 +1,8 @@
 import axios from "axios";
 import { useState, useEffect } from "react";
-import { Card, Container, Dropdown, ListGroup } from "react-bootstrap";
+import Card from "react-bootstrap/Card";
+import Dropdown from "react-bootstrap/Dropdown";
+import Nav from "react-bootstrap/Nav";
 import EpisodeCard from "./EpisodeCard.js";
 
 const EpisodeList = ({ show }) => {
@@ -76,8 +78,8 @@ const EpisodeList = ({ show }) => {
           {episodes.map((episode) => (
             <EpisodeCard show={show} episode={episode} key={episode.id} />
           ))}
-          <p className="top-of-list mt-3 text-center">
-            <a href="#season-toggle">Top of list</a>
+          <p className="top-of-list pt-3 text-center border-top">
+            <Nav.Link href="#season-toggle">Top of list</Nav.Link>
           </p>
         </>
       ) : null}
