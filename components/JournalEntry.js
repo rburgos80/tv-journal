@@ -10,13 +10,14 @@ export default function JournalEntry({ entry, show, episode }) {
             {/* {console.log(episode)} */}
             <div className="d-flex align-items-baseline flex-wrap">
               <h5 className="me-3">{show && show.name}</h5>
-              <p className="mb-1" style={{ color: "gray" }}>
+              <p className="mb-1 me-2">
                 {episode &&
                   `s${episode.season}e${episode.number} - ${episode.name}`}
               </p>
+              <p className="font-italic font-weight-normal mb-1 ms-auto">
+                {entry.date}
+              </p>
             </div>
-
-            <p className="font-italic font-weight-normal mb-1">{entry.date}</p>
           </Card.Header>
           <Card.Body>
             <p>{entry.text}</p>
