@@ -38,52 +38,49 @@ const Navbars = () => {
 
   return (
     <header>
-      <Navbar bg="dark" variant="dark" className="mb-3">
+      <Navbar expand="md" bg="dark" variant="dark" className="mb-3">
         <Container>
           <Link href="/">
-            <Navbar.Brand className="mx-3" style={{ cursor: "pointer" }}>
+            <Navbar.Brand className="" style={{ cursor: "pointer" }}>
               TV Journal
             </Navbar.Brand>
           </Link>
-          <Row
-            className="justify-content-space-between"
-            style={{ width: "60%" }}
-          >
-            <Form style={{ display: "flex" }} onSubmit={handleSearch}>
-              <Col xs={9}>
-                <Form.Control
-                  type="text"
-                  variant="dark"
-                  placeholder="Search"
-                  className="rounded-0"
-                  value={searchQuery}
-                  onChange={(e) => setSearchQuery(e.target.value)}
-                  required
-                />
-              </Col>
-              <Col>
-                <Button
-                  type="submit"
-                  variant="outline-light"
-                  className="rounded-0"
-                >
-                  Search
-                </Button>
-              </Col>
+          <Navbar.Toggle aria-controls="basic-navbar-nav" />
+          <Navbar.Collapse id="basic-navbar-nav">
+            <Nav
+              activeKey={null}
+              className="justify-content-end me-auto my-2 my-md-0"
+            >
+              <Nav.Item>
+                <Link href="/login" passHref>
+                  <Nav.Link>Login/Register</Nav.Link>
+                </Link>
+              </Nav.Item>
+              <Nav.Item>
+                <Link href="/about" passHref>
+                  <Nav.Link>About</Nav.Link>
+                </Link>
+              </Nav.Item>
+            </Nav>
+            <Form className="d-flex" onSubmit={handleSearch}>
+              <Form.Control
+                type="text"
+                variant="dark"
+                placeholder="Search"
+                className="rounded-0"
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
+                required
+              />
+              <Button
+                type="submit"
+                variant="outline-light"
+                className="rounded-0"
+              >
+                Search
+              </Button>
             </Form>
-          </Row>
-          <Nav activeKey={null} className="justify-content-end">
-            <Nav.Item>
-              <Link href="/login" passHref>
-                <Nav.Link>Login/Register</Nav.Link>
-              </Link>
-            </Nav.Item>
-            <Nav.Item>
-              <Link href="/about" passHref>
-                <Nav.Link>About</Nav.Link>
-              </Link>
-            </Nav.Item>
-          </Nav>
+          </Navbar.Collapse>
         </Container>
       </Navbar>
     </header>
