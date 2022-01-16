@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { Button, Card, Container, Form, ListGroup } from "react-bootstrap";
+import JournalEntry from "./JournalEntry";
 
 const Journal = ({ data }) => {
   const [entries, setEntries] = useState(data);
@@ -36,10 +37,7 @@ const Journal = ({ data }) => {
             .slice()
             .reverse()
             .map((entry, index) => (
-              <ListGroup.Item key={index}>
-                <h6 style={{ color: "gray" }}>{entry.date}</h6>
-                <p>{entry.text} </p>
-              </ListGroup.Item>
+              <JournalEntry entry={entry} key={index} />
             ))}
         </ListGroup>
       ) : null}

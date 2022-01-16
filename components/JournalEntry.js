@@ -1,13 +1,13 @@
-import { Card } from "react-bootstrap";
+import { Card, ListGroup } from "react-bootstrap";
 
 export default function JournalEntry({ entry }) {
   return (
     <div>
       {entry && (
-        <>
-          <h3>{entry.date}</h3>
+        <ListGroup.Item>
+          <h6 style={{ color: "gray" }}>{entry.date}</h6>
           <p>{entry.text}</p>
-        </>
+        </ListGroup.Item>
       )}
     </div>
   );
