@@ -10,11 +10,17 @@ const SearchResult = ({ show }) => {
   // if (trimmedSummary.current.length > 450) {
   //   trimmedSummary.current = `${trimmedSummary.current.slice(0, 449)}... `;
   // }
+
+  const summary = show.summary;
   return (
-    <div>
-      <Card className="p-2 my-4" variant="light" border="light">
-        <Row>
-          <Col>
+    <Link href={`show/${show.id}`} passHref>
+      <Card
+        className="p-2 my-3 shadow-sm search-result"
+        style={{ cursor: "pointer" }}
+        variant="light"
+      >
+        <Row className="px-0 py-2 m-auto m-lg-0">
+          <Col lg="auto" className="d-flex justify-content-center">
             {show.image && (
               <Image
                 src={show.image.medium}
@@ -24,24 +30,23 @@ const SearchResult = ({ show }) => {
               />
             )}
           </Col>
-          <Col xs={9}>
-            <Link href={`show/${show.id}`} passHref>
-              <Card.Title as="a">{show.name}</Card.Title>
-            </Link>
-            <Card.Body className="px-0">
+          <Col className="align-self-center">
+            <Card.Title className="text-lg-start text-center fs-2 mb-2">
+              {show.name}
+            </Card.Title>
+            <Card.Subtitle className="text-lg-start text-center mb-2">
               {show.premiered && show.premiered.slice(0, 4)} -{" "}
               {show.ended ? show.ended.slice(0, 4) : "now"}
-            </Card.Body>
-            <Card.Body className="px-0">
-              <div
-                dangerouslySetInnerHTML={{ __html: show.summary }}
-                style={{ textOverflow: "ellipsis" }}
-              />
-            </Card.Body>
+            </Card.Subtitle>
+            {show.summary && (
+              <Card.Body className="px-0">
+                <p dangerouslySetInnerHTML={{ __html: show.summary }}></p>
+              </Card.Body>
+            )}
           </Col>
         </Row>
       </Card>
-    </div>
+    </Link>
   );
 };
 

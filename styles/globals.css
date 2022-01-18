@@ -64,3 +64,12 @@
 html {
   background-color: var(--bg);
 }
+
+.search-result:hover {
+  box-shadow: gray;
+  transform: translate(0, -4px);
+}
+
+.search-result {
+  transition: transform 0.1s linear;
+}
