@@ -1,5 +1,5 @@
 import { useRouter } from "next/router";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import Head from "next/head";
 import axios from "axios";
 import EpisodeList from "../../components/EpisodeList";
@@ -15,6 +15,8 @@ const ShowPage = () => {
   const [showData, setShowData] = useState({});
   const [activeTab, setActiveTab] = useState("episodes");
   const router = useRouter();
+  const journalRef = useRef();
+  const episodeListRef = useRef();
 
   async function getData() {
     try {
@@ -37,6 +39,19 @@ const ShowPage = () => {
 
     getData();
   }, [router.query.id]);
+
+  useEffect(() => {
+    if (!journalRef.current || !episodeListRef.current) {
+      return;
+    }
+    if (activeTab === "episodes") {
+      journalRef.current.className = "d-none";
+      episodeListRef.current.className = "";
+    } else {
+      episodeListRef.current.className = "d-none";
+      journalRef.current.className = "";
+    }
+  }, [activeTab]);
 
   return (
     <Container>
@@ -88,11 +103,15 @@ const ShowPage = () => {
             <Nav.Link eventKey="journal">Journal</Nav.Link>
           </Nav.Item>
         </Nav>
-        {showData.id && activeTab === "journal" && (
-          <Journal data={[]} show={showData} />
-        )}
-        {showData.id && activeTab === "episodes" && (
-          <EpisodeList show={showData} />
+        {showData.id && (
+          <>
+            <div ref={episodeListRef}>
+              <EpisodeList show={showData} />
+            </div>
+            <div ref={journalRef} className="d-none">
+              <Journal data={[]} show={showData} />
+            </div>
+          </>
         )}
       </Card>
     </Container>
