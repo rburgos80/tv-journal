@@ -60,7 +60,7 @@ const ShowPage = () => {
           {showData.name ? `${showData.name} - TVbase` : "Loading..."}
         </title>
       </Head>
-      <Card>
+      <Card className="shadow-lg">
         <Row className="justify-content-center m-3">
           <Col md="auto">
             {showData.image && showData.image.original && (
