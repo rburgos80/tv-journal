@@ -46,7 +46,7 @@ const EpisodeList = ({ show }) => {
   }, []);
 
   useEffect(() => {
-    if (seasons.length > 0) {
+    if (seasons && seasons.length > 0) {
       setSeasonIndex(0);
     }
   }, [seasons]);

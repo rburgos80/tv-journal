@@ -40,7 +40,7 @@ const Journal = ({ data, episode, show }) => {
         </Form.Group>
         <Button type="submit">Compose</Button>
       </Form>
-      {entries.length ? (
+      {entries && entries.length ? (
         <ListGroup>
           {entries
             .slice()
