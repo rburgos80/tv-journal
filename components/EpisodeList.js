@@ -76,7 +76,12 @@ const EpisodeList = ({ show }) => {
       {seasonIndex != undefined ? (
         <>
           {episodes.map((episode) => (
-            <EpisodeCard show={show} episode={episode} key={episode.id} />
+            <EpisodeCard
+              show={show}
+              entries={[]}
+              episode={episode}
+              key={episode.id}
+            />
           ))}
           <p className="top-of-list pt-3 text-center border-top">
             <Nav.Link href="#season-toggle">Top of list</Nav.Link>
