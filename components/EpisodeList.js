@@ -5,7 +5,7 @@ import Dropdown from "react-bootstrap/Dropdown";
 import Nav from "react-bootstrap/Nav";
 import EpisodeCard from "./EpisodeCard.js";
 
-const EpisodeList = ({ show }) => {
+const EpisodeList = ({ show, entries }) => {
   const [episodes, setEpisodes] = useState([]);
   const [seasons, setSeasons] = useState([]);
   const [seasonIndex, setSeasonIndex] = useState({});
@@ -78,7 +78,9 @@ const EpisodeList = ({ show }) => {
           {episodes.map((episode) => (
             <EpisodeCard
               show={show}
-              entries={[]}
+              entries={entries.filter(
+                (entry) => entry && entry.episodeId === episode.id
+              )}
               episode={episode}
               key={episode.id}
             />

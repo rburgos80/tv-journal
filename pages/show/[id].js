@@ -14,6 +14,7 @@ import Journal from "../../components/Journal";
 const ShowPage = () => {
   const [showData, setShowData] = useState({});
   const [activeTab, setActiveTab] = useState("episodes");
+  const [entries, setEntries] = useState([]);
   const router = useRouter();
   const journalRef = useRef();
   const episodeListRef = useRef();
@@ -106,10 +107,10 @@ const ShowPage = () => {
         {showData.id && (
           <>
             <div ref={episodeListRef}>
-              <EpisodeList show={showData} />
+              <EpisodeList entries={entries} show={showData} />
             </div>
             <div ref={journalRef} className="d-none">
-              <Journal data={[]} show={showData} />
+              <Journal data={entries} show={showData} />
             </div>
           </>
         )}
