@@ -5,7 +5,7 @@ import Accordion from "react-bootstrap/Accordion";
 import Col from "react-bootstrap/Col";
 import Row from "react-bootstrap/Row";
 
-const EpisodeCard = ({ show, episode }) => {
+const EpisodeCard = ({ show, episode, entries }) => {
   return (
     <div className="episode-card">
       <Accordion className="mt-0">
@@ -44,7 +44,7 @@ const EpisodeCard = ({ show, episode }) => {
             </Row>
           </Accordion.Header>
           <Accordion.Body>
-            <Journal data={[]} episode={episode} show={show} />
+            <Journal data={entries} episode={episode} show={show} />
           </Accordion.Body>
         </Accordion.Item>
       </Accordion>
