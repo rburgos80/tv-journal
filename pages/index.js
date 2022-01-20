@@ -1,6 +1,6 @@
 import Head from "next/head";
 import Container from "react-bootstrap/Container";
-import ShowCard from "../components/ShowCard.js";
+import ShowCard from "../components/ShowCard";
 
 export default function Home() {
   const show = {
