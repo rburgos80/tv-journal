@@ -5,6 +5,14 @@ import EpisodeCard from "../components/EpisodeCard";
 import Journal from "../components/Journal";
 
 const test = () => {
+  const [testData, setTestData] = useState({});
+
+  useEffect(()=>{
+    axios.get("http://localhost:4000/journals")
+    .then(res => setTestData(res.data))
+    .catch(err => console.log(err))
+  }, [])
+
   const date = new Date().toDateString();
   const data = [
     {
@@ -22,7 +30,8 @@ const test = () => {
   ];
   return (
     <Container>
-      <Journal data={data} />
+      {/* <Journal data={data} /> */}
+      {JSON.stringify(testData)}
     </Container>
   );
 };
