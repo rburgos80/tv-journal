@@ -15,7 +15,7 @@ export default function JournalEntry({ entry, show, episode }) {
                   `s${episode.season}e${episode.number} - ${episode.name}`}
               </p>
               <p className="font-italic font-weight-normal mb-1 ms-auto">
-                {entry.date}
+                {entry.printedDate}
               </p>
             </div>
           </Card.Header>

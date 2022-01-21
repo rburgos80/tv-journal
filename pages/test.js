@@ -3,15 +3,23 @@ import React, { useEffect, useState } from "react";
 import Container from "react-bootstrap/Container";
 import EpisodeCard from "../components/EpisodeCard";
 import Journal from "../components/Journal";
+import JournalEntry from "../components/JournalEntry";
 
-const test = () => {
+const Test = () => {
   const [testData, setTestData] = useState({});
 
-  useEffect(()=>{
-    axios.get("http://localhost:4000/journals")
-    .then(res => setTestData(res.data))
-    .catch(err => console.log(err))
-  }, [])
+  useEffect(() => {
+    async function getData() {
+      try {
+        const res = await axios.get("http://localhost:4000/journals");
+        setTestData(res.data);
+      } catch (err) {
+        console.log(err);
+      }
+    }
+
+    getData();
+  }, []);
 
   const date = new Date().toDateString();
   const data = [
@@ -32,8 +40,12 @@ const test = () => {
     <Container>
       {/* <Journal data={data} /> */}
       {JSON.stringify(testData)}
+      {testData.length > 0 &&
+        testData.map((journal, index) => (
+          <JournalEntry key={index} entry={journal.entries[0]} />
+        ))}
     </Container>
   );
 };
 
-export default test;
+export default Test;
