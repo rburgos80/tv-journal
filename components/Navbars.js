@@ -39,7 +39,7 @@ const Navbars = () => {
 
   return (
     <header>
-      <Navbar expand="md" bg="dark" variant="dark" className="mb-3">
+      <Navbar expand="md" bg="dark" variant="dark" className="mb-0 mb-sm-3">
         <Container>
           <Link href="/">
             <Navbar.Brand className="" style={{ cursor: "pointer" }}>

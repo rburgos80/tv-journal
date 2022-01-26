@@ -25,7 +25,7 @@ export default function Results() {
   };
 
   return (
-    <div>
+    <>
       <Head>
         <title>Search - TV Journal</title>
         <meta
@@ -33,7 +33,7 @@ export default function Results() {
           content="Keep a journal on your favorite TV Shows."
         />
       </Head>
-      <div className="container">
+      <section>
         <h4 className="search-results">
           {searchResults &&
             `Found ${searchResults.length} results for "${router.query.q}"`}
@@ -44,7 +44,7 @@ export default function Results() {
               <SearchResult show={result.show} key={index} />
             ))}
         </div>
-      </div>
-    </div>
+      </section>
+    </>
   );
 }

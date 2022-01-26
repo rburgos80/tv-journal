@@ -55,10 +55,10 @@ const ShowPage = () => {
   }, [activeTab]);
 
   return (
-    <Container>
+    <>
       <Head>
         <title>
-          {showData.name ? `${showData.name} - TVbase` : "Loading..."}
+          {showData.name ? `${showData.name} - TV Journal` : "Loading..."}
         </title>
       </Head>
       <Card className="shadow-lg">
@@ -115,7 +115,7 @@ const ShowPage = () => {
           </>
         )}
       </Card>
-    </Container>
+    </>
   );
 };
 

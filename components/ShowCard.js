@@ -29,7 +29,7 @@ const JournalEntry = ({ show, openDefault = false }) => {
   };
 
   return (
-    <Card className="p-2 mt-4 shadow border-0" bg="light" border="dark">
+    <Card className="p-2 mt-4 shadow-sm border-0" bg="light" border="dark">
       <Row>
         <Col>
           <Image

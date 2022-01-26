@@ -6,6 +6,7 @@ import { useState, useEffect, useMemo } from "react";
 import axios from "axios";
 import Head from "next/head";
 import SSRProvider from "react-bootstrap/SSRProvider";
+import Container from "react-bootstrap/Container";
 
 function MyApp({ Component, pageProps }) {
   const [userData, setUserData] = useState({
@@ -69,7 +70,9 @@ function MyApp({ Component, pageProps }) {
       <userContext.Provider value={userContextValue}>
         {/* {userData.loading ? <CircularProgress /> : <Component {...pageProps} />} */}
         <Navbars />
-        <Component {...pageProps} />
+        <Container fluid="sm" className="px-0">
+          <Component {...pageProps} />
+        </Container>
       </userContext.Provider>
     </SSRProvider>
   );

@@ -22,11 +22,11 @@ export default function Home() {
         />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <Container>
+      <section>
         {shows.map((show, index) => (
           <ShowCard show={show} key={index} />
         ))}
-      </Container>
+      </section>
     </>
   );
 }
