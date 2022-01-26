@@ -5,7 +5,7 @@ const User = require("../models/user.model");
 const auth = require("../middleware/auth");
 
 //Get all users
-router.get("/", auth, async (req, res) => {
+router.get("/", async (req, res) => {
   try {
     const users = await User.find();
     res.json(users);

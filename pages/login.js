@@ -5,14 +5,15 @@ import Card from "react-bootstrap/Card";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import FloatingLabel from "react-bootstrap/FloatingLabel";
+import Axios from "axios";
 
 const login = () => {
-  const handleRegister = (e) => {
+  const handleLogin = (e) => {
     e.preventDefault();
     console.log(e);
   };
 
-  const handleLogin = (e) => {
+  const handleRegister = (e) => {
     e.preventDefault();
     console.log(e);
   };
