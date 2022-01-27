@@ -43,7 +43,7 @@ const Test = () => {
       {testData.length > 0 &&
         testData.map((journal, index) => (
           <JournalEntry key={index} entry={journal.entries[0]} />
-        ))}
+      ))}
     </Container>
   );
 };

@@ -7,8 +7,9 @@ import axios from "axios";
 import Head from "next/head";
 import SSRProvider from "react-bootstrap/SSRProvider";
 import Container from "react-bootstrap/Container";
+import { SessionProvider } from "next-auth/react";
 
-function MyApp({ Component, pageProps }) {
+function MyApp({ Component, pageProps: {session, ...pageProps} }) {
   const [userData, setUserData] = useState({
     token: undefined,
     user: undefined,
@@ -20,61 +21,62 @@ function MyApp({ Component, pageProps }) {
     [userData]
   );
 
-  useEffect(() => {
-    const checkLoggedIn = () => {
-      let token = localStorage.getItem("auth-token");
-      if (token === null) {
-        localStorage.setItem("auth-token", "");
-        token = "";
-      }
-      axios
-        .post("/api/users/token-is-valid", null, {
-          headers: { "x-auth-token": token },
-        })
-        .then((res) => {
-          if (res.data) {
-            axios
-              .get("/api/users", {
-                headers: { "x-auth-token": token },
-              })
-              .then((userRes) => {
-                setUserData({
-                  token,
-                  user: userRes.data,
-                  loading: false,
-                });
-              })
-              .catch((err) => {
-                console.error(err);
-              });
-          } else {
-            setUserData({ loading: false });
-          }
-        })
-        .catch((err) => {
-          console.error(err);
-        });
-      checkLoggedIn();
-    };
-  }, []);
+  // useEffect(() => {
+  //   const checkLoggedIn = () => {
+  //     let token = localStorage.getItem("auth-token");
+  //     if (token === null) {
+  //       localStorage.setItem("auth-token", "");
+  //       token = "";
+  //     }
+  //     axios
+  //       .post("/api/users/token-is-valid", null, {
+  //         headers: { "x-auth-token": token },
+  //       })
+  //       .then((res) => {
+  //         if (res.data) {
+  //           axios
+  //             .get("/api/users", {
+  //               headers: { "x-auth-token": token },
+  //             })
+  //             .then((userRes) => {
+  //               setUserData({
+  //                 token,
+  //                 user: userRes.data,
+  //                 loading: false,
+  //               });
+  //             })
+  //             .catch((err) => {
+  //               console.error(err);
+  //             });
+  //         } else {
+  //           setUserData({ loading: false });
+  //         }
+  //       })
+  //       .catch((err) => {
+  //         console.error(err);
+  //       });
+  //     };
+  //   checkLoggedIn();
+  // }, []);
 
   return (
-    <SSRProvider>
-      <Head>
-        <title>TV Journal</title>
-        <meta
-          name="viewport"
-          content="minimum-scale=1, initial-scale=1, width=device-width"
-        />
-      </Head>
-      <userContext.Provider value={userContextValue}>
-        {/* {userData.loading ? <CircularProgress /> : <Component {...pageProps} />} */}
-        <Navbars />
-        <Container fluid="sm" className="px-0">
-          <Component {...pageProps} />
-        </Container>
-      </userContext.Provider>
-    </SSRProvider>
+    <SessionProvider session={session}>
+      <SSRProvider>
+        <Head>
+          <title>TV Journal</title>
+          <meta
+            name="viewport"
+            content="minimum-scale=1, initial-scale=1, width=device-width"
+          />
+        </Head>
+        <userContext.Provider value={userContextValue}>
+          <Navbars />
+          <Container fluid="sm" className="px-0">
+            <Component {...pageProps} />
+          </Container>
+        </userContext.Provider>
+      </SSRProvider>
+    </SessionProvider>
   );
 }
 
