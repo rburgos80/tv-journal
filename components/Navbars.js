@@ -7,6 +7,7 @@ import Button from "react-bootstrap/Button";
 import Container from "react-bootstrap/Container";
 import Form from "react-bootstrap/Form";
 import { useRouter } from "next/router";
+import { signIn } from "next-auth/react"
 
 const Navbars = () => {
   const router = useRouter();
@@ -52,10 +53,8 @@ const Navbars = () => {
               activeKey={null}
               className="justify-content-end me-auto my-2 my-md-0"
             >
-              <Nav.Item>
-                <Link href="/login" passHref>
-                  <Nav.Link>Login/Register</Nav.Link>
-                </Link>
+              <Nav.Item onClick={signIn}>
+                <Nav.Link>Login/Register</Nav.Link>
               </Nav.Item>
               <Nav.Item>
                 <Link href="/about" passHref>
