@@ -44,7 +44,9 @@ const EpisodeCard = ({ show, episode, entries }) => {
             </Row>
           </Accordion.Header>
           <Accordion.Body>
-            <Journal data={entries} episode={episode} show={show} />
+            <div>
+              <Journal data={entries} episode={episode} show={show} />
+            </div>
           </Accordion.Body>
         </Accordion.Item>
       </Accordion>
