@@ -7,6 +7,7 @@ import Navbar from "react-bootstrap/Navbar";
 import Button from "react-bootstrap/Button";
 import Container from "react-bootstrap/Container";
 import Form from "react-bootstrap/Form";
+import { NavDropdown } from "react-bootstrap";
 
 const Navbars = () => {
   const router = useRouter();
@@ -67,23 +68,22 @@ const Navbars = () => {
               )}
               {session && (
                 <>
-                  <Navbar.Text>
+                  <NavDropdown title="Profile">
                     Signed in as:{" "}
                     <strong>
                       {session?.user?.email || session?.user?.name}
                     </strong>
-                  </Navbar.Text>
-                  <Nav.Item>
-                    <Nav.Link
+                    <NavDropdown.Item>Settings</NavDropdown.Item>
+                    <NavDropdown.Item
                       onClick={(e) => {
                         // e.preventDefault();
                         signOut;
                       }}
                       href={"api/auth/signout"}
                     >
-                      Sign out
-                    </Nav.Link>
-                  </Nav.Item>
+                      Signout
+                    </NavDropdown.Item>
+                  </NavDropdown>
                 </>
               )}
               <Nav.Item>
