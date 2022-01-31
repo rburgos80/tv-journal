@@ -1,6 +1,5 @@
 import "../styles/globals.css";
 import "bootstrap/dist/css/bootstrap.min.css";
-import userContext from "../context/userContext";
 import Navbars from "../components/Navbars";
 import { useState, useEffect, useMemo } from "react";
 import axios from "axios";
@@ -9,17 +8,12 @@ import SSRProvider from "react-bootstrap/SSRProvider";
 import Container from "react-bootstrap/Container";
 import { SessionProvider } from "next-auth/react";
 
-function MyApp({ Component, pageProps: {session, ...pageProps} }) {
+function MyApp({ Component, pageProps: { session, ...pageProps } }) {
   const [userData, setUserData] = useState({
     token: undefined,
     user: undefined,
     loading: true,
   });
-
-  const userContextValue = useMemo(
-    () => ({ userData, setUserData }),
-    [userData]
-  );
 
   // useEffect(() => {
   //   const checkLoggedIn = () => {
@@ -69,12 +63,10 @@ function MyApp({ Component, pageProps: {session, ...pageProps} }) {
             content="minimum-scale=1, initial-scale=1, width=device-width"
           />
         </Head>
-        <userContext.Provider value={userContextValue}>
-          <Navbars />
-          <Container fluid="sm" className="px-0">
-            <Component {...pageProps} />
-          </Container>
-        </userContext.Provider>
+        <Navbars />
+        <Container fluid="sm" className="px-0">
+          <Component {...pageProps} />
+        </Container>
       </SSRProvider>
     </SessionProvider>
   );
