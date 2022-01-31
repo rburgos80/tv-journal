@@ -1,18 +1,18 @@
 import Link from "next/link";
 import { useState, useContext, useEffect } from "react";
+import { useRouter } from "next/router";
+import { signIn, signOut, useSession } from "next-auth/react";
 import userContext from "../context/userContext";
 import Nav from "react-bootstrap/Nav";
 import Navbar from "react-bootstrap/Navbar";
 import Button from "react-bootstrap/Button";
 import Container from "react-bootstrap/Container";
 import Form from "react-bootstrap/Form";
-import { useRouter } from "next/router";
-import { signIn } from "next-auth/react"
 
 const Navbars = () => {
   const router = useRouter();
-  const userData = useContext(userContext);
-  const [open, setOpen] = useState(false);
+  const { data: session, status } = useSession();
+  const loading = status === "loading";
   const [searchQuery, setSearchQuery] = useState("");
 
   useEffect(() => {
@@ -53,9 +53,40 @@ const Navbars = () => {
               activeKey={null}
               className="justify-content-end me-auto my-2 my-md-0"
             >
-              <Nav.Item onClick={signIn}>
-                <Nav.Link>Login/Register</Nav.Link>
-              </Nav.Item>
+              {!session && (
+                <Nav.Item>
+                  <Nav.Link
+                    onClick={(e) => {
+                      // e.preventDefault();
+                      signIn;
+                    }}
+                    href={"api/auth/signin"}
+                  >
+                    Sign in
+                  </Nav.Link>
+                </Nav.Item>
+              )}
+              {session && (
+                <>
+                  <Navbar.Text>
+                    Signed in as:{" "}
+                    <strong>
+                      {session?.user?.email || session?.user?.name}
+                    </strong>
+                  </Navbar.Text>
+                  <Nav.Item>
+                    <Nav.Link
+                      onClick={(e) => {
+                        // e.preventDefault();
+                        signOut;
+                      }}
+                      href={"api/auth/signout"}
+                    >
+                      Sign out
+                    </Nav.Link>
+                  </Nav.Item>
+                </>
+              )}
               <Nav.Item>
                 <Link href="/about" passHref>
                   <Nav.Link>About</Nav.Link>
@@ -84,6 +115,7 @@ const Navbars = () => {
                   fill="currentColor"
                   className="bi bi-search"
                   viewBox="0 0 16 16"
+                  aria-label="Search"
                 >
                   <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z" />
                 </svg>
