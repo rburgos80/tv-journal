@@ -8,18 +8,19 @@ const journalSchema = new Schema(
       default: 1.0,
     },
     userId: {
+      type: Schema.Types.ObjectId,
+      ref: "User",
+      required: true,
+    },
+    showId: {
       type: Number,
       required: true,
     },
-    showId: { type: Number, required: true },
-    entries: [
-      {
-        episodeId: Number,
-        text: String,
-        printedDate: String,
-        date: { type: Date, default: () => Date.now() },
-      },
-    ],
+    showPicture: String,
+    entryCount: {
+      type: Number,
+      default: 0,
+    },
   },
   {
     timestamps: true,

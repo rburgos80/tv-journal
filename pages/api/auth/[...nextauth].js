@@ -19,11 +19,14 @@ export default NextAuth({
   ],
 
   secret: process.env.JWT_SECRET,
-  session: {
-    jwt: true,
-  },
   database: process.env.MONGODB_URI,
   theme: {
     colorScheme: "light",
+  },
+  callbacks: {
+    session: async (session) => {
+      session.session.user.id = session.user.id;
+      return Promise.resolve(session.session);
+    },
   },
 });

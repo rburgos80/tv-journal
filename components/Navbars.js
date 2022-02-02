@@ -29,15 +29,6 @@ const Navbars = () => {
     });
   }
 
-  const logout = () => {
-    setUserData({
-      token: undefined,
-      user: undefined,
-    });
-    localStorage.setItem("auth-token", "");
-    history.push("/");
-  };
-
   return (
     <header>
       <Navbar expand="md" bg="dark" variant="dark" className="mb-0 mb-sm-3">
