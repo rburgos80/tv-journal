@@ -1,6 +1,6 @@
 import { getSession } from "next-auth/react";
-import Entry from "../../models/entry.model";
-import dbConnect from "../../lib/dbConnect";
+import Entry from "../../../models/entry.model";
+import dbConnect from "../../../lib/dbConnect";
 
 export default async function handler(req, res) {
   await dbConnect();
@@ -14,40 +14,25 @@ export default async function handler(req, res) {
     const userId = session.user.id;
     switch (method) {
       case "GET":
-        if (req.body.episodeId) {
-          //Episode-specific entries
-          const entries = await Entry.find({
-            userId,
-            episodeId: req.body.episodeId,
-          });
-          res.status(200).json(entries);
-        } else if (req.body.showId) {
-          //Show-specific entries
-          const entries = await Entry.find({
-            userId,
-            showId: req.body.showId,
-          });
-          res.status(200).json(entries);
-        } else {
-          //All entries on account
-          const entries = await Entry.find({ userId });
-          res.status(200).json(entries);
-        }
+        //All entries on account
+        const entries = await Entry.find({ userId });
+        res.status(200).json(entries);
         break;
       case "POST":
         try {
-          const { showId, text, episodeId, episodeName } = req.body;
+          const { showId, showName, text, episodeId, episodeName } = req.body;
 
-          if (showId == null || text == null) {
+          if (showId == null || showName == null || text == null) {
             res.status(400).json({ message: "Missing information" });
           }
 
           const newEntry = new Entry({
             userId,
             showId,
-            text,
+            showName,
             episodeId,
             episodeName,
+            text,
           });
 
           const savedEntry = await newEntry.save();
