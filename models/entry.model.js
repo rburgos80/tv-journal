@@ -16,6 +16,10 @@ const entrySchema = new Schema(
       type: Number,
       required: true,
     },
+    showName: {
+      type: String,
+      required: true,
+    },
     episodeId: {
       type: Number,
       required: false,

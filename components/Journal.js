@@ -1,26 +1,58 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Button from "react-bootstrap/Button";
 import Card from "react-bootstrap/Card";
 import Form from "react-bootstrap/Form";
 import ListGroup from "react-bootstrap/ListGroup";
-
+import axios from "axios";
 import JournalEntry from "./JournalEntry";
 
-const Journal = ({ data, episode, show }) => {
-  const [entries, setEntries] = useState(data);
+const Journal = ({ episode, show }) => {
+  const [entries, setEntries] = useState([]);
+  const [loading, setLoading] = useState(false);
   const [newEntryText, setNewEntryText] = useState("");
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    const newEntry = {
-      date: new Date().toDateString(),
-      text: newEntryText,
-      show: show,
-      episode: episode,
-    };
+    const newEntry = episode
+      ? {
+          // date: new Date().toDateString(),
+          text: newEntryText,
+          showId: show.id,
+          showName: show.name,
+          episodeId: episode.id,
+          episodeName: episode.name,
+        }
+      : {
+          // date: new Date().toDateString(),
+          text: newEntryText,
+          showId: show.id,
+          showName: show.name,
+        };
+    const res = await axios.post("/api/entries/", newEntry);
     setEntries((entries) => [...entries, newEntry]);
     setNewEntryText("");
   };
+
+  useEffect(() => {
+    const fetchData = async () => {
+      setLoading(true);
+      try {
+        const res = null;
+        if (episode) {
+          res = await axios.get(`/api/entries/episode/${episode.id}`);
+        } else if (show) {
+          res = await axios.get(`/api/entries/show/${show.id}`);
+        } else {
+          res = await axios.get("/api/entries");
+        }
+        setEntries(res.data);
+      } catch (err) {
+        throw new Error(`Journal data fetch failed. ${err}`);
+      }
+      setLoading(false);
+    };
+    fetchData();
+  }, []);
 
   return (
     <Card className="p-3 border-0">
@@ -34,7 +66,7 @@ const Journal = ({ data, episode, show }) => {
             value={newEntryText}
             onChange={(e) => setNewEntryText(e.target.value)}
             required
-            maxLength={10000}
+            maxLength={4096}
             className="mb-2"
           />
         </Form.Group>
@@ -46,12 +78,7 @@ const Journal = ({ data, episode, show }) => {
             .slice()
             .reverse()
             .map((entry, index) => (
-              <JournalEntry
-                entry={entry}
-                show={show}
-                episode={episode}
-                key={index}
-              />
+              <JournalEntry entry={entry} key={index} />
             ))}
         </ListGroup>
       ) : null}

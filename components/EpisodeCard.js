@@ -5,12 +5,20 @@ import Accordion from "react-bootstrap/Accordion";
 import Col from "react-bootstrap/Col";
 import Row from "react-bootstrap/Row";
 
-const EpisodeCard = ({ show, episode, entries }) => {
+const EpisodeCard = ({ show, episode }) => {
+  const [open, setOpen] = useState(false);
   return (
     <div className="episode-card">
       <Accordion className="mt-0">
         <Accordion.Item className="rounded-0 border-0" eventKey="0">
-          <Accordion.Header className="border-top">
+          <Accordion.Header
+            className="border-top"
+            onClick={
+              !open
+                ? () => setOpen(!open)
+                : () => setTimeout(() => !open && setOpen(!open), 1000)
+            }
+          >
             <Row className="px-0 py-2 m-auto m-lg-0">
               <Col lg="auto">
                 <div className="episode-card-image">
@@ -44,9 +52,7 @@ const EpisodeCard = ({ show, episode, entries }) => {
             </Row>
           </Accordion.Header>
           <Accordion.Body>
-            <div>
-              <Journal data={entries} episode={episode} show={show} />
-            </div>
+            <div>{open && <Journal show={show} episode={episode} />}</div>
           </Accordion.Body>
         </Accordion.Item>
       </Accordion>

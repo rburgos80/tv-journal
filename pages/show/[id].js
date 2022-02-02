@@ -20,11 +20,10 @@ const ShowPage = () => {
 
   async function getData() {
     try {
-      const res = await axios.get(
+      const showRes = await axios.get(
         `https://api.tvmaze.com/shows/${router.query.id}`
       );
-      const data = res.data;
-      setShowData(data);
+      setShowData(showRes.data);
     } catch {
       throw new Error(
         `Show data api fetch failed. ID query: ${router.query.id}`
@@ -60,60 +59,60 @@ const ShowPage = () => {
           {showData.name ? `${showData.name} - TV Journal` : "Loading..."}
         </title>
       </Head>
-      <Card className="shadow-lg">
-        <Row className="justify-content-center m-3">
-          <Col md="auto">
-            {showData.image && showData.image.original && (
-              <div className="show-page-image">
-                <Image
-                  src={showData.image.original}
-                  width={256}
-                  height={376}
-                  layout="intrinsic"
-                  className="mx-auto"
-                  priority
-                />
+      {showData.id && (
+        <Card className="shadow-lg">
+          <Row className="justify-content-center m-3">
+            <Col md="auto">
+              {showData.image && showData.image.original && (
+                <div className="show-page-image">
+                  <Image
+                    src={showData.image.original}
+                    width={256}
+                    height={376}
+                    layout="intrinsic"
+                    className="mx-auto"
+                    priority
+                  />
+                </div>
+              )}
+            </Col>
+            <Col md="6">
+              <div>
+                <h2 className="text-md-start text-center my-3">
+                  <span
+                    className="show-title"
+                    dangerouslySetInnerHTML={{ __html: showData.name }}
+                  />
+                </h2>
+                <p className="show-summary">
+                  <span
+                    dangerouslySetInnerHTML={{ __html: showData.summary }}
+                  />
+                </p>
               </div>
-            )}
-          </Col>
-          <Col md="6">
-            <div>
-              <h2 className="text-md-start text-center my-3">
-                <span
-                  className="show-title"
-                  dangerouslySetInnerHTML={{ __html: showData.name }}
-                />
-              </h2>
-              <p className="show-summary">
-                <span dangerouslySetInnerHTML={{ __html: showData.summary }} />
-              </p>
-            </div>
-          </Col>
-        </Row>
-        <Nav
-          fill
-          variant="tabs"
-          defaultActiveKey="episodes"
-          onSelect={(e) => setActiveTab(e)}
-        >
-          <Nav.Item>
-            <Nav.Link eventKey="episodes">Episodes</Nav.Link>
-          </Nav.Item>
-          <Nav.Item>
-            <Nav.Link eventKey="journal">Journal</Nav.Link>
-          </Nav.Item>
-        </Nav>
-        {showData.id && (
-          <>
-            <div ref={episodeListRef}>
-              <EpisodeList entries={entries} show={showData} />
-            </div>
-            <div ref={journalRef} className="d-none">
-              <Journal data={entries} show={showData} />
-            </div>
-          </>
-        )}
-      </Card>
+            </Col>
+          </Row>
+          <Nav
+            fill
+            variant="tabs"
+            defaultActiveKey="episodes"
+            onSelect={(e) => setActiveTab(e)}
+          >
+            <Nav.Item>
+              <Nav.Link eventKey="episodes">Episodes</Nav.Link>
+            </Nav.Item>
+            <Nav.Item>
+              <Nav.Link eventKey="journal">Journal</Nav.Link>
+            </Nav.Item>
+          </Nav>
+          <div ref={episodeListRef}>
+            <EpisodeList entries={entries} show={showData} />
+          </div>
+          <div ref={journalRef} className="d-none">
+            <Journal show={showData} />
+          </div>
+        </Card>
+      )}
     </>
   );
 };
