@@ -5,7 +5,6 @@ import axios from "axios";
 import EpisodeList from "../../components/EpisodeList";
 import Card from "react-bootstrap/Card";
 import Col from "react-bootstrap/Col";
-import Container from "react-bootstrap/Container";
 import Nav from "react-bootstrap/Nav";
 import Row from "react-bootstrap/Row";
 import Image from "next/image";
