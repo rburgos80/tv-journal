@@ -18,7 +18,7 @@ export default NextAuth({
     }),
   ],
 
-  secret: process.env.JWT_SECRET,
+  secret: process.env.SECRET,
   database: process.env.MONGODB_URI,
   theme: {
     colorScheme: "light",
