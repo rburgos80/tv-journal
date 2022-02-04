@@ -57,7 +57,7 @@ const ShowPage = () => {
         </title>
       </Head>
       {showData.id && (
-        <Card className="shadow-lg">
+        <Card className="shadow-lg mb-4">
           <Row className="justify-content-center m-3">
             <Col md="auto">
               {showData.image && showData.image.original && (
@@ -75,7 +75,7 @@ const ShowPage = () => {
             </Col>
             <Col md="6">
               <div>
-                <h2 className="text-md-start text-center my-3">
+                <h2 className="text-md-start text-center mb-3">
                   <span
                     className="show-title"
                     dangerouslySetInnerHTML={{ __html: showData.name }}
@@ -105,7 +105,13 @@ const ShowPage = () => {
           <div ref={episodeListRef}>
             <EpisodeList entries={entries} show={showData} />
           </div>
-          {activeTab === "journal" && <Journal show={showData} />}
+          {activeTab === "journal" && (
+            <Row className="justify-content-center">
+              <Col md={10} lg={8} className="mb-4">
+                <Journal show={showData} />
+              </Col>
+            </Row>
+          )}
         </Card>
       )}
     </>

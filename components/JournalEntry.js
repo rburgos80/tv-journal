@@ -5,8 +5,8 @@ export default function JournalEntry({ entry, show, episode }) {
   return (
     <>
       {entry && (
-        <ListGroup.Item className="p-0">
-          <Card.Header>
+        <ListGroup.Item className="">
+          {/* <Card.Header>
             <div className="d-flex align-items-baseline flex-wrap">
               {!show && <h5 className="me-3">{entry.showName}</h5>}
               <p className="mb-1 me-2">
@@ -18,7 +18,13 @@ export default function JournalEntry({ entry, show, episode }) {
                 {entry.date}
               </p>
             </div>
-          </Card.Header>
+          </Card.Header> */}
+          <div className="fw-bold">{entry.date}</div>
+          {!episode && entry.episodeId && (
+            <div className="text-muted">
+              {`s${entry.episodeSeason}e${entry.episodeNumber} - ${entry.episodeName}`}
+            </div>
+          )}
           <Card.Body>
             <p className="mb-0">{entry.text}</p>
           </Card.Body>
