@@ -21,6 +21,11 @@ const journalSchema = new Schema(
       type: Number,
       default: 0,
     },
+    pinned: {
+      type: Boolean,
+      required: true,
+      default: true,
+    },
   },
   {
     timestamps: true,
