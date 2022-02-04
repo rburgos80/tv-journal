@@ -32,7 +32,6 @@ const Journal = ({ episode, show }) => {
           showName: show.name,
         };
     const res = await axios.post("/api/entries/", newEntry);
-    console.log(res.data);
     setEntries((entries) => [...entries, newEntry]);
     setNewEntryText("");
   };

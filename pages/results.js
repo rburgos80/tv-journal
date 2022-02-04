@@ -20,7 +20,7 @@ export default function Results() {
       const data = response.data;
       setSearchResults(data);
     } catch (err) {
-      console.log(err);
+      throw new Error(err);
     }
   };
 
