@@ -12,10 +12,7 @@ const entrySchema = new Schema(
       ref: "User",
       required: true,
     },
-    date: {
-      type: Date,
-      default: () => Date.now(),
-    },
+    date: String,
     showId: {
       type: Number,
       required: true,

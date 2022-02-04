@@ -1,5 +1,6 @@
 import { getSession } from "next-auth/react";
 import Entry from "../../../models/entry.model";
+import Journal from "../../../models/journal.model";
 import dbConnect from "../../../lib/dbConnect";
 
 export default async function handler(req, res) {
@@ -21,6 +22,7 @@ export default async function handler(req, res) {
       case "POST":
         try {
           const {
+            date,
             showId,
             showName,
             episodeId,
@@ -36,6 +38,7 @@ export default async function handler(req, res) {
 
           const newEntry = new Entry({
             userId,
+            date,
             showId,
             showName,
             episodeId,
