@@ -20,7 +20,15 @@ export default async function handler(req, res) {
         break;
       case "POST":
         try {
-          const { showId, showName, text, episodeId, episodeName } = req.body;
+          const {
+            showId,
+            showName,
+            episodeId,
+            episodeSeason,
+            episodeNumber,
+            episodeName,
+            text,
+          } = req.body;
 
           if (showId == null || showName == null || text == null) {
             res.status(400).json({ message: "Missing information" });
@@ -31,6 +39,8 @@ export default async function handler(req, res) {
             showId,
             showName,
             episodeId,
+            episodeSeason,
+            episodeNumber,
             episodeName,
             text,
           });

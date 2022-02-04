@@ -3,19 +3,19 @@ import Card from "react-bootstrap/Card";
 
 export default function JournalEntry({ entry, show, episode }) {
   return (
-    <div>
+    <>
       {entry && (
         <ListGroup.Item className="p-0">
           <Card.Header>
-            {/* {console.log(episode)} */}
             <div className="d-flex align-items-baseline flex-wrap">
-              <h5 className="me-3">{show && show.name}</h5>
+              {!show && <h5 className="me-3">{entry.showName}</h5>}
               <p className="mb-1 me-2">
-                {episode &&
-                  `s${episode.season}e${episode.number} - ${episode.name}`}
+                {!episode &&
+                  entry.episodeId &&
+                  `s${entry.episodeSeason}e${entry.episodeNumber} - ${entry.episodeName}`}
               </p>
               <p className="font-italic font-weight-normal mb-1 ms-auto">
-                {entry.printedDate}
+                {entry.date}
               </p>
             </div>
           </Card.Header>
@@ -24,6 +24,6 @@ export default function JournalEntry({ entry, show, episode }) {
           </Card.Body>
         </ListGroup.Item>
       )}
-    </div>
+    </>
   );
 }

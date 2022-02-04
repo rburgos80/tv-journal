@@ -12,6 +12,10 @@ const entrySchema = new Schema(
       ref: "User",
       required: true,
     },
+    date: {
+      type: Date,
+      default: () => Date.now(),
+    },
     showId: {
       type: Number,
       required: true,
@@ -20,16 +24,10 @@ const entrySchema = new Schema(
       type: String,
       required: true,
     },
-    episodeId: {
-      type: Number,
-      required: false,
-      default: null,
-    },
-    episodeName: {
-      type: String,
-      required: false,
-      default: null,
-    },
+    episodeId: Number,
+    episodeSeason: Number,
+    episodeNumber: Number,
+    episodeName: String,
     text: {
       type: String,
       required: true,

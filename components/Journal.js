@@ -3,6 +3,7 @@ import Button from "react-bootstrap/Button";
 import Card from "react-bootstrap/Card";
 import Form from "react-bootstrap/Form";
 import ListGroup from "react-bootstrap/ListGroup";
+import Spinner from "react-bootstrap/Spinner";
 import axios from "axios";
 import JournalEntry from "./JournalEntry";
 
@@ -15,20 +16,23 @@ const Journal = ({ episode, show }) => {
     e.preventDefault();
     const newEntry = episode
       ? {
-          // date: new Date().toDateString(),
+          date: new Date().toDateString(),
           text: newEntryText,
           showId: show.id,
           showName: show.name,
           episodeId: episode.id,
+          episodeSeason: episode.season,
+          episodeNumber: episode.number,
           episodeName: episode.name,
         }
       : {
-          // date: new Date().toDateString(),
+          date: new Date().toDateString(),
           text: newEntryText,
           showId: show.id,
           showName: show.name,
         };
     const res = await axios.post("/api/entries/", newEntry);
+    console.log(res.data);
     setEntries((entries) => [...entries, newEntry]);
     setNewEntryText("");
   };
@@ -72,13 +76,25 @@ const Journal = ({ episode, show }) => {
         </Form.Group>
         <Button type="submit">Compose</Button>
       </Form>
+      {loading && (
+        <div className="d-flex justify-content-center">
+          <Spinner animation="border" role="status" className="p-absolute">
+            <span className="visually-hidden">Loading...</span>
+          </Spinner>
+        </div>
+      )}
       {entries && entries.length ? (
         <ListGroup>
           {entries
             .slice()
             .reverse()
             .map((entry, index) => (
-              <JournalEntry entry={entry} key={index} />
+              <JournalEntry
+                entry={entry}
+                show={show}
+                episode={episode}
+                key={index}
+              />
             ))}
         </ListGroup>
       ) : null}
