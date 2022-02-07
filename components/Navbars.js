@@ -48,8 +48,8 @@ const Navbars = () => {
                 <Nav.Item>
                   <Nav.Link
                     onClick={(e) => {
-                      // e.preventDefault();
-                      signIn;
+                      e.preventDefault();
+                      signIn();
                     }}
                     href={"api/auth/signin"}
                   >
@@ -67,8 +67,8 @@ const Navbars = () => {
                     <NavDropdown.Item>Settings</NavDropdown.Item>
                     <NavDropdown.Item
                       onClick={(e) => {
-                        // e.preventDefault();
-                        signOut;
+                        e.preventDefault();
+                        signOut();
                       }}
                       href={"api/auth/signout"}
                     >
