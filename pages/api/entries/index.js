@@ -49,6 +49,12 @@ export default async function handler(req, res) {
           });
 
           const savedEntry = await newEntry.save();
+          await Journal.findOneAndUpdate(
+            { showId, userId },
+            {
+              $inc: { entryCount: 1 },
+            }
+          );
           console.log("Successfully saved new entry");
           return res.json(savedEntry);
         } catch (err) {
