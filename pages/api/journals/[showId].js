@@ -20,10 +20,10 @@ export default async function handler(req, res) {
         const journal = await Journal.findOne({ showId, userId });
 
         if (!journal) {
-          res.json({ message: "A journal for this show does not exist" });
+          res.status(404).json({ message: "This journal does not exist" });
           break;
         }
-        res.status(200).json(journal);
+        return res.json(journal);
         break;
 
       case "DELETE":
@@ -31,7 +31,7 @@ export default async function handler(req, res) {
 
         const journalToDelete = await Journal.findOne({ showId, userId });
         if (!journalToDelete) {
-          res.status(400).json({ message: "This journal does not exist" });
+          res.status(404).json({ message: "This journal does not exist" });
         }
         if (journalToDelete.userId !== userId) {
           res
@@ -41,7 +41,7 @@ export default async function handler(req, res) {
         }
 
         const deletedJournal = await Journal.findByIdAndDelete(journalId);
-        res.status(200).json(deletedJournal);
+        return res.json(deletedJournal);
         break;
     }
   } catch (err) {

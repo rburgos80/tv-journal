@@ -28,7 +28,7 @@ export default async function handler(req, res) {
           });
 
           if (!entryToUpdate) {
-            res.status(400).json({ message: "This entry does not exist" });
+            res.status(404).json({ message: "This entry does not exist" });
             break;
           }
           if (entryToUpdate.userId !== userId) {
@@ -59,6 +59,18 @@ export default async function handler(req, res) {
 
           if (entryId == null) {
             res.status(400).json({ message: "Missing information" });
+          }
+
+          const entryToDelete = await Entry.findById(entryId);
+          if (!entryToDelete) {
+            res.status(404).json({ message: "This entry does not exist" });
+            break;
+          }
+          if (entryToDelete.userId !== userId) {
+            res
+              .status(401)
+              .json({ message: "You are not authorized to delete this entry" });
+            break;
           }
 
           const deletedEntry = await Entry.findByIdAndDelete(entryId);
