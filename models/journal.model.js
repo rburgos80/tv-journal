@@ -16,6 +16,10 @@ const journalSchema = new Schema(
       type: Number,
       required: true,
     },
+    showName: {
+      type: String,
+      required: true,
+    },
     showPicture: String,
     entryCount: {
       type: Number,
@@ -24,7 +28,7 @@ const journalSchema = new Schema(
     pinned: {
       type: Boolean,
       required: true,
-      default: true,
+      default: false,
     },
   },
   {
