@@ -12,8 +12,8 @@ export default async function handler(req, res) {
     }
 
     const { method } = req;
-    const episodeId = req.query.id;
     const userId = session.user.id;
+    const episodeId = req.query.id;
 
     switch (method) {
       case "GET":

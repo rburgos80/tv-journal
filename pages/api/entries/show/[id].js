@@ -11,9 +11,9 @@ export default async function handler(req, res) {
       res.status(401).json({ message: "You are not signed in" });
     }
     const { method } = req;
+    const userId = session.user.id;
     const showId = req.query.id;
 
-    const userId = session.user.id;
     switch (method) {
       case "GET":
         const entries = await Entry.find({
