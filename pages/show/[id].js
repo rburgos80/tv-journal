@@ -17,24 +17,23 @@ const ShowPage = () => {
   const router = useRouter();
   const episodeListRef = useRef();
 
-  async function getData() {
-    try {
-      const showRes = await axios.get(
-        `https://api.tvmaze.com/shows/${router.query.id}`
-      );
-      setShowData(showRes.data);
-    } catch {
-      throw new Error(
-        `Show data api fetch failed. ID query: ${router.query.id}`
-      );
-    }
-  }
-
   useEffect(() => {
     if (!router.query.id) {
       return;
     }
 
+    const getData = async () => {
+      try {
+        const showRes = await axios.get(
+          `https://api.tvmaze.com/shows/${router.query.id}`
+        );
+        setShowData(showRes.data);
+      } catch {
+        throw new Error(
+          `Show data api fetch failed. ID query: ${router.query.id}`
+        );
+      }
+    };
     getData();
   }, [router.query.id]);
 
