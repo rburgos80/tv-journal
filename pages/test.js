@@ -6,12 +6,12 @@ import Journal from "../components/Journal";
 import JournalEntry from "../components/JournalEntry";
 
 const Test = () => {
-  const [testData, setTestData] = useState({});
+  const [testData, setTestData] = useState([]);
 
   useEffect(() => {
     async function getData() {
       try {
-        const res = await axios.get("http://localhost:4000/journals");
+        const res = await axios.get("/api/test");
         setTestData(res.data);
       } catch (err) {
         throw new Error(err);
@@ -40,10 +40,10 @@ const Test = () => {
     <Container>
       {/* <Journal data={data} /> */}
       {JSON.stringify(testData)}
-      {testData.length > 0 &&
+      {/* {testData.length > 0 &&
         testData.map((journal, index) => (
           <JournalEntry key={index} entry={journal.entries[0]} />
-        ))}
+        ))} */}
     </Container>
   );
 };
