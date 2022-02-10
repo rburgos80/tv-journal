@@ -10,24 +10,30 @@ export default async function handler(req, res) {
       // Not Signed in
       res.status(401).json({ message: "You are not signed in" });
     }
+
     const { method } = req;
     const userId = session.user.id;
 
     switch (method) {
+      //Get all journals on account
       case "GET":
-        //All journals on account
         const journals = await Journal.find({ userId });
-        res.status(200).json(journals);
+        res.json(journals);
         break;
-      case "POST":
-        //Create new journal
-        const { showId, showName, showPicture } = req.body;
 
-        if (userId == null || showId == null || showName == null) {
+      //Create new journal
+      case "POST":
+        const { show } = req.body;
+
+        if (userId == null || show == null || show.id == null || show.name) {
           res.status(400).json({ message: "Missing information" });
         }
 
-        const journalExists = await Journal.findOne({ showId, userId });
+        //Check to see if journal already exists
+        const journalExists = await Journal.findOne({
+          "show.id": show.id,
+          userId,
+        });
         if (journalExists) {
           res
             .status(409)
@@ -35,14 +41,13 @@ export default async function handler(req, res) {
           break;
         }
 
+        //Save new journal to database
         const newJournal = new Journal({
           userId,
-          showId,
-          showName,
-          showPicture,
+          show,
         });
         const savedJournal = await newJournal.save();
-        res.status(200).json(savedJournal);
+        res.json(savedJournal);
         break;
     }
   } catch (err) {

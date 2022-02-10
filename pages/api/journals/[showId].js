@@ -15,21 +15,24 @@ export default async function handler(req, res) {
     const userId = session.user.id;
 
     switch (method) {
+      //Get specific journal
       case "GET":
-        //Get specific journal
         const journal = await Journal.findOne({ showId, userId });
 
         if (!journal) {
           res.status(404).json({ message: "This journal does not exist" });
           break;
         }
-        return res.json(journal);
+        res.json(journal);
         break;
 
+      //Delete journal
       case "DELETE":
-        //Delete journal
-
-        const journalToDelete = await Journal.findOne({ showId, userId });
+        //Check if journal exists and user is authorized to delete it
+        const journalToDelete = await Journal.findOne({
+          "show.id": showId,
+          userId,
+        });
         if (!journalToDelete) {
           res.status(404).json({ message: "This journal does not exist" });
         }
@@ -40,8 +43,11 @@ export default async function handler(req, res) {
           break;
         }
 
-        const deletedJournal = await Journal.findByIdAndDelete(journalId);
-        return res.json(deletedJournal);
+        const deletedJournal = await Journal.findOneAndDelete({
+          "show.id": showId,
+          userId,
+        });
+        res.json(deletedJournal);
         break;
     }
   } catch (err) {

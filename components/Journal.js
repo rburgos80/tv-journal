@@ -18,21 +18,27 @@ const Journal = ({ episode, show }) => {
       ? {
           date: new Date().toDateString(),
           text: newEntryText,
-          showId: show.id,
-          showName: show.name,
-          episodeId: episode.id,
-          episodeSeason: episode.season,
-          episodeNumber: episode.number,
-          episodeName: episode.name,
+          show: {
+            id: show.id,
+            name: show.name,
+          },
+          episode: {
+            id: episode.id,
+            season: episode.season,
+            number: episode.number,
+            name: episode.name,
+          },
         }
       : {
           date: new Date().toDateString(),
           text: newEntryText,
-          showId: show.id,
-          showName: show.name,
+          show: {
+            id: show.id,
+            name: show.name,
+          },
         };
     const res = await axios.post("/api/entries/", newEntry);
-    setEntries((entries) => [...entries, newEntry]);
+    setEntries((entries) => [...entries, res.data]);
     setNewEntryText("");
   };
 
@@ -87,12 +93,12 @@ const Journal = ({ episode, show }) => {
           {entries
             .slice()
             .reverse()
-            .map((entry, index) => (
+            .map((entry) => (
               <JournalEntry
                 entry={entry}
                 show={show}
                 episode={episode}
-                key={index}
+                key={entry._id}
               />
             ))}
         </ListGroup>

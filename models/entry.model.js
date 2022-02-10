@@ -13,18 +13,22 @@ const entrySchema = new Schema(
       required: true,
     },
     date: String,
-    showId: {
-      type: Number,
-      required: true,
+    show: {
+      id: {
+        type: Number,
+        required: true,
+      },
+      name: {
+        type: String,
+        required: true,
+      },
     },
-    showName: {
-      type: String,
-      required: true,
+    episode: {
+      id: Number,
+      season: Number,
+      number: Number,
+      name: String,
     },
-    episodeId: Number,
-    episodeSeason: Number,
-    episodeNumber: Number,
-    episodeName: String,
     text: {
       type: String,
       required: true,

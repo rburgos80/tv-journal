@@ -19,9 +19,9 @@ export default async function handler(req, res) {
       case "GET":
         const entries = await Entry.find({
           userId,
-          episodeId,
+          "episode.id": episodeId,
         });
-        res.status(200).json(entries);
+        res.json(entries);
         break;
     }
   } catch (err) {

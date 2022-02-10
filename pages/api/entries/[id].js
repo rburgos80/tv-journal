@@ -11,21 +11,22 @@ export default async function handler(req, res) {
       // Not Signed in
       res.status(401).json({ message: "You are not signed in" });
     }
+
     const { method } = req;
     const userId = session.user.id;
+    const entryId = req.query.id;
+
     switch (method) {
+      //Update the text or tagged episode of an entry
       case "PATCH":
         try {
-          const { episodeId, episodeSeason, episodeNumber, episodeName, text } =
-            req.body;
+          const { episode, text } = req.body;
 
           if (text == null) {
             res.status(400).json({ message: "Missing information" });
           }
 
-          const entryToUpdate = await Entry.findOne({
-            _id: req.query.id,
-          });
+          const entryToUpdate = await Entry.findById(entryId);
 
           if (!entryToUpdate) {
             res.status(404).json({ message: "This entry does not exist" });
@@ -38,11 +39,8 @@ export default async function handler(req, res) {
             break;
           }
 
-          const updatedEntry = await Entry.findByIdAndUpdate(req.query.id, {
-            episodeId,
-            episodeSeason,
-            episodeNumber,
-            episodeName,
+          const updatedEntry = await Entry.findByIdAndUpdate(entryId, {
+            episode,
             text,
           });
 
@@ -55,8 +53,6 @@ export default async function handler(req, res) {
         break;
       case "DELETE":
         try {
-          const { entryId } = req.body;
-
           if (entryId == null) {
             res.status(400).json({ message: "Missing information" });
           }
@@ -75,7 +71,7 @@ export default async function handler(req, res) {
 
           const deletedEntry = await Entry.findByIdAndDelete(entryId);
           await Journal.findOneAndUpdate(
-            { showId, userId },
+            { "show.id": deletedEntry.show.id, userId },
             {
               $dec: { entryCount: 1 },
             }

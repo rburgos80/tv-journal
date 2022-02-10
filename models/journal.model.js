@@ -12,15 +12,17 @@ const journalSchema = new Schema(
       ref: "User",
       required: true,
     },
-    showId: {
-      type: Number,
-      required: true,
+    show: {
+      id: {
+        type: Number,
+        required: true,
+      },
+      name: {
+        type: String,
+        required: true,
+      },
+      image: String,
     },
-    showName: {
-      type: String,
-      required: true,
-    },
-    showPicture: String,
     entryCount: {
       type: Number,
       default: 0,

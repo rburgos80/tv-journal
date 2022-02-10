@@ -6,23 +6,10 @@ export default function JournalEntry({ entry, show, episode }) {
     <>
       {entry && (
         <ListGroup.Item className="">
-          {/* <Card.Header>
-            <div className="d-flex align-items-baseline flex-wrap">
-              {!show && <h5 className="me-3">{entry.showName}</h5>}
-              <p className="mb-1 me-2">
-                {!episode &&
-                  entry.episodeId &&
-                  `s${entry.episodeSeason}e${entry.episodeNumber} - ${entry.episodeName}`}
-              </p>
-              <p className="font-italic font-weight-normal mb-1 ms-auto">
-                {entry.date}
-              </p>
-            </div>
-          </Card.Header> */}
           <div className="fw-bold">{entry.date}</div>
-          {!episode && entry.episodeId && (
+          {!episode && entry.episode && (
             <div className="text-muted">
-              {`s${entry.episodeSeason}e${entry.episodeNumber} - ${entry.episodeName}`}
+              {`s${entry.episode.season}e${entry.episode.number} - ${entry.episode.name}`}
             </div>
           )}
           <Card.Body>
