@@ -63,6 +63,7 @@ const ShowPage = () => {
                 <div className="show-page-image">
                   <Image
                     src={showData.image.original}
+                    alt={`${showData.name} poster`}
                     width={256}
                     height={376}
                     layout="intrinsic"
