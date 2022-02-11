@@ -32,7 +32,7 @@ export default async function handler(req, res) {
             res.status(404).json({ message: "This entry does not exist" });
             break;
           }
-          if (entryToUpdate.userId !== userId) {
+          if (entryToUpdate.userId != userId) {
             res
               .status(401)
               .json({ message: "You are not authorized to modify this entry" });
@@ -62,7 +62,7 @@ export default async function handler(req, res) {
             res.status(404).json({ message: "This entry does not exist" });
             break;
           }
-          if (entryToDelete.userId !== userId) {
+          if (entryToDelete.userId != userId) {
             res
               .status(401)
               .json({ message: "You are not authorized to delete this entry" });
@@ -70,7 +70,7 @@ export default async function handler(req, res) {
           }
 
           const deletedEntry = await Entry.findByIdAndDelete(entryId);
-          await Journal.findOneAndUpdate(
+          await Journal.updateOne(
             { "show.id": deletedEntry.show.id, userId },
             {
               $dec: { entryCount: 1 },
