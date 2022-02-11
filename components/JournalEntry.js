@@ -13,7 +13,10 @@ export default function JournalEntry({ entry, show, episode }) {
             </div>
           )}
           <Card.Body>
-            <p className="mb-0">{entry.text}</p>
+            <span
+              style={{ whiteSpace: "pre-wrap" }}
+              className="mb-0"
+            >{`${entry.text}`}</span>
           </Card.Body>
         </ListGroup.Item>
       )}

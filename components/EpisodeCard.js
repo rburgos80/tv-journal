@@ -54,11 +54,13 @@ const EpisodeCard = ({ show, episode }) => {
           <Accordion.Body>
             <div>
               {open && (
-                <Row className="justify-content-center">
-                  <Col md={10} lg={8} className="my-4">
-                    <Journal show={show} episode={episode} />
-                  </Col>
-                </Row>
+                <div>
+                  <Row className="justify-content-center">
+                    <Col md={10} lg={8} className="">
+                      <Journal show={show} episode={episode} />
+                    </Col>
+                  </Row>
+                </div>
               )}
             </div>
           </Accordion.Body>

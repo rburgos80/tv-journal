@@ -69,10 +69,14 @@ const Journal = ({ episode, show }) => {
   return (
     <>
       {session ? (
-        <Card className="p-2 border-0">
+        <Card className="border-0">
+          {episode && (
+            <Card.Title className="text-center mb-0">
+              Entries for this episode
+            </Card.Title>
+          )}
           <Form className="m-3" onSubmit={handleSubmit}>
             <Form.Group controlId="new-entry">
-              <Form.Label>New Entry</Form.Label>
               <Form.Control
                 as="textarea"
                 placeholder="Write down your thoughts"
@@ -84,7 +88,9 @@ const Journal = ({ episode, show }) => {
                 className="mb-2"
               />
             </Form.Group>
-            <Button type="submit">Compose</Button>
+            <Button variant="primary" type="submit">
+              Compose
+            </Button>
           </Form>
           {loading && (
             <div className="d-flex justify-content-center">
