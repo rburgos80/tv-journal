@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { useSession, signIn } from "next-auth/react";
 import Button from "react-bootstrap/Button";
 import Card from "react-bootstrap/Card";
 import Form from "react-bootstrap/Form";
@@ -6,8 +7,10 @@ import ListGroup from "react-bootstrap/ListGroup";
 import Spinner from "react-bootstrap/Spinner";
 import axios from "axios";
 import JournalEntry from "./JournalEntry";
+import Alert from "react-bootstrap/Alert";
 
 const Journal = ({ episode, show }) => {
+  const { data: session, status } = useSession();
   const [entries, setEntries] = useState([]);
   const [loading, setLoading] = useState(false);
   const [newEntryText, setNewEntryText] = useState("");
@@ -60,50 +63,58 @@ const Journal = ({ episode, show }) => {
       }
       setLoading(false);
     };
-    fetchData();
+    session && fetchData();
   }, []);
 
   return (
-    <Card className="p-3 border-0">
-      <Form className="m-3" onSubmit={handleSubmit}>
-        <Form.Group controlId="new-entry">
-          <Form.Label>New Entry</Form.Label>
-          <Form.Control
-            as="textarea"
-            placeholder="Write down your thoughts"
-            rows={2}
-            value={newEntryText}
-            onChange={(e) => setNewEntryText(e.target.value)}
-            required
-            maxLength={4096}
-            className="mb-2"
-          />
-        </Form.Group>
-        <Button type="submit">Compose</Button>
-      </Form>
-      {loading && (
-        <div className="d-flex justify-content-center">
-          <Spinner animation="border" role="status" className="p-absolute">
-            <span className="visually-hidden">Loading...</span>
-          </Spinner>
-        </div>
-      )}
-      {entries && entries.length ? (
-        <ListGroup>
-          {entries
-            .slice()
-            .reverse()
-            .map((entry) => (
-              <JournalEntry
-                entry={entry}
-                show={show}
-                episode={episode}
-                key={entry._id}
+    <>
+      {session ? (
+        <Card className="p-2 border-0">
+          <Form className="m-3" onSubmit={handleSubmit}>
+            <Form.Group controlId="new-entry">
+              <Form.Label>New Entry</Form.Label>
+              <Form.Control
+                as="textarea"
+                placeholder="Write down your thoughts"
+                rows={2}
+                value={newEntryText}
+                onChange={(e) => setNewEntryText(e.target.value)}
+                required
+                maxLength={4096}
+                className="mb-2"
               />
-            ))}
-        </ListGroup>
-      ) : null}
-    </Card>
+            </Form.Group>
+            <Button type="submit">Compose</Button>
+          </Form>
+          {loading && (
+            <div className="d-flex justify-content-center">
+              <Spinner animation="border" role="status" className="p-absolute">
+                <span className="visually-hidden">Loading...</span>
+              </Spinner>
+            </div>
+          )}
+          {entries && entries.length ? (
+            <ListGroup>
+              {entries
+                .slice()
+                .reverse()
+                .map((entry) => (
+                  <JournalEntry
+                    entry={entry}
+                    show={show}
+                    episode={episode}
+                    key={entry._id}
+                  />
+                ))}
+            </ListGroup>
+          ) : null}
+        </Card>
+      ) : (
+        <Alert className="mx-2 my-0 p-4" variant="secondary">
+          Please sign in to create a journal.
+        </Alert>
+      )}
+    </>
   );
 };
 

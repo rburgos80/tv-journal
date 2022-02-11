@@ -107,7 +107,7 @@ const ShowPage = () => {
           </div>
           {activeTab === "journal" && (
             <Row className="justify-content-center">
-              <Col md={10} lg={8} className="mb-4">
+              <Col md={10} lg={8} className="my-4">
                 <Journal show={showData} />
               </Col>
             </Row>

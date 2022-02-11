@@ -55,7 +55,7 @@ const EpisodeCard = ({ show, episode }) => {
             <div>
               {open && (
                 <Row className="justify-content-center">
-                  <Col md={10} lg={8} className="mb-4">
+                  <Col md={10} lg={8} className="my-4">
                     <Journal show={show} episode={episode} />
                   </Col>
                 </Row>
