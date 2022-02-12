@@ -28,19 +28,24 @@ export default function JournalEntry({
   };
 
   //Custom Toggle for dropdown
-  const CustomToggle = React.forwardRef(({ children, onClick }, ref) => (
-    <a
-      href=""
-      ref={ref}
-      onClick={(e) => {
-        e.preventDefault();
-        onClick(e);
-      }}
-      style={{ color: "black" }}
-    >
-      {children}
-    </a>
-  ));
+  const CustomToggle = React.forwardRef(function custom(
+    { children, onClick },
+    ref
+  ) {
+    return (
+      <a
+        href=""
+        ref={ref}
+        onClick={(e) => {
+          e.preventDefault();
+          onClick(e);
+        }}
+        style={{ color: "black" }}
+      >
+        {children}
+      </a>
+    );
+  });
 
   return (
     <>
