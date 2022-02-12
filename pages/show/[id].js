@@ -56,7 +56,7 @@ const ShowPage = () => {
         </title>
       </Head>
       {showData.id && (
-        <Card className="shadow-lg mb-4">
+        <Card className="shadow-lg mb-md-4">
           <Row className="justify-content-center m-3">
             <Col md="auto">
               {showData.image && showData.image.original && (
@@ -106,11 +106,13 @@ const ShowPage = () => {
             <EpisodeList entries={entries} show={showData} />
           </div>
           {activeTab === "journal" && (
-            <Row className="justify-content-center">
-              <Col md={10} lg={8} className="my-4">
-                <Journal show={showData} />
-              </Col>
-            </Row>
+            <div className="p-3">
+              <Row className="justify-content-center">
+                <Col md={10} lg={8} className="m-4">
+                  <Journal show={showData} />
+                </Col>
+              </Row>
+            </div>
           )}
         </Card>
       )}

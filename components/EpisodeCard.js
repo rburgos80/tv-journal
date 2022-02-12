@@ -51,7 +51,7 @@ const EpisodeCard = ({ show, episode }) => {
               </Col>
             </Row>
           </Accordion.Header>
-          <Accordion.Body>
+          <Accordion.Body className="p-3">
             <div>
               {open && (
                 <div>
