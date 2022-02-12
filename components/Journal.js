@@ -45,6 +45,23 @@ const Journal = ({ episode, show }) => {
     setNewEntryText("");
   };
 
+  const handleEdit = async (e, entryId, text) => {
+    e.preventDefault();
+    const res = await axios.patch(`/api/entries/${entryId}`, { text });
+    const editedEntryIndex = entries.findIndex((entry) => entry._id == entryId);
+    setEntries((entries) => [
+      ...entries.slice(0, editedEntryIndex),
+      { ...entries[editedEntryIndex], text: res.data.text },
+      ...entries.slice(editedEntryIndex + 1),
+    ]);
+  };
+
+  const handleDelete = async (e, entryId) => {
+    e.preventDefault();
+    const res = await axios.delete(`/api/entries/${entryId}`);
+    setEntries((entries) => entries.filter((entry) => entry._id != entryId));
+  };
+
   useEffect(() => {
     const fetchData = async () => {
       setLoading(true);
@@ -110,6 +127,8 @@ const Journal = ({ episode, show }) => {
                     show={show}
                     episode={episode}
                     key={entry._id}
+                    handleEdit={handleEdit}
+                    handleDelete={handleDelete}
                   />
                 ))}
             </ListGroup>

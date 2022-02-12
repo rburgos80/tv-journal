@@ -29,7 +29,7 @@ export default async function handler(req, res) {
           const entryToUpdate = await Entry.findById(entryId);
 
           if (!entryToUpdate) {
-            res.status(404).json({ message: "This entry does not exist" });
+            res.json({ message: "This entry does not exist" });
             break;
           }
           if (entryToUpdate.userId != userId) {
@@ -39,10 +39,14 @@ export default async function handler(req, res) {
             break;
           }
 
-          const updatedEntry = await Entry.findByIdAndUpdate(entryId, {
-            episode,
-            text,
-          });
+          const updatedEntry = await Entry.findByIdAndUpdate(
+            entryId,
+            {
+              episode,
+              text,
+            },
+            { new: true }
+          );
 
           console.log("Successfully updated entry");
           return res.json(updatedEntry);
@@ -59,7 +63,7 @@ export default async function handler(req, res) {
 
           const entryToDelete = await Entry.findById(entryId);
           if (!entryToDelete) {
-            res.status(404).json({ message: "This entry does not exist" });
+            res.json({ message: "This entry does not exist" });
             break;
           }
           if (entryToDelete.userId != userId) {
@@ -70,12 +74,12 @@ export default async function handler(req, res) {
           }
 
           const deletedEntry = await Entry.findByIdAndDelete(entryId);
-          await Journal.updateOne(
-            { "show.id": deletedEntry.show.id, userId },
-            {
-              $dec: { entryCount: 1 },
-            }
-          );
+          // await Journal.updateOne(
+          //   { "show.id": deletedEntry.show.id, userId },
+          //   {
+          //     $dec: { entryCount: 1 },
+          //   }
+          // );
           console.log("Successfully deleted entry");
           return res.json(deletedEntry);
         } catch (err) {
