@@ -9,7 +9,7 @@ export default async function handler(req, res) {
     const session = await getSession({ req });
     if (!session) {
       // Not Signed in
-      res.status(401).json({ message: "You are not signed in" });
+      return res.status(401).json({ message: "You are not signed in" });
     }
 
     const { method } = req;
@@ -74,12 +74,24 @@ export default async function handler(req, res) {
           }
 
           const deletedEntry = await Entry.findByIdAndDelete(entryId);
-          // await Journal.updateOne(
-          //   { "show.id": deletedEntry.show.id, userId },
-          //   {
-          //     $dec: { entryCount: 1 },
-          //   }
-          // );
+          try {
+            const updatedJournal = await Journal.findOneAndUpdate(
+              { "show.id": deletedEntry.show.id, userId },
+              {
+                $inc: { entryCount: -1 },
+              },
+              { new: true }
+            );
+            console.log(updatedJournal);
+            if (updatedJournal.entryCount < 1) {
+              await Journal.deleteOne({ _id: updatedJournal._id });
+            }
+          } catch (err) {
+            res.json({
+              message: `Failed to update Journal entryCount. ${err}`,
+            });
+            break;
+          }
           console.log("Successfully deleted entry");
           return res.json(deletedEntry);
         } catch (err) {

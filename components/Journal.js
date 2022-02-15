@@ -15,53 +15,7 @@ const Journal = ({ episode, show }) => {
   const [loading, setLoading] = useState(false);
   const [newEntryText, setNewEntryText] = useState("");
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    const newEntry = episode
-      ? {
-          date: new Date().toDateString(),
-          text: newEntryText,
-          show: {
-            id: show.id,
-            name: show.name,
-          },
-          episode: {
-            id: episode.id,
-            season: episode.season,
-            number: episode.number,
-            name: episode.name,
-          },
-        }
-      : {
-          date: new Date().toDateString(),
-          text: newEntryText,
-          show: {
-            id: show.id,
-            name: show.name,
-          },
-        };
-    const res = await axios.post("/api/entries/", newEntry);
-    setEntries((entries) => [...entries, res.data]);
-    setNewEntryText("");
-  };
-
-  const handleEdit = async (e, entryId, text) => {
-    e.preventDefault();
-    const res = await axios.patch(`/api/entries/${entryId}`, { text });
-    const editedEntryIndex = entries.findIndex((entry) => entry._id == entryId);
-    setEntries((entries) => [
-      ...entries.slice(0, editedEntryIndex),
-      { ...entries[editedEntryIndex], text: res.data.text },
-      ...entries.slice(editedEntryIndex + 1),
-    ]);
-  };
-
-  const handleDelete = async (e, entryId) => {
-    e.preventDefault();
-    const res = await axios.delete(`/api/entries/${entryId}`);
-    setEntries((entries) => entries.filter((entry) => entry._id != entryId));
-  };
-
+  //Get journal entries on component mount if user is signed in
   useEffect(() => {
     const fetchData = async () => {
       setLoading(true);
@@ -81,7 +35,69 @@ const Journal = ({ episode, show }) => {
       setLoading(false);
     };
     session && fetchData();
-  }, []);
+  }, [show]);
+
+  //Post journal entry
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    const newEntry = episode
+      ? {
+          date: new Date().toDateString(),
+          text: newEntryText,
+          show: {
+            id: show.id,
+            name: show.name,
+            image: show.image?.medium,
+          },
+          episode: {
+            id: episode.id,
+            season: episode.season,
+            number: episode.number,
+            name: episode.name,
+          },
+        }
+      : {
+          date: new Date().toDateString(),
+          text: newEntryText,
+          show: {
+            id: show.id,
+            name: show.name,
+            image: show.image?.medium,
+          },
+        };
+    const res = await axios.post("/api/entries/", newEntry);
+    setEntries((entries) => [...entries, res.data]);
+    setNewEntryText("");
+  };
+
+  //Patch journal entry
+  const handleEdit = async (e, entryId, text) => {
+    e.preventDefault();
+    try {
+      const res = await axios.patch(`/api/entries/${entryId}`, { text });
+      const editedEntryIndex = entries.findIndex(
+        (entry) => entry._id == entryId
+      );
+      setEntries((entries) => [
+        ...entries.slice(0, editedEntryIndex),
+        { ...entries[editedEntryIndex], text: res.data.text },
+        ...entries.slice(editedEntryIndex + 1),
+      ]);
+    } catch (err) {
+      throw new Error(err);
+    }
+  };
+
+  //Delete journal entry
+  const handleDelete = async (e, entryId) => {
+    e.preventDefault();
+    try {
+      await axios.delete(`/api/entries/${entryId}`);
+      setEntries((entries) => entries.filter((entry) => entry._id != entryId));
+    } catch (err) {
+      throw new Error(err);
+    }
+  };
 
   return (
     <>
