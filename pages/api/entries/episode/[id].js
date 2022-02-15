@@ -8,7 +8,7 @@ export default async function handler(req, res) {
     const session = await getSession({ req });
     if (!session) {
       // Not Signed in
-      res.status(401).json({ message: "You are not signed in" });
+      return res.status(401).json({ message: "You are not signed in" });
     }
 
     const { method } = req;

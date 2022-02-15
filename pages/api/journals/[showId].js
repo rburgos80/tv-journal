@@ -8,7 +8,7 @@ export default async function handler(req, res) {
     const session = await getSession({ req });
     if (!session) {
       // Not Signed in
-      res.status(401).json({ message: "You are not signed in" });
+      return res.status(401).json({ message: "You are not signed in" });
     }
     const { method } = req;
     const { showId } = req.query;
@@ -17,12 +17,7 @@ export default async function handler(req, res) {
     switch (method) {
       //Get specific journal
       case "GET":
-        const journal = await Journal.findOne({ showId, userId });
-
-        if (!journal) {
-          res.status(404).json({ message: "This journal does not exist" });
-          break;
-        }
+        const journal = await Journal.findOne({ "show.id": showId, userId });
         res.json(journal);
         break;
 
@@ -34,11 +29,12 @@ export default async function handler(req, res) {
           userId,
         });
         if (!journalToDelete) {
-          res.status(404).json({ message: "This journal does not exist" });
+          res.status(200).json({ message: "This journal does not exist" });
+          break;
         }
         if (journalToDelete.userId !== userId) {
           res
-            .status(401)
+            .status(403)
             .json({ message: "You are not authorized to delete this journal" });
           break;
         }
