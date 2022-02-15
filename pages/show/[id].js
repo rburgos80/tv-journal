@@ -1,5 +1,5 @@
 import { useRouter } from "next/router";
-import { useState, useEffect, useLayoutEffect, useRef } from "react";
+import { useState, useEffect } from "react";
 import Head from "next/head";
 import axios from "axios";
 import EpisodeList from "../../components/EpisodeList";
@@ -13,9 +13,7 @@ import Journal from "../../components/Journal";
 const ShowPage = () => {
   const [showData, setShowData] = useState({});
   const [activeTab, setActiveTab] = useState("episodes");
-  const [entries, setEntries] = useState([]);
   const router = useRouter();
-  const episodeListRef = useRef();
 
   useEffect(() => {
     if (!router.query.id) {
@@ -36,17 +34,6 @@ const ShowPage = () => {
     };
     getData();
   }, [router.query.id]);
-
-  useEffect(() => {
-    if (!episodeListRef.current) {
-      return;
-    }
-    if (activeTab === "episodes") {
-      episodeListRef.current.className = "";
-    } else {
-      episodeListRef.current.className = "d-none";
-    }
-  }, [activeTab]);
 
   return (
     <>
@@ -102,9 +89,8 @@ const ShowPage = () => {
               <Nav.Link eventKey="journal">Journal</Nav.Link>
             </Nav.Item>
           </Nav>
-          <div ref={episodeListRef}>
-            <EpisodeList entries={entries} show={showData} />
-          </div>
+
+          {activeTab === "episodes" && <EpisodeList show={showData} />}
           {activeTab === "journal" && (
             <div className="p-3">
               <Row className="justify-content-center">
