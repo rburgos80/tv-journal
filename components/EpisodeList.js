@@ -5,10 +5,10 @@ import Dropdown from "react-bootstrap/Dropdown";
 import Nav from "react-bootstrap/Nav";
 import EpisodeCard from "./EpisodeCard.js";
 
-const EpisodeList = ({ show, entries }) => {
+const EpisodeList = ({ show }) => {
   const [episodes, setEpisodes] = useState([]);
   const [seasons, setSeasons] = useState([]);
-  const [seasonIndex, setSeasonIndex] = useState({});
+  const [seasonIndex, setSeasonIndex] = useState(null);
 
   const fetchSeasonData = async () => {
     try {
@@ -60,7 +60,7 @@ const EpisodeList = ({ show, entries }) => {
   return (
     <Card className="border-0">
       {seasons[seasonIndex] && (
-        <Dropdown onSelect={(e) => setSeasonIndex(e)} className="m-4">
+        <Dropdown onSelect={(e) => setSeasonIndex(parseInt(e))} className="m-4">
           <Dropdown.Toggle variant="secondary" id="season-toggle">
             Season {seasons[seasonIndex].number}
           </Dropdown.Toggle>
@@ -76,14 +76,7 @@ const EpisodeList = ({ show, entries }) => {
       {seasonIndex != undefined ? (
         <>
           {episodes.map((episode) => (
-            <EpisodeCard
-              show={show}
-              entries={entries.filter(
-                (entry) => entry && entry.episodeId === episode.id
-              )}
-              episode={episode}
-              key={episode.id}
-            />
+            <EpisodeCard show={show} episode={episode} key={episode.id} />
           ))}
           <p className="top-of-list pt-3 text-center border-top">
             <Nav.Link href="#season-toggle">Top of list</Nav.Link>
