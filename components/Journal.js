@@ -8,12 +8,17 @@ import Spinner from "react-bootstrap/Spinner";
 import axios from "axios";
 import JournalEntry from "./JournalEntry";
 import Alert from "react-bootstrap/Alert";
+import Modal from "react-bootstrap/Modal";
 
 const Journal = ({ episode, show }) => {
   const { data: session, status } = useSession();
   const [entries, setEntries] = useState([]);
   const [loading, setLoading] = useState(false);
   const [newEntryText, setNewEntryText] = useState("");
+  const [openEdit, setOpenEdit] = useState(false);
+  const [editEntry, setEditEntry] = useState({ id: null, text: "" });
+  const [openDelete, setOpenDelete] = useState(false);
+  const [deleteEntryId, setDeleteEntryId] = useState(null);
 
   //Get journal entries on component mount if user is signed in
   useEffect(() => {
@@ -38,7 +43,7 @@ const Journal = ({ episode, show }) => {
     session && fetchData();
   }, [show]);
 
-  //Post journal entry
+  //Submit journal entry
   const handleSubmit = async (e) => {
     e.preventDefault();
     const newEntry = episode
@@ -71,22 +76,44 @@ const Journal = ({ episode, show }) => {
     setNewEntryText("");
   };
 
-  //Patch journal entry
-  const handleEdit = async (e, entryId, text) => {
+  //Control edit modal
+  const handleOpenEdit = (entryId, entryText) => {
+    setEditEntry({ id: entryId, text: entryText });
+    setOpenEdit(true);
+  };
+
+  const handleCloseEdit = () => {
+    setTimeout(() => setEditEntry({ id: null, text: "" }), 150);
+    setOpenEdit(false);
+  };
+
+  //Edit journal entry
+  const handleEdit = async (e, entryId, entryText) => {
     e.preventDefault();
     try {
-      const res = await axios.patch(`/api/entries/${entryId}`, { text });
-      const editedEntryIndex = entries.findIndex(
-        (entry) => entry._id == entryId
-      );
+      const res = await axios.patch(`/api/entries/${entryId}`, {
+        text: entryText,
+      });
+      const editEntryIndex = entries.findIndex((entry) => entry._id == entryId);
       setEntries((entries) => [
-        ...entries.slice(0, editedEntryIndex),
-        { ...entries[editedEntryIndex], text: res.data.text },
-        ...entries.slice(editedEntryIndex + 1),
+        ...entries.slice(0, editEntryIndex),
+        { ...entries[editEntryIndex], text: res.data.text },
+        ...entries.slice(editEntryIndex + 1),
       ]);
     } catch (err) {
       throw new Error(err);
     }
+  };
+
+  //Control delete modal
+  const handleOpenDelete = (entryId) => {
+    setDeleteEntryId(entryId);
+    setOpenDelete(true);
+  };
+
+  const handleCloseDelete = () => {
+    setDeleteEntryId(null);
+    setOpenDelete(false);
   };
 
   //Delete journal entry
@@ -103,54 +130,129 @@ const Journal = ({ episode, show }) => {
   return (
     <>
       {session ? (
-        <Card className="border-0">
-          {episode && (
-            <Card.Title className="text-center mb-0">
-              Entries for this episode
-            </Card.Title>
-          )}
-          <Form className="m-3" onSubmit={handleSubmit}>
-            <Form.Group controlId="new-entry">
-              <Form.Control
-                as="textarea"
-                placeholder="Write down your thoughts"
-                rows={2}
-                value={newEntryText}
-                onChange={(e) => setNewEntryText(e.target.value)}
-                required
-                maxLength={4096}
-                className="mb-2"
-              />
-            </Form.Group>
-            <Button variant="primary" type="submit">
-              Compose
-            </Button>
-          </Form>
-          {loading && (
-            <div className="d-flex justify-content-center">
-              <Spinner animation="border" role="status" className="p-absolute">
-                <span className="visually-hidden">Loading...</span>
-              </Spinner>
-            </div>
-          )}
-          {entries && entries.length ? (
-            <ListGroup>
-              {entries
-                .slice()
-                .reverse()
-                .map((entry) => (
-                  <JournalEntry
-                    entry={entry}
-                    show={show}
-                    episode={episode}
-                    key={entry._id}
-                    handleEdit={handleEdit}
-                    handleDelete={handleDelete}
+        <>
+          <Card className="border-0">
+            {episode && (
+              <Card.Title className="text-center mb-0">
+                Entries for this episode
+              </Card.Title>
+            )}
+
+            {/* Entry submission form */}
+            <Form className="m-3" onSubmit={handleSubmit}>
+              <Form.Group controlId="new-entry">
+                <Form.Control
+                  as="textarea"
+                  placeholder="Write down your thoughts"
+                  rows={2}
+                  value={newEntryText}
+                  onChange={(e) => setNewEntryText(e.target.value)}
+                  required
+                  maxLength={4096}
+                  className="mb-2"
+                />
+              </Form.Group>
+              <Button variant="primary" type="submit">
+                Compose
+              </Button>
+            </Form>
+
+            {/* List of journal entries */}
+            {loading && (
+              <div className="d-flex justify-content-center">
+                <Spinner
+                  animation="border"
+                  role="status"
+                  className="p-absolute"
+                >
+                  <span className="visually-hidden">Loading...</span>
+                </Spinner>
+              </div>
+            )}
+
+            {entries && entries.length ? (
+              <ListGroup>
+                {entries
+                  .slice()
+                  .reverse()
+                  .map((entry) => (
+                    <JournalEntry
+                      entry={entry}
+                      show={show}
+                      episode={episode}
+                      key={entry._id}
+                      handleOpenEdit={handleOpenEdit}
+                      handleOpenDelete={handleOpenDelete}
+                    />
+                  ))}
+              </ListGroup>
+            ) : null}
+          </Card>
+
+          {/* Edit modal */}
+          <Modal centered show={openEdit} onHide={handleCloseEdit}>
+            <Modal.Body>
+              <Form
+                onSubmit={(e) => {
+                  editEntry.text
+                    ? handleEdit(e, editEntry.id, editEntry.text)
+                    : handleDelete(e, editEntry.id);
+                  handleCloseEdit();
+                }}
+              >
+                <Form.Group controlId="new-entry">
+                  <Form.Control
+                    as="textarea"
+                    placeholder="Leave blank to delete entry"
+                    rows={6}
+                    value={editEntry.text}
+                    onChange={(e) => {
+                      setEditEntry((editEntry) => ({
+                        ...editEntry,
+                        text: e.target.value,
+                      }));
+                    }}
+                    maxLength={4096}
+                    className="mb-2"
                   />
-                ))}
-            </ListGroup>
-          ) : null}
-        </Card>
+                </Form.Group>
+                <Modal.Footer>
+                  <Button variant="secondary" onClick={handleCloseEdit}>
+                    Cancel
+                  </Button>
+                  {editEntry.text ? (
+                    <Button variant="primary" type="submit">
+                      Save Changes
+                    </Button>
+                  ) : (
+                    <Button variant="danger" type="submit">
+                      Delete
+                    </Button>
+                  )}
+                </Modal.Footer>
+              </Form>
+            </Modal.Body>
+          </Modal>
+
+          {/* Delete modal */}
+          <Modal centered show={openDelete} onHide={handleCloseDelete}>
+            <Modal.Body>Are you sure you want to delete this entry?</Modal.Body>
+            <Modal.Footer>
+              <Button variant="secondary" onClick={handleCloseDelete}>
+                Cancel
+              </Button>
+              <Button
+                variant="danger"
+                onClick={(e) => {
+                  handleDelete(e, deleteEntryId);
+                  handleCloseDelete();
+                }}
+              >
+                Delete
+              </Button>
+            </Modal.Footer>
+          </Modal>
+        </>
       ) : (
         <Alert className="mx-2 my-0 p-4" variant="secondary">
           Please sign in to create a journal.
