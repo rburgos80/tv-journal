@@ -48,10 +48,8 @@ export default async function handler(req, res) {
             { new: true }
           );
 
-          console.log("Successfully updated entry");
           return res.json(updatedEntry);
         } catch (err) {
-          console.log("Failed to update entry");
           res.status(500).json({ message: err });
         }
         break;
@@ -91,10 +89,8 @@ export default async function handler(req, res) {
             });
             break;
           }
-          console.log("Successfully deleted entry");
           return res.json(deletedEntry);
         } catch (err) {
-          console.log("Failed to delete entry");
           res.status(500).json({ message: err });
         }
         break;
