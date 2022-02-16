@@ -15,22 +15,16 @@ const JournalCard = ({ journal }) => {
 
   return (
     <>
-      <Row className="align-items-center">
-        <Col xs={2}>
-          <Image
-            src={show.image}
-            alt={`${show.name} poster`}
-            width={53}
-            height={74}
-            layout="fixed"
-          />
-        </Col>
-        <Col xs={10}>
-          <Card.Body className="d-flex align-items-baseline">
-            {show.name}
-          </Card.Body>
-        </Col>
-      </Row>
+      <div className="d-flex align-items-center">
+        <Image
+          src={show.image}
+          alt={`${show.name} poster`}
+          width={53}
+          height={74}
+          layout="intrinsic"
+        />
+        <h5 className="ms-2 text-truncate">{show.name}</h5>
+      </div>
     </>
   );
 };

@@ -54,7 +54,7 @@ export default function Home() {
             {journals.length > 0 ? (
               <Tab.Container>
                 <Row>
-                  <Col>
+                  <Col md={4}>
                     <ListGroup>
                       {journals.map((journal) => (
                         <ListGroup.Item
@@ -81,7 +81,6 @@ export default function Home() {
                             Go to details page
                           </Link>
                           <br />
-                          <p>Entries: {currentJournal.entryCount}</p>
                         </div>
                         <Journal show={currentJournal.show} />
                       </>
@@ -89,7 +88,15 @@ export default function Home() {
                   </Col>
                 </Row>
               </Tab.Container>
-            ) : null}
+            ) : (
+              <section className="d-flex flex-column align-items-center">
+                <h1>Welcome to TV Journal</h1>
+                <p>
+                  Start by searching for a show and making a journal entry. You
+                  will be able to see it here afterwards.
+                </p>
+              </section>
+            )}
           </>
         ) : (
           <p>Please sign in to view your journals</p>
