@@ -82,7 +82,6 @@ export default async function handler(req, res) {
               },
               { new: true }
             );
-            console.log(updatedJournal);
             if (updatedJournal.entryCount < 1) {
               await Journal.deleteOne({ _id: updatedJournal._id });
             }
