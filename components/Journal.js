@@ -18,6 +18,7 @@ const Journal = ({ episode, show }) => {
   //Get journal entries on component mount if user is signed in
   useEffect(() => {
     const fetchData = async () => {
+      setEntries([]);
       setLoading(true);
       try {
         const res = null;
