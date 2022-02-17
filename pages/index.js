@@ -82,7 +82,10 @@ export default function Home() {
                           </Link>
                           <br />
                         </div>
-                        <Journal show={currentJournal.show} />
+                        <Journal
+                          key={currentJournal.show.id}
+                          show={currentJournal.show}
+                        />
                       </>
                     )}
                   </Col>
