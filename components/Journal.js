@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { useSession, signIn } from "next-auth/react";
+import EpisodeSelect from "./EpisodeSelect";
 import Button from "react-bootstrap/Button";
 import Card from "react-bootstrap/Card";
 import Form from "react-bootstrap/Form";
@@ -15,6 +16,12 @@ const Journal = ({ episode, show }) => {
   const [entries, setEntries] = useState([]);
   const [loading, setLoading] = useState(false);
   const [newEntryText, setNewEntryText] = useState("");
+  const [tag, setTag] = useState({
+    id: null,
+    season: null,
+    number: null,
+    name: "",
+  });
   const [openEdit, setOpenEdit] = useState(false);
   const [editEntry, setEditEntry] = useState({ id: null, text: "" });
   const [openDelete, setOpenDelete] = useState(false);
@@ -60,6 +67,22 @@ const Journal = ({ episode, show }) => {
             season: episode.season,
             number: episode.number,
             name: episode.name,
+          },
+        }
+      : tag.id
+      ? {
+          date: new Date().toDateString(),
+          text: newEntryText,
+          show: {
+            id: show.id,
+            name: show.name,
+            image: show.image?.medium,
+          },
+          episode: {
+            id: tag.id,
+            season: tag.season,
+            number: tag.number,
+            name: tag.name,
           },
         }
       : {
@@ -149,12 +172,14 @@ const Journal = ({ episode, show }) => {
                   onChange={(e) => setNewEntryText(e.target.value)}
                   required
                   maxLength={4096}
-                  className="mb-2"
                 />
               </Form.Group>
-              <Button variant="primary" type="submit">
-                Compose
-              </Button>
+              {!episode && <EpisodeSelect show={show} setTag={setTag} />}
+              <div className="d-flex justify-content-end">
+                <Button variant="primary" type="submit">
+                  Compose
+                </Button>
+              </div>
             </Form>
 
             {/* List of journal entries */}

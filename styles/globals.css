@@ -75,3 +75,8 @@ html {
   top: 8px;
   right: 16px;
 }
+
+.episode-select-menu {
+  max-height: 25rem;
+  overflow-y: scroll;
+}
