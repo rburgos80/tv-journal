@@ -31,7 +31,6 @@ const EpisodeSelect = ({ show, setTag }) => {
   }, [open]);
 
   const handleTag = (episodeId) => {
-    console.log(episodeId);
     if (!episodeId) {
       setCurrentTag({ id: null, season: null, number: null, name: "" });
       setTag({ id: null, season: null, number: null, name: "" });
@@ -110,7 +109,6 @@ const EpisodeSelect = ({ show, setTag }) => {
         <div>
           <Dropdown
             onSelect={(e) => {
-              console.log(e);
               setSeasonIndex(parseInt(e));
             }}
           >
