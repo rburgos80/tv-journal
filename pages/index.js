@@ -1,13 +1,13 @@
 import Head from "next/head";
+import Link from "next/link";
 import { useState, useEffect } from "react";
 import { useSession } from "next-auth/react";
-import Container from "react-bootstrap/Container";
-import Card from "react-bootstrap/Card";
+import Journal from "../components/Journal";
 import JournalCard from "../components/JournalCard";
 import axios from "axios";
-import { Button, Col, ListGroup, Row, Tab } from "react-bootstrap";
-import Journal from "../components/Journal";
-import Link from "next/link";
+import Col from "react-bootstrap/Col";
+import ListGroup from "react-bootstrap/ListGroup";
+import Row from "react-bootstrap/Row";
 
 export default function Home() {
   const { data: session, status } = useSession();
@@ -52,7 +52,7 @@ export default function Home() {
         {session ? (
           <>
             {journals.length > 0 ? (
-              <Tab.Container>
+              <>
                 <Row>
                   <Col md={4}>
                     <ListGroup>
@@ -90,7 +90,7 @@ export default function Home() {
                     )}
                   </Col>
                 </Row>
-              </Tab.Container>
+              </>
             ) : (
               <section className="d-flex flex-column align-items-center">
                 <h1>Welcome to TV Journal</h1>
