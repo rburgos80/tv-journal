@@ -31,6 +31,7 @@ const EpisodeSelect = ({ show, setTag }) => {
   }, [open]);
 
   const handleTag = (episodeId) => {
+    console.log(episodeId);
     if (!episodeId) {
       setCurrentTag({ id: null, season: null, number: null, name: "" });
       setTag({ id: null, season: null, number: null, name: "" });
@@ -107,12 +108,13 @@ const EpisodeSelect = ({ show, setTag }) => {
       />
       <Collapse in={open}>
         <div>
-          <Dropdown>
-            <Dropdown.Toggle
-              onSelect={(e) => setSeasonIndex(parseInt(e))}
-              variant="outline-secondary"
-              id="tag-season-select"
-            >
+          <Dropdown
+            onSelect={(e) => {
+              console.log(e);
+              setSeasonIndex(parseInt(e));
+            }}
+          >
+            <Dropdown.Toggle variant="outline-secondary" id="tag-season-select">
               {seasons ? `Season ${seasons[seasonIndex]?.number}` : ""}
             </Dropdown.Toggle>
             <Dropdown.Menu>
@@ -123,9 +125,8 @@ const EpisodeSelect = ({ show, setTag }) => {
               ))}
             </Dropdown.Menu>
           </Dropdown>
-          <Dropdown>
+          <Dropdown onSelect={(episodeId) => handleTag(parseInt(episodeId))}>
             <Dropdown.Toggle
-              onSelect={(episodeId) => handleTag(parseInt(episodeId))}
               variant="outline-secondary"
               id="tag-episode-select"
             >
