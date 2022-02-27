@@ -59,7 +59,7 @@ const Navbars = () => {
               )}
               {session && (
                 <>
-                  <NavDropdown title="Profile">
+                  <NavDropdown title="Account">
                     <NavDropdown.Header>
                       Signed in as: <strong>{session.user?.email}</strong>
                     </NavDropdown.Header>
