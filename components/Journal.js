@@ -1,13 +1,12 @@
 import { useEffect, useState } from "react";
 import { useSession, signIn } from "next-auth/react";
+import axios from "axios";
+import JournalEntry from "./JournalEntry";
 import EpisodeSelect from "./EpisodeSelect";
 import Button from "react-bootstrap/Button";
 import Card from "react-bootstrap/Card";
 import Form from "react-bootstrap/Form";
 import ListGroup from "react-bootstrap/ListGroup";
-import Spinner from "react-bootstrap/Spinner";
-import axios from "axios";
-import JournalEntry from "./JournalEntry";
 import Alert from "react-bootstrap/Alert";
 import Modal from "react-bootstrap/Modal";
 
@@ -176,6 +175,7 @@ const Journal = ({ episode, show }) => {
               </Form.Group>
               {!episode && <EpisodeSelect show={show} setTag={setTag} />}
               <div className="d-flex justify-content-end">
+                {loading && <p className="me-auto mb-0">Loading entries...</p>}
                 <Button variant="primary" type="submit">
                   Compose
                 </Button>
@@ -183,17 +183,6 @@ const Journal = ({ episode, show }) => {
             </Form>
 
             {/* List of journal entries */}
-            {loading && (
-              <div className="d-flex justify-content-center">
-                <Spinner
-                  animation="border"
-                  role="status"
-                  className="p-absolute"
-                >
-                  <span className="visually-hidden">Loading...</span>
-                </Spinner>
-              </div>
-            )}
 
             {entries && entries.length ? (
               <ListGroup>
@@ -280,7 +269,17 @@ const Journal = ({ episode, show }) => {
         </>
       ) : (
         <Alert className="mx-2 my-0 p-4" variant="secondary">
-          Please sign in to create a journal.
+          Please{" "}
+          <Alert.Link
+            onClick={(e) => {
+              e.preventDefault();
+              signIn();
+            }}
+            href={"api/auth/signin"}
+          >
+            sign in
+          </Alert.Link>{" "}
+          to create a journal.
         </Alert>
       )}
     </>
