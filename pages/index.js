@@ -55,6 +55,7 @@ export default function Home() {
               <>
                 <Row>
                   <Col md={4}>
+                    <h3>Select Journal</h3>
                     <ListGroup>
                       {journals.map((journal) => (
                         <ListGroup.Item
@@ -75,7 +76,7 @@ export default function Home() {
                       <>
                         <div className="mb-2">
                           <h3 className="d-inline me-2">
-                            Your journal for {currentJournal.show.name}
+                            {currentJournal.show.name}
                           </h3>
                           <Link href={`show/${currentJournal.show.id}`}>
                             Go to details page
