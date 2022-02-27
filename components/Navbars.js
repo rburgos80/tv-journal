@@ -60,11 +60,10 @@ const Navbars = () => {
               {session && (
                 <>
                   <NavDropdown title="Profile">
-                    Signed in as:{" "}
-                    <strong>
-                      {session?.user?.email || session?.user?.name}
-                    </strong>
-                    <NavDropdown.Item>Settings</NavDropdown.Item>
+                    <NavDropdown.Header>
+                      Signed in as: <strong>{session.user?.email}</strong>
+                    </NavDropdown.Header>
+                    <NavDropdown.Divider />
                     <NavDropdown.Item
                       onClick={(e) => {
                         e.preventDefault();
