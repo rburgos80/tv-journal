@@ -1,24 +1,28 @@
+import { useState, useEffect } from "react";
+import { useSession, signIn } from "next-auth/react";
 import Head from "next/head";
 import Link from "next/link";
-import { useState, useEffect } from "react";
-import { useSession } from "next-auth/react";
 import Journal from "../components/Journal";
 import JournalCard from "../components/JournalCard";
 import axios from "axios";
 import Col from "react-bootstrap/Col";
 import ListGroup from "react-bootstrap/ListGroup";
 import Row from "react-bootstrap/Row";
+import Button from "react-bootstrap/Button";
 
 export default function Home() {
   const { data: session, status } = useSession();
   const [journals, setJournals] = useState([]);
+  const [loading, setLoading] = useState(false);
   const [currentShowId, setCurrentShowId] = useState(null);
   const [currentJournal, setCurrentJournal] = useState({});
 
   const getUserJournals = async () => {
     try {
+      setLoading(true);
       const res = await axios.get("/api/journals/");
       setJournals(res.data);
+      setLoading(false);
     } catch (err) {
       throw new Error(err);
     }
@@ -49,10 +53,10 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <section>
-        {session ? (
-          <>
-            {journals.length > 0 ? (
-              <>
+        {status === "authenticated" ? (
+          !loading && (
+            <>
+              {journals.length > 0 ? (
                 <Row>
                   <Col md={4}>
                     <h3>Select Journal</h3>
@@ -65,7 +69,6 @@ export default function Home() {
                           onClick={() => setCurrentShowId(journal.show.id)}
                           active={journal.show.id === currentShowId}
                         >
-                          {/* {journal.show.name} */}
                           <JournalCard journal={journal} />
                         </ListGroup.Item>
                       ))}
@@ -91,20 +94,32 @@ export default function Home() {
                     )}
                   </Col>
                 </Row>
-              </>
-            ) : (
-              <section className="d-flex flex-column align-items-center">
-                <h1>Welcome to TV Journal</h1>
-                <p>
-                  Start by searching for a show and making a journal entry. You
-                  will be able to see it here afterwards.
-                </p>
-              </section>
-            )}
-          </>
-        ) : (
-          <p>Please sign in to view your journals</p>
-        )}
+              ) : (
+                <div className="d-flex flex-column align-items-center">
+                  <h1>Welcome to TV Journal!</h1>
+                  <p>
+                    Start by searching for a show and making a journal entry.
+                    You will be able to see it here afterwards.
+                  </p>
+                </div>
+              )}
+            </>
+          )
+        ) : status === "unauthenticated" ? (
+          <div className=" mt-2 d-flex flex-column align-items-center">
+            <h1>TV Journal</h1>
+            <h6>Sign in to keep a journal on your favorite shows.</h6>
+            <Button
+              onClick={(e) => {
+                e.preventDefault();
+                signIn();
+              }}
+              href={"api/auth/signin"}
+            >
+              Sign In
+            </Button>
+          </div>
+        ) : null}
       </section>
     </>
   );
