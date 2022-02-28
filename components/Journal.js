@@ -28,6 +28,7 @@ const Journal = ({ episode, show }) => {
 
   //Get journal entries on component mount if user is signed in
   useEffect(() => {
+    let isMounted = true;
     const fetchData = async () => {
       setEntries([]);
       setLoading(true);
@@ -40,13 +41,16 @@ const Journal = ({ episode, show }) => {
         } else {
           res = await axios.get("/api/entries");
         }
-        setEntries(res.data);
+        if (isMounted) {
+          setEntries(res.data);
+          setLoading(false);
+        }
       } catch (err) {
         throw new Error(`Journal data fetch failed. ${err}`);
       }
-      setLoading(false);
     };
     session && fetchData();
+    return () => (isMounted = false);
   }, [show]);
 
   //Submit journal entry
