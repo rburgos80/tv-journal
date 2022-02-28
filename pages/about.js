@@ -8,14 +8,18 @@ const about = () => {
       </p>
       <p>
         All information on shows is retrieved from the{" "}
-        <a href="https://tvmaze.com" target="_blank">
+        <a href="https://tvmaze.com" target="_blank" rel="noreferrer">
           TVmaze
         </a>{" "}
         API.
       </p>
       <h5>Github Repository</h5>
       <p>
-        <a href="https://github.com/rburgos80/tv-journal" target="_blank">
+        <a
+          href="https://github.com/rburgos80/tv-journal"
+          target="_blank"
+          rel="noreferrer"
+        >
           github.com/rburgos80/tv-journal
         </a>
       </p>
@@ -32,18 +36,18 @@ const about = () => {
       <p>
         I came up with the idea for this website after building a project
         similar to IMDB with the focus on looking up shows to see their ratings
-        per episode. It was entertaining to see the general consensus on shows
-        I'm watching, but I developed a bad habit of just waiting for episodes
+        per episode. It was entertaining to see the general consensus on shows I
+        was watching, but I developed a bad habit of just waiting for episodes
         with particularly high ratings and not paying much attention to other
         episodes, reducing my overall enjoyment of shows as a whole.
       </p>
       <p>
         I decided to give this project a more personal spin and make it all
-        about the user's opinion. There aren't any outside opinions to possibly
-        influence what you would think of a particular show or episode as there
-        are already plenty of websites offering individual reviews. I also
-        decided to forgo adding a rating functionality as it wouldn't capture an
-        opinion as well as text.
+        about the user&apos;s opinion. There aren&apos;t any outside opinions to
+        possibly influence what you would think of a particular show or episode
+        as there are already plenty of websites offering individual reviews. I
+        also decided to forgo adding a rating functionality as it wouldn&apos;t
+        capture an opinion as well as text.
       </p>
       <p>
         This entire development was a huge learning process for me as I had to
@@ -52,8 +56,8 @@ const about = () => {
         website since I have more experience working with the frontend rather
         than the backend. In the end, the most important thing I took away from
         this process was that I have to recognize my limits as a web developer
-        and understand that nothing is perfect, so I shouldn't obsess over how I
-        can completely optimize everything.
+        and understand that nothing is perfect, so I shouldn&apos;t obsess over
+        how I can completely optimize everything.
       </p>
       <h5>Contact</h5>
       <p>
