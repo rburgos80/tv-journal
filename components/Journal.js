@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import { useSession, signIn } from "next-auth/react";
 import axios from "axios";
 import JournalEntry from "./JournalEntry";
@@ -25,6 +25,7 @@ const Journal = ({ episode, show }) => {
   const [editEntry, setEditEntry] = useState({ id: null, text: "" });
   const [openDelete, setOpenDelete] = useState(false);
   const [deleteEntryId, setDeleteEntryId] = useState(null);
+  const buttonRef = useRef();
 
   //Get journal entries on component mount if user is signed in
   useEffect(() => {
@@ -56,6 +57,7 @@ const Journal = ({ episode, show }) => {
   //Submit journal entry
   const handleSubmit = async (e) => {
     e.preventDefault();
+    buttonRef.current.disabled = true;
     const newEntry = episode
       ? {
           date: new Date().toDateString(),
@@ -100,6 +102,7 @@ const Journal = ({ episode, show }) => {
     const res = await axios.post("/api/entries/", newEntry);
     setEntries((entries) => [...entries, res.data]);
     setNewEntryText("");
+    buttonRef.current.disabled = false;
   };
 
   //Control edit modal
@@ -180,7 +183,7 @@ const Journal = ({ episode, show }) => {
               {!episode && <EpisodeSelect show={show} setTag={setTag} />}
               <div className="d-flex justify-content-end">
                 {loading && <p className="me-auto mb-0">Loading entries...</p>}
-                <Button variant="primary" type="submit">
+                <Button ref={buttonRef} variant="primary" type="submit">
                   Compose
                 </Button>
               </div>
