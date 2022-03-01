@@ -54,8 +54,10 @@ export default function Home() {
     );
   }, [currentShowId]);
 
-  const journalList = (mobile) => (
-    <ListGroup className={mobile && "rounded-0 overflow-auto"}>
+  const journalList = (
+    <ListGroup
+      className={`${windowWidth < 768 ? "rounded-0 overflow-auto" : undefined}`}
+    >
       {journals.map((journal) => (
         <ListGroup.Item
           action
@@ -83,7 +85,7 @@ export default function Home() {
         />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <section className={windowWidth < 768 && "mx-3"}>
+      <section className={windowWidth < 768 ? "mx-3" : undefined}>
         {status === "authenticated" ? (
           !loading && (
             <>
@@ -91,8 +93,13 @@ export default function Home() {
                 <Row>
                   {windowWidth >= 768 ? (
                     <Col md={4}>
-                      <h3>Select Journal</h3>
-                      {journalList(false)}
+                      <h3 className="sticky-top">Select Journal</h3>
+                      <div
+                        className="sticky-top overflow-auto"
+                        style={{ top: "2.5rem", maxHeight: "85vh" }}
+                      >
+                        {journalList}
+                      </div>
                     </Col>
                   ) : (
                     <>
@@ -117,7 +124,7 @@ export default function Home() {
                             onClick={() => setShowJournalList(false)}
                           />
                         </div>
-                        {journalList(true)}
+                        {journalList}
                       </Offcanvas>
                     </>
                   )}
