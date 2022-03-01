@@ -9,6 +9,7 @@ import Form from "react-bootstrap/Form";
 import ListGroup from "react-bootstrap/ListGroup";
 import Alert from "react-bootstrap/Alert";
 import Modal from "react-bootstrap/Modal";
+import Spinner from "react-bootstrap/Spinner";
 
 const Journal = ({ episode, show }) => {
   const { data: session, status } = useSession();
@@ -169,7 +170,8 @@ const Journal = ({ episode, show }) => {
 
             {/* Entry submission form */}
             <Form className="m-3" onSubmit={handleSubmit}>
-              <Form.Group controlId="new-entry">
+              {!episode && <EpisodeSelect show={show} setTag={setTag} />}
+              <Form.Group controlId="new-entry" className="mt-2">
                 <Form.Control
                   as="textarea"
                   placeholder="Write down your thoughts"
@@ -180,9 +182,15 @@ const Journal = ({ episode, show }) => {
                   maxLength={4096}
                 />
               </Form.Group>
-              {!episode && <EpisodeSelect show={show} setTag={setTag} />}
-              <div className="d-flex justify-content-end">
-                {loading && <p className="me-auto mb-0">Loading entries...</p>}
+              <div className="d-flex justify-content-end mt-2">
+                {loading && (
+                  <>
+                    <p className="me-auto mb-0">
+                      <Spinner as="span" animation="border" size="sm" /> Loading
+                      entries...
+                    </p>
+                  </>
+                )}
                 <Button ref={buttonRef} variant="primary" type="submit">
                   Compose
                 </Button>
@@ -192,7 +200,7 @@ const Journal = ({ episode, show }) => {
             {/* List of journal entries */}
 
             {entries && entries.length ? (
-              <ListGroup>
+              <ListGroup className="rounded-0">
                 {entries
                   .slice()
                   .reverse()
