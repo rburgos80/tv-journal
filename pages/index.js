@@ -9,6 +9,7 @@ import Col from "react-bootstrap/Col";
 import ListGroup from "react-bootstrap/ListGroup";
 import Row from "react-bootstrap/Row";
 import Button from "react-bootstrap/Button";
+import { CloseButton, Offcanvas } from "react-bootstrap";
 
 export default function Home() {
   const { data: session, status } = useSession();
@@ -16,6 +17,17 @@ export default function Home() {
   const [loading, setLoading] = useState(false);
   const [currentShowId, setCurrentShowId] = useState(null);
   const [currentJournal, setCurrentJournal] = useState({});
+  const [showJournalList, setShowJournalList] = useState(false);
+  const [windowWidth, setWindowWidth] = useState(null);
+
+  useEffect(() => {
+    setWindowWidth(window.innerWidth);
+    function handleResize() {
+      setWindowWidth(window.innerWidth);
+    }
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
 
   const getUserJournals = async () => {
     try {
@@ -42,6 +54,25 @@ export default function Home() {
     );
   }, [currentShowId]);
 
+  const journalList = (mobile) => (
+    <ListGroup className={mobile && "rounded-0 overflow-auto"}>
+      {journals.map((journal) => (
+        <ListGroup.Item
+          action
+          key={journal.show.id}
+          eventKey={journal.show.id}
+          onClick={() => {
+            setCurrentShowId(journal.show.id);
+            setShowJournalList(false);
+          }}
+          active={journal.show.id === currentShowId}
+        >
+          <JournalCard journal={journal} />
+        </ListGroup.Item>
+      ))}
+    </ListGroup>
+  );
+
   return (
     <>
       <Head>
@@ -52,28 +83,44 @@ export default function Home() {
         />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <section>
+      <section className={windowWidth < 768 && "mx-3"}>
         {status === "authenticated" ? (
           !loading && (
             <>
               {journals.length > 0 ? (
                 <Row>
-                  <Col md={4}>
-                    <h3>Select Journal</h3>
-                    <ListGroup>
-                      {journals.map((journal) => (
-                        <ListGroup.Item
-                          action
-                          key={journal.show.id}
-                          eventKey={journal.show.id}
-                          onClick={() => setCurrentShowId(journal.show.id)}
-                          active={journal.show.id === currentShowId}
+                  {windowWidth >= 768 ? (
+                    <Col md={4}>
+                      <h3>Select Journal</h3>
+                      {journalList(false)}
+                    </Col>
+                  ) : (
+                    <>
+                      <Col>
+                        <Button
+                          variant="primary"
+                          onClick={() => setShowJournalList(true)}
+                          className=" w-100 my-4"
                         >
-                          <JournalCard journal={journal} />
-                        </ListGroup.Item>
-                      ))}
-                    </ListGroup>
-                  </Col>
+                          Select Journal
+                        </Button>
+                      </Col>
+                      <Offcanvas
+                        show={showJournalList}
+                        onHide={() => setShowJournalList(false)}
+                      >
+                        <div className="d-flex justify-content-between align-items-baseline">
+                          <h5 className="ms-2 mb-0">Your Journals</h5>
+                          <CloseButton
+                            className="m-2"
+                            aria-label="Hide"
+                            onClick={() => setShowJournalList(false)}
+                          />
+                        </div>
+                        {journalList(true)}
+                      </Offcanvas>
+                    </>
+                  )}
                   <Col md={8}>
                     {currentJournal?.show && (
                       <>
