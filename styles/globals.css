@@ -77,6 +77,8 @@ html {
 }
 
 .episode-select-menu {
-  max-height: 25rem;
-  overflow-y: scroll;
+  max-height: 30rem;
+  max-width: 85vw;
+  overflow-y: auto;
+  overflow-x: hidden;
 }

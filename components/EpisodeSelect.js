@@ -105,14 +105,17 @@ const EpisodeSelect = ({ show, setTag }) => {
         onChange={() => setOpen((open) => !open)}
       />
       <Collapse in={open}>
-        <div>
+        <div className="mt-2">
           <Dropdown
             onSelect={(e) => {
               setSeasonIndex(parseInt(e));
             }}
+            className="d-md-inline me-2 mb-2"
           >
             <Dropdown.Toggle variant="outline-secondary" id="tag-season-select">
-              {seasons ? `Season ${seasons[seasonIndex]?.number}` : ""}
+              {seasons
+                ? `Season ${seasons[seasonIndex]?.number}`
+                : "Select Season"}
             </Dropdown.Toggle>
             <Dropdown.Menu>
               {seasons.map((season, index) => (
@@ -122,16 +125,19 @@ const EpisodeSelect = ({ show, setTag }) => {
               ))}
             </Dropdown.Menu>
           </Dropdown>
-          <Dropdown onSelect={(episodeId) => handleTag(parseInt(episodeId))}>
+          <Dropdown
+            onSelect={(episodeId) => handleTag(parseInt(episodeId))}
+            className="d-inline"
+          >
             <Dropdown.Toggle
               variant="outline-secondary"
               id="tag-episode-select"
             >
               {currentTag?.id
-                ? `${currentTag.number}. ${currentTag.name}`
+                ? `Episode ${currentTag.number}`
                 : "Select Episode"}
             </Dropdown.Toggle>
-            <Dropdown.Menu>
+            <Dropdown.Menu style={{ zIndex: "1021" }}>
               <div className="episode-select-menu">
                 {episodes.map((episode) => (
                   <Dropdown.Item eventKey={episode.id} key={episode.id}>
@@ -141,10 +147,12 @@ const EpisodeSelect = ({ show, setTag }) => {
               </div>
             </Dropdown.Menu>
           </Dropdown>
-          {currentTag.id && (
+          {currentTag.id ? (
             <div className="text-muted">
               {`s${currentTag.season}e${currentTag.number} - ${currentTag.name}`}
             </div>
+          ) : (
+            <div className="text-muted">Loading...</div>
           )}
         </div>
       </Collapse>
