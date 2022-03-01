@@ -32,7 +32,7 @@ const Navbars = () => {
   return (
     <header>
       <Navbar expand="md" bg="dark" variant="dark" className="mb-0">
-        <Container>
+        <Container className="p-md-0">
           <Link href="/" passHref>
             <Navbar.Brand className="" style={{ cursor: "pointer" }}>
               TV Journal
