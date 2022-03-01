@@ -97,7 +97,6 @@ const EpisodeSelect = ({ show, setTag }) => {
 
   return (
     <div>
-      <br />
       <Form.Check
         type="switch"
         id="tag-switch"
@@ -142,6 +141,11 @@ const EpisodeSelect = ({ show, setTag }) => {
               </div>
             </Dropdown.Menu>
           </Dropdown>
+          {currentTag.id && (
+            <div className="text-muted">
+              {`s${currentTag.season}e${currentTag.number} - ${currentTag.name}`}
+            </div>
+          )}
         </div>
       </Collapse>
     </div>
