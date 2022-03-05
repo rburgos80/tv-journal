@@ -2,6 +2,12 @@
   --bg: #eeeeee;
 }
 
+#__next,
+html {
+  background-color: var(--bg);
+  height: 100%;
+}
+
 * {
   box-sizing: border-box;
 }
@@ -55,12 +61,6 @@
   border-top: 1px solid rgba(0, 0, 0, 0.125);
 }
 
-#__next,
-html {
-  background-color: var(--bg);
-  height: 100%;
-}
-
 .search-result:hover {
   box-shadow: gray;
   transform: translate(0, -4px);
@@ -82,3 +82,5 @@ html {
   overflow-y: auto;
   overflow-x: hidden;
 }
+
+@import "~bootstrap/scss/bootstrap";
