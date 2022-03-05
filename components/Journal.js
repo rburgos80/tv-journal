@@ -219,7 +219,12 @@ const Journal = ({ episode, show }) => {
           </Card>
 
           {/* Edit modal */}
-          <Modal centered show={openEdit} onHide={handleCloseEdit}>
+          <Modal
+            centered
+            backdrop="static"
+            show={openEdit}
+            onHide={handleCloseEdit}
+          >
             <Modal.Body>
               <Form
                 onSubmit={(e) => {
