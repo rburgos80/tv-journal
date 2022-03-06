@@ -18,7 +18,7 @@ function MyApp({ Component, pageProps: { session, ...pageProps } }) {
           />
         </Head>
         <Navbars />
-        <Container fluid="sm" className="px-0 my-md-4">
+        <Container fluid="sm" className="px-0 pb-md-4 my-md-4">
           <Component {...pageProps} />
         </Container>
       </SSRProvider>
