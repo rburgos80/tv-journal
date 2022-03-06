@@ -1,5 +1,6 @@
 import axios from "axios";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
+import { useSession } from "next-auth/react";
 import Card from "react-bootstrap/Card";
 import Dropdown from "react-bootstrap/Dropdown";
 import Nav from "react-bootstrap/Nav";
@@ -9,6 +10,8 @@ const EpisodeList = ({ show }) => {
   const [episodes, setEpisodes] = useState([]);
   const [seasons, setSeasons] = useState([]);
   const [seasonIndex, setSeasonIndex] = useState(null);
+  const { status } = useSession();
+  const recentRef = useRef({});
 
   const fetchSeasonData = async () => {
     try {
@@ -40,6 +43,9 @@ const EpisodeList = ({ show }) => {
   };
 
   useEffect(() => {
+    recentRef.current = JSON.parse(localStorage.getItem("recents")).find(
+      (recent) => recent.showId === show.id
+    );
     if (show && show.id) {
       fetchSeasonData();
     }
@@ -47,7 +53,14 @@ const EpisodeList = ({ show }) => {
 
   useEffect(() => {
     if (seasons && seasons.length > 0) {
-      setSeasonIndex(0);
+      if (status !== "unauthenticated" && recentRef.current?.season) {
+        const recentSeasonIndex = seasons.findIndex(
+          (season) => season.number === recentRef.current.season
+        );
+        setSeasonIndex(recentSeasonIndex);
+      } else {
+        setSeasonIndex(0);
+      }
     }
   }, [seasons]);
 

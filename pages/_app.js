@@ -5,8 +5,15 @@ import { SessionProvider } from "next-auth/react";
 import Navbars from "../components/Navbars";
 import SSRProvider from "react-bootstrap/SSRProvider";
 import Container from "react-bootstrap/Container";
+import { useEffect } from "react";
 
 function MyApp({ Component, pageProps: { session, ...pageProps } }) {
+  useEffect(() => {
+    if (!localStorage.getItem("recents")) {
+      localStorage.setItem("recents", JSON.stringify([]));
+    }
+  }, []);
+
   return (
     <SessionProvider session={session}>
       <SSRProvider>

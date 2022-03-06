@@ -103,6 +103,29 @@ const Journal = ({ episode, show }) => {
     const res = await axios.post("/api/entries/", newEntry);
     setEntries((entries) => [...entries, res.data]);
     setNewEntryText("");
+    if (tag.id) {
+      let recents = JSON.parse(localStorage.getItem("recents"));
+      let newRecent = {
+        showId: show.id,
+        season: tag.season,
+        number: tag.number,
+      };
+      let recentIndex = recents.findIndex(
+        (recent) => recent.showId === show.id
+      );
+
+      if (recentIndex > -1) {
+        recents.splice(recentIndex, 1);
+        recents.unshift(newRecent);
+      } else {
+        recents = [newRecent, ...recents];
+        if (recents.length > 50) {
+          recents = recents.slice(0, 49);
+        }
+      }
+
+      localStorage.setItem("recents", JSON.stringify(recents));
+    }
     buttonRef.current.disabled = false;
   };
 

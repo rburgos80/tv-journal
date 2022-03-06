@@ -1,5 +1,5 @@
 import axios from "axios";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import Collapse from "react-bootstrap/Collapse";
 import Dropdown from "react-bootstrap/Dropdown";
 import Form from "react-bootstrap/Form";
@@ -16,20 +16,8 @@ const EpisodeSelect = ({ show, setTag }) => {
   const [seasons, setSeasons] = useState([]);
   const [seasonIndex, setSeasonIndex] = useState(null);
   const [loading, setLoading] = useState(true);
-
-  useEffect(() => {
-    if (open) {
-      seasons.length === 0 && fetchSeasonData();
-      currentTag?.id && setTag(currentTag);
-    } else {
-      setTag({
-        id: null,
-        season: null,
-        number: null,
-        name: "",
-      });
-    }
-  }, [open]);
+  const recentRef = useRef({});
+  const newlyOpenedRef = useRef(true);
 
   const handleTag = (episodeId) => {
     if (!episodeId) {
@@ -83,8 +71,22 @@ const EpisodeSelect = ({ show, setTag }) => {
   };
 
   useEffect(() => {
-    if (seasons && seasons.length > 0) {
-      setSeasonIndex(0);
+    recentRef.current = JSON.parse(localStorage.getItem("recents")).find(
+      (recent) => recent.showId === show.id
+    );
+    fetchSeasonData();
+  }, []);
+
+  useEffect(() => {
+    if (seasons.length > 0) {
+      if (recentRef.current?.season) {
+        const recentSeasonIndex = seasons.findIndex(
+          (season) => season.number === recentRef.current.season
+        );
+        setSeasonIndex(recentSeasonIndex);
+      } else {
+        setSeasonIndex(0);
+      }
     }
   }, [seasons]);
 
@@ -95,8 +97,33 @@ const EpisodeSelect = ({ show, setTag }) => {
   }, [seasonIndex]);
 
   useEffect(() => {
-    handleTag(episodes[0]?.id);
+    if (recentRef.current?.number) {
+      const recentEpisode = episodes.find(
+        (episode) => episode.number === recentRef.current.number
+      );
+      if (newlyOpenedRef.current && recentEpisode?.id) {
+        handleTag(recentEpisode.id);
+        newlyOpenedRef.current = false;
+      } else {
+        handleTag(episodes[0]?.id);
+      }
+    } else {
+      handleTag(episodes[0]?.id);
+    }
   }, [episodes]);
+
+  useEffect(() => {
+    if (open) {
+      currentTag?.id && setTag(currentTag);
+    } else {
+      setTag({
+        id: null,
+        season: null,
+        number: null,
+        name: "",
+      });
+    }
+  }, [open]);
 
   return (
     <div>
