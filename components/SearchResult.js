@@ -1,17 +1,10 @@
 import Image from "next/image";
 import Link from "next/link";
-import { useRef } from "react";
 import Card from "react-bootstrap/Card";
 import Col from "react-bootstrap/Col";
 import Row from "react-bootstrap/Row";
 
 const SearchResult = ({ show }) => {
-  // const trimmedSummary = useRef(show.summary);
-  // if (trimmedSummary.current.length > 450) {
-  //   trimmedSummary.current = `${trimmedSummary.current.slice(0, 449)}... `;
-  // }
-
-  const summary = show.summary;
   return (
     <Link href={`show/${show.id}`} passHref>
       <Card

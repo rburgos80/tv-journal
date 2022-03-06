@@ -1,12 +1,10 @@
 import "../styles/globals.css";
 import "bootstrap/dist/css/bootstrap.min.css";
-import Navbars from "../components/Navbars";
-import { useState, useEffect, useMemo } from "react";
-import axios from "axios";
 import Head from "next/head";
+import { SessionProvider } from "next-auth/react";
+import Navbars from "../components/Navbars";
 import SSRProvider from "react-bootstrap/SSRProvider";
 import Container from "react-bootstrap/Container";
-import { SessionProvider } from "next-auth/react";
 
 function MyApp({ Component, pageProps: { session, ...pageProps } }) {
   return (

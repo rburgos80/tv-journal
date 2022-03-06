@@ -7,7 +7,7 @@ import Navbar from "react-bootstrap/Navbar";
 import Button from "react-bootstrap/Button";
 import Container from "react-bootstrap/Container";
 import Form from "react-bootstrap/Form";
-import { NavDropdown } from "react-bootstrap";
+import NavDropdown from "react-bootstrap/NavDropdown";
 
 const Navbars = () => {
   const router = useRouter();

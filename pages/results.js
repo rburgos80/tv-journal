@@ -1,8 +1,8 @@
-import Head from "next/head";
 import { useEffect, useState } from "react";
 import { useRouter } from "next/router";
-import SearchResult from "../components/SearchResult";
+import Head from "next/head";
 import axios from "axios";
+import SearchResult from "../components/SearchResult";
 
 export default function Results() {
   const router = useRouter();
