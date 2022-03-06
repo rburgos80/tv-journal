@@ -8,15 +8,18 @@ export default function Results() {
   const router = useRouter();
   const [searchResults, setSearchResults] = useState([]);
 
-  useEffect(async () => {
+  useEffect(() => {
     if (!router.query.q) {
       return;
     }
 
-    const fetchSearchResults = async (query) => {
+    const fetchSearchResults = async () => {
+      if (!router.query.q) {
+        return null;
+      }
       try {
         const response = await axios.get(
-          `https://api.tvmaze.com/search/shows?q=${query}`
+          `https://api.tvmaze.com/search/shows?q=${router.query.q}`
         );
         const data = response.data;
         setSearchResults(data);
@@ -24,7 +27,7 @@ export default function Results() {
         throw new Error(err);
       }
     };
-    fetchSearchResults(router.query.q);
+    fetchSearchResults();
   }, [router.query.q]);
 
   return (
