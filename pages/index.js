@@ -3,13 +3,14 @@ import { useSession, signIn } from "next-auth/react";
 import Head from "next/head";
 import Link from "next/link";
 import Journal from "../components/Journal";
-import JournalCard from "../components/JournalCard";
 import axios from "axios";
 import Col from "react-bootstrap/Col";
 import ListGroup from "react-bootstrap/ListGroup";
 import Row from "react-bootstrap/Row";
 import Button from "react-bootstrap/Button";
-import { CloseButton, Offcanvas } from "react-bootstrap";
+import CloseButton from "react-bootstrap/CloseButton";
+import Offcanvas from "react-bootstrap/Offcanvas";
+import Image from "next/image";
 
 export default function Home() {
   const { data: session, status } = useSession();
@@ -69,7 +70,16 @@ export default function Home() {
           }}
           active={journal.show.id === currentShowId}
         >
-          <JournalCard journal={journal} />
+          <div className="d-flex align-items-center">
+            <Image
+              src={journal.show.image}
+              alt={`${journal.show.name} poster`}
+              width={53}
+              height={74}
+              layout="intrinsic"
+            />
+            <h5 className="ms-2 text-truncate">{journal.show.name}</h5>
+          </div>
         </ListGroup.Item>
       ))}
     </ListGroup>
