@@ -15,6 +15,7 @@ const EpisodeSelect = ({ show, setTag }) => {
   const [episodes, setEpisodes] = useState([]);
   const [seasons, setSeasons] = useState([]);
   const [seasonIndex, setSeasonIndex] = useState(null);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     if (open) {
@@ -67,11 +68,13 @@ const EpisodeSelect = ({ show, setTag }) => {
 
   const fetchEpisodeData = async () => {
     try {
+      setLoading(true);
       const epRes = await axios.get(
         `https://api.tvmaze.com/seasons/${seasons[seasonIndex].id}/episodes`
       );
       const epData = epRes.data.filter((ep) => ep.type === "regular");
       setEpisodes(epData);
+      setLoading(false);
     } catch (err) {
       throw new Error(
         `${err} \n Episode data api fetch failed: episode: ${episodes[0].id}`
@@ -112,11 +115,22 @@ const EpisodeSelect = ({ show, setTag }) => {
             }}
             className="d-md-inline me-2 mb-2"
           >
-            <Dropdown.Toggle variant="outline-secondary" id="tag-season-select">
-              {seasons
-                ? `Season ${seasons[seasonIndex]?.number}`
-                : "Select Season"}
-            </Dropdown.Toggle>
+            {seasons.length === 0 ? (
+              <Dropdown.Toggle
+                variant="outline-secondary"
+                id="tag-season-select"
+                disabled
+              >
+                Loading Seasons...
+              </Dropdown.Toggle>
+            ) : (
+              <Dropdown.Toggle
+                variant="outline-secondary"
+                id="tag-season-select"
+              >
+                {`Season ${seasons[seasonIndex]?.number}`}
+              </Dropdown.Toggle>
+            )}
             <Dropdown.Menu>
               {seasons.map((season, index) => (
                 <Dropdown.Item eventKey={index} key={season.id}>
@@ -125,29 +139,41 @@ const EpisodeSelect = ({ show, setTag }) => {
               ))}
             </Dropdown.Menu>
           </Dropdown>
-          <Dropdown
-            onSelect={(episodeId) => handleTag(parseInt(episodeId))}
-            className="d-inline"
-          >
-            <Dropdown.Toggle
-              variant="outline-secondary"
-              id="tag-episode-select"
+          {seasonIndex !== null && (
+            <Dropdown
+              onSelect={(episodeId) => handleTag(parseInt(episodeId))}
+              className="d-inline"
             >
-              {currentTag?.id
-                ? `Episode ${currentTag.number}`
-                : "Select Episode"}
-            </Dropdown.Toggle>
-            <Dropdown.Menu style={{ zIndex: "1021" }}>
-              <div className="episode-select-menu">
-                {episodes.map((episode) => (
-                  <Dropdown.Item eventKey={episode.id} key={episode.id}>
-                    {episode.number}. {episode.name}
-                  </Dropdown.Item>
-                ))}
-              </div>
-            </Dropdown.Menu>
-          </Dropdown>
-          {currentTag.id ? (
+              {episodes.length === 0 || loading ? (
+                <Dropdown.Toggle
+                  variant="outline-secondary"
+                  id="tag-episode-select"
+                  disabled
+                >
+                  Loading Episodes...
+                </Dropdown.Toggle>
+              ) : (
+                <Dropdown.Toggle
+                  variant="outline-secondary"
+                  id="tag-episode-select"
+                >
+                  {currentTag?.id
+                    ? `Episode ${currentTag.number}`
+                    : "Select Episode"}
+                </Dropdown.Toggle>
+              )}
+              <Dropdown.Menu style={{ zIndex: "1021" }}>
+                <div className="episode-select-menu">
+                  {episodes.map((episode) => (
+                    <Dropdown.Item eventKey={episode.id} key={episode.id}>
+                      {episode.number}. {episode.name}
+                    </Dropdown.Item>
+                  ))}
+                </div>
+              </Dropdown.Menu>
+            </Dropdown>
+          )}
+          {!loading && currentTag.id ? (
             <div className="text-muted">
               {`s${currentTag.season}e${currentTag.number} - ${currentTag.name}`}
             </div>
