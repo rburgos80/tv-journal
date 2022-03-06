@@ -12,7 +12,6 @@ import NavDropdown from "react-bootstrap/NavDropdown";
 const Navbars = () => {
   const router = useRouter();
   const { data: session, status } = useSession();
-  const loading = status === "loading";
   const [searchQuery, setSearchQuery] = useState("");
 
   useEffect(() => {
@@ -44,36 +43,44 @@ const Navbars = () => {
               activeKey={null}
               className="justify-content-end me-auto my-2 my-md-0"
             >
-              {!session && (
+              {status === "loading" ? (
                 <Nav.Item>
-                  <Nav.Link
-                    onClick={(e) => {
-                      e.preventDefault();
-                      signIn();
-                    }}
-                    href={"api/auth/signin"}
-                  >
-                    Sign in
-                  </Nav.Link>
+                  <Nav.Link>Loading...</Nav.Link>
                 </Nav.Item>
-              )}
-              {session && (
+              ) : (
                 <>
-                  <NavDropdown title="Account" style={{ zIndex: "1021" }}>
-                    <NavDropdown.Header>
-                      Signed in as: <strong>{session.user?.email}</strong>
-                    </NavDropdown.Header>
-                    <NavDropdown.Divider />
-                    <NavDropdown.Item
-                      onClick={(e) => {
-                        e.preventDefault();
-                        signOut();
-                      }}
-                      href={"api/auth/signout"}
-                    >
-                      Signout
-                    </NavDropdown.Item>
-                  </NavDropdown>
+                  {!session && (
+                    <Nav.Item>
+                      <Nav.Link
+                        onClick={(e) => {
+                          e.preventDefault();
+                          signIn();
+                        }}
+                        href={"api/auth/signin"}
+                      >
+                        Sign in
+                      </Nav.Link>
+                    </Nav.Item>
+                  )}
+                  {session && (
+                    <>
+                      <NavDropdown title="Account" style={{ zIndex: "1021" }}>
+                        <NavDropdown.Header>
+                          Signed in as: <strong>{session.user?.email}</strong>
+                        </NavDropdown.Header>
+                        <NavDropdown.Divider />
+                        <NavDropdown.Item
+                          onClick={(e) => {
+                            e.preventDefault();
+                            signOut();
+                          }}
+                          href={"api/auth/signout"}
+                        >
+                          Signout
+                        </NavDropdown.Item>
+                      </NavDropdown>
+                    </>
+                  )}
                 </>
               )}
               <Nav.Item>
