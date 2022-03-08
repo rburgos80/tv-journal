@@ -11,6 +11,8 @@ import Button from "react-bootstrap/Button";
 import CloseButton from "react-bootstrap/CloseButton";
 import Offcanvas from "react-bootstrap/Offcanvas";
 import Image from "next/image";
+import Card from "react-bootstrap/Card";
+import Container from "react-bootstrap/Container";
 
 export default function Home() {
   const { data: session, status } = useSession();
@@ -159,13 +161,18 @@ export default function Home() {
                   </Col>
                 </Row>
               ) : (
-                <div className="d-flex flex-column align-items-center">
-                  <h1>Welcome to TV Journal!</h1>
-                  <p>
-                    Start by searching for a show and making a journal entry.
-                    You will be able to see it here afterwards.
-                  </p>
-                </div>
+                <Container fluid="sm" className="d-flex justify-content-center">
+                  <Card className="d-flex flex-direction-column align-items-center p-4 p-md-5 my-4 shadow-sm text-center">
+                    <h2 className="mb-4">Welcome to TV Journal!</h2>
+                    <p>
+                      Start by searching for a show in the menu bar and creating
+                      a journal entry.
+                    </p>
+                    <p>
+                      All of your activity will appear on this page afterwards.
+                    </p>
+                  </Card>
+                </Container>
               )}
             </>
           )
