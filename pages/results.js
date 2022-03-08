@@ -42,7 +42,9 @@ export default function Results() {
       <section>
         <h4 className="search-results">
           {searchResults.length > 0 &&
-            `Found ${searchResults.length} results for "${router.query.q}"`}
+            `Found ${searchResults.length} result${
+              searchResults.length !== 1 ? "s" : ""
+            } for "${router.query.q}"`}
         </h4>
         <div className="homeGrid">
           {searchResults &&
