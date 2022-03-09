@@ -45,6 +45,10 @@ function MyApp({ Component, pageProps: { session, ...pageProps } }) {
             href="/public/safari-pinned-tab.svg"
             color="#5bbad5"
           />
+          <meta
+            name="description"
+            content="Keep a journal on your viewing experiences"
+          />
           <meta name="msapplication-TileColor" content="#0275d8" />
           <meta name="theme-color" content="#ffffff" />
         </Head>

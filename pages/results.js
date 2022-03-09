@@ -34,10 +34,6 @@ export default function Results() {
     <>
       <Head>
         <title>Search - TV Journal</title>
-        <meta
-          name="description"
-          content="Keep a journal on your favorite TV Shows."
-        />
       </Head>
       <main className="pb-3">
         <h4 className="search-results text-center py-4 pt-sm-0">
