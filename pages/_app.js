@@ -40,7 +40,6 @@ function MyApp({ Component, pageProps: { session, ...pageProps } }) {
             sizes="16x16"
             href="/public/favicon-16x16.png"
           />
-          <link rel="manifest" href="/public/site.webmanifest" />
           <link
             rel="mask-icon"
             href="/public/safari-pinned-tab.svg"
@@ -50,7 +49,7 @@ function MyApp({ Component, pageProps: { session, ...pageProps } }) {
           <meta name="theme-color" content="#ffffff" />
         </Head>
         <Navbars />
-        <Container fluid="sm" className="px-0 pb-md-4 my-md-4">
+        <Container fluid="sm" className="px-0 pb-md-4 my-sm-4">
           <Component {...pageProps} />
         </Container>
       </SSRProvider>
