@@ -39,8 +39,8 @@ export default function Results() {
           content="Keep a journal on your favorite TV Shows."
         />
       </Head>
-      <section>
-        <h4 className="search-results">
+      <main className="pb-3">
+        <h4 className="search-results text-center py-4 pt-sm-0">
           {searchResults.length > 0 &&
             `Found ${searchResults.length} result${
               searchResults.length !== 1 ? "s" : ""
@@ -52,7 +52,7 @@ export default function Results() {
               <SearchResult show={result.show} key={index} />
             ))}
         </div>
-      </section>
+      </main>
     </>
   );
 }

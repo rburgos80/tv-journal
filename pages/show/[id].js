@@ -43,7 +43,7 @@ const ShowPage = () => {
         </title>
       </Head>
       {showData.id && (
-        <Card className="shadow-lg mb-md-4">
+        <Card className="shadow-lg mb-md-4 show-card">
           <Row className="justify-content-center m-3">
             <Col md="auto">
               {showData.image && showData.image.original && (

@@ -6,11 +6,11 @@ const about = () => {
       <Head>
         <title>About - TV Journal</title>
       </Head>
-      <main className="p-2">
-        <h3>TV Journal</h3>
+      <main className="p-3 pt-sm-0 p-md-0">
+        <h3>About TV Journal</h3>
         <p>
-          A place designed for users to document their thoughts on shows as they
-          watch them.
+          This website is designed for users to document their thoughts on shows
+          as they watch them.
         </p>
         <p>
           All information on shows is retrieved from the{" "}
@@ -58,7 +58,7 @@ const about = () => {
         </p>
         <p>
           This entire development was a huge learning process for me as I had to
-          learn numerous technologies to make this possible. My biggest
+          pick up numerous technologies to make this possible. My biggest
           roadblock was figuring out a database design that works with the
           design of this website since I have more experience working with the
           frontend rather than the backend. In the end, the most important thing

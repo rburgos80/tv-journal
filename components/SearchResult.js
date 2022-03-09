@@ -8,7 +8,7 @@ const SearchResult = ({ show }) => {
   return (
     <Link href={`show/${show.id}`} passHref>
       <Card
-        className="p-2 my-3 shadow-sm search-result"
+        className="p-2 m-3 mx-md-0 mt-0 shadow-sm search-result"
         style={{ cursor: "pointer" }}
         variant="light"
       >
