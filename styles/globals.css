@@ -46,8 +46,6 @@ body {
   justify-content: center;
   margin-bottom: 8px;
 }
-@media (max-width: 991px) {
-}
 
 .episode-title,
 .episode-summary {

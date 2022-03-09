@@ -33,7 +33,7 @@ const Navbars = () => {
       <Navbar expand="md" bg="dark" variant="dark" className="mb-0">
         <Container className="p-md-0">
           <Link href="/" passHref>
-            <Navbar.Brand className="" style={{ cursor: "pointer" }}>
+            <Navbar.Brand style={{ cursor: "pointer" }}>
               TV Journal
             </Navbar.Brand>
           </Link>
