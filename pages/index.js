@@ -119,7 +119,7 @@ export default function Home() {
                         <Button
                           variant="primary"
                           onClick={() => setShowJournalList(true)}
-                          className=" w-100 my-4"
+                          className=" w-100 my-4 mt-sm-0"
                         >
                           Select Journal
                         </Button>
@@ -142,7 +142,7 @@ export default function Home() {
                   )}
                   <Col md={8}>
                     {currentJournal?.show && (
-                      <>
+                      <div className="pb-4">
                         <div className="mb-2">
                           <h3 className="d-inline me-2">
                             {currentJournal.show.name}
@@ -156,7 +156,7 @@ export default function Home() {
                           key={currentJournal.show.id}
                           show={currentJournal.show}
                         />
-                      </>
+                      </div>
                     )}
                   </Col>
                 </Row>
@@ -177,15 +177,19 @@ export default function Home() {
             </>
           )
         ) : status === "unauthenticated" ? (
-          <div className=" mt-2 d-flex flex-column align-items-center">
-            <h1>TV Journal</h1>
-            <h6>Sign in to keep a journal on your favorite shows.</h6>
+          <div
+            className="d-flex flex-column align-items-center text-center"
+            style={{ marginTop: "10rem" }}
+          >
+            <h1 className="fs-1">TV Journal</h1>
+            <p className="fs-5 mb-5">Keep a journal on your favorite shows.</p>
             <Button
               onClick={(e) => {
                 e.preventDefault();
                 signIn();
               }}
               href={"api/auth/signin"}
+              className="mt-5 px-4 fs-4 font-weight-bold shadow"
             >
               Sign In
             </Button>
