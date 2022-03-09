@@ -1,4 +1,5 @@
 import Head from "next/head";
+import Card from "react-bootstrap/Card";
 
 const about = () => {
   return (
@@ -6,8 +7,8 @@ const about = () => {
       <Head>
         <title>About - TV Journal</title>
       </Head>
-      <main className="p-3 pt-sm-0 p-md-0">
-        <h3>About TV Journal</h3>
+      <Card className="p-3 shadow">
+        <h4>About TV Journal</h4>
         <p>
           This website is designed for users to document their thoughts on shows
           as they watch them.
@@ -72,7 +73,7 @@ const about = () => {
           better, feel free to contact me at:{" "}
           <strong>rburgos80@gmail.com</strong>
         </p>
-      </main>
+      </Card>
     </>
   );
 };

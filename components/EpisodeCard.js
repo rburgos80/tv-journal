@@ -35,13 +35,13 @@ const EpisodeCard = ({ show, episode }) => {
               </Col>
               <Col className="align-self-center">
                 <div>
-                  <h4 className="text-lg-start text-center mb-2">
+                  <h3 className="fs-4 text-lg-start text-center mb-2">
                     {episode.number && `${episode.number}. `}
                     <span
                       className="episode-title d-inline"
                       dangerouslySetInnerHTML={{ __html: episode.name }}
                     />
-                  </h4>
+                  </h3>
                   <p className="episode-summary">
                     <span
                       dangerouslySetInnerHTML={{ __html: episode.summary }}

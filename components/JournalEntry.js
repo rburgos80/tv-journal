@@ -17,7 +17,6 @@ export default function JournalEntry({
   ) {
     return (
       <a
-        href=""
         ref={ref}
         onClick={(e) => {
           e.preventDefault();
