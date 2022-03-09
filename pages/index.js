@@ -80,7 +80,7 @@ export default function Home() {
               height={74}
               layout="intrinsic"
             />
-            <h5 className="ms-2 text-truncate">{journal.show.name}</h5>
+            <h4 className="fs-5 ms-2 text-truncate">{journal.show.name}</h4>
           </div>
         </ListGroup.Item>
       ))}
@@ -91,10 +91,6 @@ export default function Home() {
     <>
       <Head>
         <title>TV Journal</title>
-        <meta
-          name="description"
-          content="Keep a journal of your viewing experiences"
-        />
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <section className={windowWidth < 768 ? "mx-3" : undefined}>
@@ -143,12 +139,17 @@ export default function Home() {
                   <Col md={8}>
                     {currentJournal?.show && (
                       <div className="pb-4">
-                        <div className="mb-2">
-                          <h3 className="d-inline me-2">
+                        <div className="mb-2 d-flex flex-wrap">
+                          <h3 className="d-inline me-auto">
                             {currentJournal.show.name}
                           </h3>
-                          <Link href={`show/${currentJournal.show.id}`}>
-                            Go to details page
+                          <Link
+                            href={`show/${currentJournal.show.id}`}
+                            passHref
+                          >
+                            <Button variant="outline-primary align-top">
+                              Go to details page
+                            </Button>
                           </Link>
                           <br />
                         </div>
@@ -161,14 +162,18 @@ export default function Home() {
                   </Col>
                 </Row>
               ) : (
-                <Container fluid="sm" className="d-flex justify-content-center">
+                <Container
+                  fluid="sm"
+                  className="d-flex justify-content-center"
+                  style={{ marginTop: "5rem" }}
+                >
                   <Card className="d-flex flex-direction-column align-items-center p-4 p-md-5 my-4 shadow-sm text-center">
                     <h2 className="mb-4">Welcome to TV Journal!</h2>
-                    <p>
+                    <p className="fs-5">
                       Start by searching for a show in the menu bar and creating
                       a journal entry.
                     </p>
-                    <p>
+                    <p className="fs-5">
                       All of your activity will appear on this page afterwards.
                     </p>
                   </Card>
@@ -179,10 +184,12 @@ export default function Home() {
         ) : status === "unauthenticated" ? (
           <div
             className="d-flex flex-column align-items-center text-center"
-            style={{ marginTop: "10rem" }}
+            style={{ marginTop: "5rem" }}
           >
             <h1 className="fs-1">TV Journal</h1>
-            <p className="fs-5 mb-5">Keep a journal on your favorite shows.</p>
+            <p className="fs-4 mb-5">
+              Keep a journal on your viewing experiences.
+            </p>
             <Button
               onClick={(e) => {
                 e.preventDefault();
