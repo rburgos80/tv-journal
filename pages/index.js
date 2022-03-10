@@ -17,11 +17,11 @@ import Container from "react-bootstrap/Container";
 export default function Home() {
   const { data: session, status } = useSession();
   const [journals, setJournals] = useState([]);
-  const [loading, setLoading] = useState(false);
   const [currentShowId, setCurrentShowId] = useState(null);
   const [currentJournal, setCurrentJournal] = useState({});
   const [showJournalList, setShowJournalList] = useState(false);
   const [windowWidth, setWindowWidth] = useState(null);
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     setWindowWidth(window.innerWidth);
@@ -44,11 +44,13 @@ export default function Home() {
   };
 
   useEffect(() => {
-    session && getUserJournals();
-  }, [session]);
+    status === "authenticated" && getUserJournals();
+  }, [status]);
 
   useEffect(() => {
-    if (journals && journals.length > 0) setCurrentShowId(journals[0].show.id);
+    if (journals && journals.length > 0) {
+      setCurrentShowId(journals[0].show.id);
+    }
   }, [journals]);
 
   useEffect(() => {
