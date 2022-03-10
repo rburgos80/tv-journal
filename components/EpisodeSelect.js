@@ -1,12 +1,12 @@
-import axios from "axios";
 import { useState, useEffect, useRef } from "react";
+import axios from "axios";
 import Collapse from "react-bootstrap/Collapse";
 import Dropdown from "react-bootstrap/Dropdown";
 import Form from "react-bootstrap/Form";
 
 const EpisodeSelect = ({ show, setTag }) => {
   const [open, setOpen] = useState(false);
-  const [currentTag, setCurrentTag] = useState({
+  const [temporaryTag, setTemporaryTag] = useState({
     id: null,
     season: null,
     number: null,
@@ -19,27 +19,7 @@ const EpisodeSelect = ({ show, setTag }) => {
   const recentRef = useRef({});
   const newlyOpenedRef = useRef(true);
 
-  const handleTag = (episodeId) => {
-    if (!episodeId) {
-      setCurrentTag({ id: null, season: null, number: null, name: "" });
-      setTag({ id: null, season: null, number: null, name: "" });
-      return;
-    }
-    const taggedEpisode = episodes.find((episode) => episode.id === episodeId);
-    setCurrentTag({
-      id: taggedEpisode.id,
-      season: taggedEpisode.season,
-      number: taggedEpisode.number,
-      name: taggedEpisode.name,
-    });
-    setTag({
-      id: taggedEpisode.id,
-      season: taggedEpisode.season,
-      number: taggedEpisode.number,
-      name: taggedEpisode.name,
-    });
-  };
-
+  //On component mount, fetch season data and get user's latest episode from localStorage
   useEffect(() => {
     let isMounted = true;
     recentRef.current = JSON.parse(localStorage.getItem("recents")).find(
@@ -64,6 +44,7 @@ const EpisodeSelect = ({ show, setTag }) => {
     };
   }, []);
 
+  //Set selected season to localStorage data or the first season if that data is not available
   useEffect(() => {
     if (seasons.length > 0) {
       if (recentRef.current?.season) {
@@ -77,6 +58,7 @@ const EpisodeSelect = ({ show, setTag }) => {
     }
   }, [seasons]);
 
+  //On season change, fetch episode data for that season
   useEffect(() => {
     let isMounted = true;
 
@@ -107,6 +89,7 @@ const EpisodeSelect = ({ show, setTag }) => {
     };
   }, [seasonIndex]);
 
+  //When episodes for a season are loaded, select and tag episode from localStorage or the first episode if that data is not available
   useEffect(() => {
     if (recentRef.current?.number) {
       const recentEpisode = episodes.find(
@@ -123,9 +106,10 @@ const EpisodeSelect = ({ show, setTag }) => {
     }
   }, [episodes]);
 
+  //Tag or untag episode when episode select menu is toggled
   useEffect(() => {
     if (open) {
-      currentTag?.id && setTag(currentTag);
+      temporaryTag?.id && setTag(temporaryTag);
     } else {
       setTag({
         id: null,
@@ -135,6 +119,30 @@ const EpisodeSelect = ({ show, setTag }) => {
       });
     }
   }, [open]);
+
+  //Tags episode to journal entry on episode select
+  const handleTag = (episodeId) => {
+    if (!episodeId) {
+      setTemporaryTag({ id: null, season: null, number: null, name: "" });
+      setTag({ id: null, season: null, number: null, name: "" });
+      return;
+    }
+    const taggedEpisode = episodes.find((episode) => episode.id === episodeId);
+    setTemporaryTag({
+      id: taggedEpisode.id,
+      season: taggedEpisode.season,
+      number: taggedEpisode.number,
+      name: taggedEpisode.name,
+    });
+    if (open) {
+      setTag({
+        id: taggedEpisode.id,
+        season: taggedEpisode.season,
+        number: taggedEpisode.number,
+        name: taggedEpisode.name,
+      });
+    }
+  };
 
   return (
     <div>
@@ -195,8 +203,8 @@ const EpisodeSelect = ({ show, setTag }) => {
                   variant="outline-secondary"
                   id="tag-episode-select"
                 >
-                  {currentTag?.id
-                    ? `Episode ${currentTag.number}`
+                  {temporaryTag?.id
+                    ? `Episode ${temporaryTag.number}`
                     : "Select Episode"}
                 </Dropdown.Toggle>
               )}
@@ -211,9 +219,9 @@ const EpisodeSelect = ({ show, setTag }) => {
               </Dropdown.Menu>
             </Dropdown>
           )}
-          {!loading && currentTag.id ? (
+          {!loading && temporaryTag.id ? (
             <div className="text-muted">
-              {`s${currentTag.season}e${currentTag.number} - ${currentTag.name}`}
+              {`s${temporaryTag.season}e${temporaryTag.number} - ${temporaryTag.name}`}
             </div>
           ) : (
             <div className="text-muted">Loading...</div>
