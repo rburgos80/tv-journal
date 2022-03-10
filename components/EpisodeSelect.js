@@ -40,41 +40,28 @@ const EpisodeSelect = ({ show, setTag }) => {
     });
   };
 
-  const fetchSeasonData = async () => {
-    try {
-      const seasonRes = await axios.get(
-        `https://api.tvmaze.com/shows/${show.id}/seasons`
-      );
-      const seasonData = seasonRes.data;
-      setSeasons(seasonData);
-    } catch (err) {
-      throw new Error(
-        `${err}\nSeason data api fetch failed: showID = ${show.id}`
-      );
-    }
-  };
-
-  const fetchEpisodeData = async () => {
-    try {
-      setLoading(true);
-      const epRes = await axios.get(
-        `https://api.tvmaze.com/seasons/${seasons[seasonIndex].id}/episodes`
-      );
-      const epData = epRes.data.filter((ep) => ep.type === "regular");
-      setEpisodes(epData);
-      setLoading(false);
-    } catch (err) {
-      throw new Error(
-        `${err} \n Episode data api fetch failed: episode: ${episodes[0].id}`
-      );
-    }
-  };
-
   useEffect(() => {
+    let isMounted = true;
     recentRef.current = JSON.parse(localStorage.getItem("recents")).find(
       (recent) => recent.showId === show.id
     );
+    const fetchSeasonData = async () => {
+      try {
+        const seasonRes = await axios.get(
+          `https://api.tvmaze.com/shows/${show.id}/seasons`
+        );
+        const seasonData = seasonRes.data;
+        if (isMounted) setSeasons(seasonData);
+      } catch (err) {
+        console.log(
+          "The was a problem fetching season data or the request was cancelled."
+        );
+      }
+    };
     fetchSeasonData();
+    return () => {
+      isMounted = false;
+    };
   }, []);
 
   useEffect(() => {
@@ -91,9 +78,33 @@ const EpisodeSelect = ({ show, setTag }) => {
   }, [seasons]);
 
   useEffect(() => {
+    let isMounted = true;
+
+    const fetchEpisodeData = async () => {
+      try {
+        setLoading(true);
+        const epRes = await axios.get(
+          `https://api.tvmaze.com/seasons/${seasons[seasonIndex].id}/episodes`
+        );
+        const epData = epRes.data.filter((ep) => ep.type === "regular");
+        if (isMounted) {
+          setEpisodes(epData);
+          setLoading(false);
+        }
+      } catch (err) {
+        console.log(
+          "The was a problem fetching episode data or the request was cancelled."
+        );
+      }
+    };
+
     if (seasons[seasonIndex]) {
       fetchEpisodeData();
     }
+
+    return () => {
+      isMounted = false;
+    };
   }, [seasonIndex]);
 
   useEffect(() => {
