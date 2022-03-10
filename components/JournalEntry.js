@@ -22,7 +22,7 @@ export default function JournalEntry({
           e.preventDefault();
           onClick(e);
         }}
-        style={{ color: "black" }}
+        style={{ color: "black", cursor: "pointer" }}
       >
         {children}
       </a>
