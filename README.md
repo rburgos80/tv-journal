@@ -1,34 +1,22 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+![TV Journal Home Screen](https://user-images.githubusercontent.com/54997456/157727264-e63ba645-26b3-4c32-85bb-090bc5eeb4c4.png)
+This website is hosted on https://tv-journal.vercel.app
 
-## Getting Started
+## TV Journal
 
-First, run the development server:
+TV Journal is a tool to help users formulate their thoughts on a show to later revisit and see their thought process during their viewing of that show. It can also be used as a way to note things down, such as possible foreshadowing and important storyline events.
 
-```bash
-npm run dev
-# or
-yarn dev
-```
+## Stack
+- React
+- Next.js
+- React-Bootstrap
+- MongoDB
+- NextAuth.js
+- Node
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Development Process
 
-You can start editing the page by modifying `pages/index.js`. The page auto-updates as you edit the file.
+I came up with the idea for this website after building a project similar to IMDB with the focus on looking up shows to see their ratings per episode. It was entertaining to see the general consensus on shows I was watching, but I developed a bad habit of just waiting for episodes with particularly high ratings and not paying much attention to other episodes, reducing my overall enjoyment of shows as a whole.
 
-[API routes](https://nextjs.org/docs/api-routes/introduction) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.js`.
+I decided to give this project a more personal spin and make it all about the user's opinion. There aren't any outside opinions to possibly influence what you would think of a particular show or episode as there are already plenty of websites offering individual reviews.
 
-The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/api-routes/introduction) instead of React pages.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+This entire development was a huge learning process for me as I had to pick up numerous technologies to make this possible. My biggest roadblock was figuring out a database design that works with the design of this website since I have more experience working with the frontend rather than the backend. In the end, the most important thing I took away from this process was that I have to recognize my limits as a web developer and understand that nothing is perfect, so I shouldn't obsess over how I can completely optimize everything.
