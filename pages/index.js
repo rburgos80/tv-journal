@@ -75,13 +75,17 @@ export default function Home() {
           active={journal.show.id === currentShowId}
         >
           <div className="d-flex align-items-center">
-            <Image
-              src={journal.show.image}
-              alt={`${journal.show.name} poster`}
-              width={53}
-              height={74}
-              layout="intrinsic"
-            />
+            {journal.show.image ? (
+              <Image
+                src={journal.show.image}
+                alt={`${journal.show.name} poster`}
+                width={53}
+                height={74}
+                layout="intrinsic"
+              />
+            ) : (
+              <div className="py-4" />
+            )}
             <h4 className="fs-5 ms-2 text-truncate">{journal.show.name}</h4>
           </div>
         </ListGroup.Item>
