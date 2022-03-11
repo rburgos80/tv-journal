@@ -10,11 +10,13 @@ import Row from "react-bootstrap/Row";
 import Image from "next/image";
 import Journal from "../../components/Journal";
 
+// Show details page
 const ShowPage = () => {
   const [showData, setShowData] = useState({});
   const [activeTab, setActiveTab] = useState("episodes");
   const router = useRouter();
 
+  // Fetch show information from the TVmaze API
   useEffect(() => {
     if (!router.query.id) {
       return;
@@ -44,6 +46,7 @@ const ShowPage = () => {
       </Head>
       {showData.id && (
         <Card className="shadow-lg mb-md-4 show-card">
+          {/* Show Information */}
           <Row className="justify-content-center m-3">
             <Col md="auto">
               {showData.image && showData.image.original && (
@@ -76,6 +79,7 @@ const ShowPage = () => {
               </div>
             </Col>
           </Row>
+          {/* Episode list and show Journal */}
           <Nav
             fill
             variant="tabs"

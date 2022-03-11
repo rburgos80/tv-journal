@@ -14,6 +14,7 @@ import Image from "next/image";
 import Card from "react-bootstrap/Card";
 import Container from "react-bootstrap/Container";
 
+// Home page with user's journals if authenticated, welcome screen if unauthenticated
 export default function Home() {
   const { data: session, status } = useSession();
   const [journals, setJournals] = useState([]);
@@ -23,6 +24,7 @@ export default function Home() {
   const [windowWidth, setWindowWidth] = useState(null);
   const [loading, setLoading] = useState(false);
 
+  // Window resize event listener used for responsive design
   useEffect(() => {
     setWindowWidth(window.innerWidth);
     function handleResize() {
@@ -32,21 +34,23 @@ export default function Home() {
     return () => window.removeEventListener("resize", handleResize);
   }, []);
 
-  const getUserJournals = async () => {
-    try {
-      setLoading(true);
-      const res = await axios.get("/api/journals/");
-      setJournals(res.data);
-      setLoading(false);
-    } catch (err) {
-      throw new Error(err);
-    }
-  };
-
+  // Load user's journals
   useEffect(() => {
+    const getUserJournals = async () => {
+      try {
+        setLoading(true);
+        const res = await axios.get("/api/journals/");
+        setJournals(res.data);
+        setLoading(false);
+      } catch (err) {
+        throw new Error(err);
+      }
+    };
+
     status === "authenticated" && getUserJournals();
   }, [status]);
 
+  //Set the active journal when journals are loaded
   useEffect(() => {
     if (journals && journals.length > 0) {
       setCurrentShowId(journals[0].show.id);
@@ -59,6 +63,7 @@ export default function Home() {
     );
   }, [currentShowId]);
 
+  //Subcomponent listing the user's journals
   const journalList = (
     <ListGroup
       className={`${windowWidth < 768 ? "rounded-0 overflow-auto" : undefined}`}
@@ -99,7 +104,7 @@ export default function Home() {
         <title>TV Journal</title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <section className={windowWidth < 768 ? "mx-3" : undefined}>
+      <main className={windowWidth < 768 ? "mx-3" : undefined}>
         {status === "authenticated" ? (
           !loading && (
             <>
@@ -107,6 +112,7 @@ export default function Home() {
                 <Row>
                   {windowWidth >= 768 ? (
                     <Col md={4}>
+                      {/* Desktop layout */}
                       <h3 className="sticky-top">Select Journal</h3>
                       <div
                         className="sticky-top overflow-auto"
@@ -117,6 +123,7 @@ export default function Home() {
                     </Col>
                   ) : (
                     <>
+                      {/* Mobile layout */}
                       <Col>
                         <Button
                           variant="primary"
@@ -143,6 +150,7 @@ export default function Home() {
                     </>
                   )}
                   <Col md={8}>
+                    {/* Displays Journal component for selected journal */}
                     {currentJournal?.show && (
                       <div className="pb-4">
                         <div className="mb-2 d-flex flex-wrap">
@@ -173,6 +181,7 @@ export default function Home() {
                   className="d-flex justify-content-center"
                   style={{ marginTop: "5rem" }}
                 >
+                  {/* Displays when user has no journals */}
                   <Card className="d-flex flex-direction-column align-items-center p-4 p-md-5 my-4 shadow-sm text-center">
                     <h2 className="mb-4">Welcome to TV Journal!</h2>
                     <p className="fs-5">
@@ -192,6 +201,7 @@ export default function Home() {
             className="d-flex flex-column align-items-center text-center"
             style={{ marginTop: "5rem" }}
           >
+            {/* Displays when user is unauthenticated */}
             <h1 className="fs-1">TV Journal</h1>
             <p className="fs-4 mb-5">
               Keep a journal on your viewing experiences.
@@ -208,7 +218,7 @@ export default function Home() {
             </Button>
           </div>
         ) : null}
-      </section>
+      </main>
     </>
   );
 }

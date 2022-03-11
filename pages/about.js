@@ -1,6 +1,7 @@
 import Head from "next/head";
 import Card from "react-bootstrap/Card";
 
+// About page
 const about = () => {
   return (
     <>

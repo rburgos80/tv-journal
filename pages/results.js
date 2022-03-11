@@ -4,10 +4,12 @@ import Head from "next/head";
 import axios from "axios";
 import SearchResult from "../components/SearchResult";
 
+// Displays search results
 export default function Results() {
   const router = useRouter();
   const [searchResults, setSearchResults] = useState([]);
 
+  // Fetch search result data from TVmaze API
   useEffect(() => {
     if (!router.query.q) {
       return;
@@ -42,7 +44,7 @@ export default function Results() {
               searchResults.length !== 1 ? "s" : ""
             } for "${router.query.q}"`}
         </h4>
-        <div className="homeGrid">
+        <div>
           {searchResults &&
             searchResults.map((result, index) => (
               <SearchResult show={result.show} key={index} />

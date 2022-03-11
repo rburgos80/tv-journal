@@ -4,6 +4,7 @@ import Card from "react-bootstrap/Card";
 import Col from "react-bootstrap/Col";
 import Row from "react-bootstrap/Row";
 
+// Prints a show image and description in the search results page
 const SearchResult = ({ show }) => {
   return (
     <Link href={`show/${show.id}`} passHref>

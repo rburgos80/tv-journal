@@ -11,8 +11,9 @@ import Alert from "react-bootstrap/Alert";
 import Modal from "react-bootstrap/Modal";
 import Spinner from "react-bootstrap/Spinner";
 
+// Prints out journal entries for a show, episode-specific entries if episode prop is not null
 const Journal = ({ episode, show }) => {
-  const { data: session, status } = useSession();
+  const { data: session } = useSession();
   const [entries, setEntries] = useState([]);
   const [loading, setLoading] = useState(false);
   const [newEntryText, setNewEntryText] = useState("");

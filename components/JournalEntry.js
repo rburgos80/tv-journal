@@ -3,6 +3,7 @@ import ListGroup from "react-bootstrap/ListGroup";
 import Card from "react-bootstrap/Card";
 import Dropdown from "react-bootstrap/Dropdown";
 
+// Small component printing text and metadata for a single journal entry
 export default function JournalEntry({
   entry,
   show,

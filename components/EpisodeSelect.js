@@ -4,6 +4,7 @@ import Collapse from "react-bootstrap/Collapse";
 import Dropdown from "react-bootstrap/Dropdown";
 import Form from "react-bootstrap/Form";
 
+// Component used in Journals that allows user to tag episode to entry
 const EpisodeSelect = ({ show, setTag }) => {
   const [open, setOpen] = useState(false);
   const [temporaryTag, setTemporaryTag] = useState({
@@ -153,6 +154,7 @@ const EpisodeSelect = ({ show, setTag }) => {
         value={open}
         onChange={() => setOpen((open) => !open)}
       />
+      {/* Season Select */}
       <Collapse in={open}>
         <div className="mt-2">
           <Dropdown
@@ -185,6 +187,7 @@ const EpisodeSelect = ({ show, setTag }) => {
               ))}
             </Dropdown.Menu>
           </Dropdown>
+          {/* Episode Select */}
           {seasonIndex !== null && (
             <Dropdown
               onSelect={(episodeId) => handleTag(parseInt(episodeId))}

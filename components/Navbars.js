@@ -9,6 +9,7 @@ import Container from "react-bootstrap/Container";
 import Form from "react-bootstrap/Form";
 import NavDropdown from "react-bootstrap/NavDropdown";
 
+// Top menu bar appearing throughout the website
 const Navbars = () => {
   const router = useRouter();
   const { data: session, status } = useSession();

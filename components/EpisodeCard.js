@@ -5,12 +5,14 @@ import Accordion from "react-bootstrap/Accordion";
 import Col from "react-bootstrap/Col";
 import Row from "react-bootstrap/Row";
 
+// Contains episode information and episode-specific journal entries
 const EpisodeCard = ({ show, episode }) => {
   const [open, setOpen] = useState(false);
   return (
     <div className="episode-card">
       <Accordion className="mt-0">
         <Accordion.Item className="rounded-0 border-0" eventKey="0">
+          {/* Episode information */}
           <Accordion.Header
             className="border-top"
             onClick={
@@ -51,6 +53,7 @@ const EpisodeCard = ({ show, episode }) => {
               </Col>
             </Row>
           </Accordion.Header>
+          {/* Episode journal */}
           <Accordion.Body className="p-3">
             <div>
               {open && (

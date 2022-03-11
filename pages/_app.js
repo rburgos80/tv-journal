@@ -1,12 +1,13 @@
 import "../styles/globals.css";
 import "bootstrap/dist/css/bootstrap.min.css";
+import { useEffect } from "react";
 import Head from "next/head";
 import { SessionProvider } from "next-auth/react";
 import Navbars from "../components/Navbars";
 import SSRProvider from "react-bootstrap/SSRProvider";
 import Container from "react-bootstrap/Container";
-import { useEffect } from "react";
 
+// Applies to every page
 function MyApp({ Component, pageProps: { session, ...pageProps } }) {
   useEffect(() => {
     if (!localStorage.getItem("recents")) {
