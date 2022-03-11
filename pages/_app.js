@@ -23,6 +23,7 @@ function MyApp({ Component, pageProps: { session, ...pageProps } }) {
             name="viewport"
             content="minimum-scale=1, initial-scale=1, width=device-width"
           />
+          <link rel="manifest" href="/site.webmanifest" />
           <link
             rel="apple-touch-icon"
             sizes="180x180"
