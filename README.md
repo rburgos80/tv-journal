@@ -1,4 +1,5 @@
-![TV Journal Home Screen](https://user-images.githubusercontent.com/54997456/157727264-e63ba645-26b3-4c32-85bb-090bc5eeb4c4.png)
+![TV Journal Home Page](https://user-images.githubusercontent.com/54997456/157777050-6e31ee0d-ab6f-46da-9c01-1a024d5c80de.png)
+
 This website is hosted on https://tv-journal.vercel.app
 
 ## TV Journal
