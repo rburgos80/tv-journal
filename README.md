@@ -2,6 +2,7 @@
 
 This website is hosted on https://tv-journal.vercel.app
 
+All information on shows is retreived from the [TVmaze](https://www.tvmaze.com/) API
 ## TV Journal
 
 TV Journal is a tool that lets users write down their thoughts during their viewings of shows in order for them to later self-reflect on their viewing experiences. It can also be used as a way for them to note down smaller things, such as possible foreshadowing and subtle storyline events.
