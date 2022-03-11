@@ -10,8 +10,11 @@ const about = () => {
       <Card className="p-3 shadow">
         <h4>About TV Journal</h4>
         <p>
-          This website is designed for users to document their thoughts on shows
-          as they watch them.
+          TV Journal is a tool that lets users write down their thoughts during
+          their viewings of shows in order for them to later self-reflect on
+          their viewing experiences. It can also be used as a way for them to
+          note down smaller things, such as possible foreshadowing and subtle
+          storyline events.
         </p>
         <p>
           All information on shows is retrieved from the{" "}
@@ -50,12 +53,11 @@ const about = () => {
           a whole.
         </p>
         <p>
-          I decided to give this project a more personal spin and make it all
-          about the user&apos;s opinion. There aren&apos;t any outside opinions
-          to possibly influence what you would think of a particular show or
-          episode as there are already plenty of websites offering individual
-          reviews. I also decided to forgo adding a rating functionality as it
-          wouldn&apos;t capture an opinion as well as text.
+          I wanted to create something that would encourage deeper engagement
+          with shows, so I gave this previous project a more personal spin and
+          made it all about the user&apos;s opinions. As the name suggests, I
+          created this website to be digital journal with an emphasis on
+          simplicity and ease of use.
         </p>
         <p>
           This entire development was a huge learning process for me as I had to
