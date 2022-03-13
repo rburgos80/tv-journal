@@ -249,6 +249,9 @@ const Journal = ({ episode, show }) => {
             show={openEdit}
             onHide={handleCloseEdit}
           >
+            <Modal.Header closeButton>
+              <Modal.Title>Edit Entry</Modal.Title>
+            </Modal.Header>
             <Modal.Body>
               <Form
                 onSubmit={(e) => {
@@ -271,7 +274,7 @@ const Journal = ({ episode, show }) => {
                       }));
                     }}
                     maxLength={4096}
-                    className="mb-2"
+                    className="mb-3"
                   />
                 </Form.Group>
                 <Modal.Footer>
@@ -293,7 +296,15 @@ const Journal = ({ episode, show }) => {
           </Modal>
 
           {/* Delete modal */}
-          <Modal centered show={openDelete} onHide={handleCloseDelete}>
+          <Modal
+            backdrop="static"
+            centered
+            show={openDelete}
+            onHide={handleCloseDelete}
+          >
+            <Modal.Header closeButton>
+              <Modal.Title>Delete Entry</Modal.Title>
+            </Modal.Header>
             <Modal.Body>Are you sure you want to delete this entry?</Modal.Body>
             <Modal.Footer>
               <Button variant="secondary" onClick={handleCloseDelete}>
