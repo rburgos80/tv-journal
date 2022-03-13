@@ -153,15 +153,15 @@ export default function Home() {
                     {/* Displays Journal component for selected journal */}
                     {currentJournal?.show && (
                       <div className="pb-4">
-                        <div className="mb-2 d-flex flex-wrap">
-                          <h3 className="d-inline me-auto">
+                        <div className="mb-2 d-flex align-items-center flex-wrap">
+                          <h3 className="d-inline mb-0 me-auto">
                             {currentJournal.show.name}
                           </h3>
                           <Link
                             href={`show/${currentJournal.show.id}`}
                             passHref
                           >
-                            <Button variant="outline-primary align-top">
+                            <Button variant="outline-primary" size="sm">
                               Go to details page
                             </Button>
                           </Link>
