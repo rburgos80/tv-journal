@@ -60,14 +60,24 @@ const Journal = ({ episode, show }) => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     buttonRef.current.disabled = true;
+
+    //Correctly retrieve show image link from either database or TVmaze API
+    let showImage = undefined;
+    if (typeof show.image === "string") {
+      showImage = show.image;
+    } else if (typeof show.image === "object") {
+      showImage = show.image?.medium;
+    }
+
     const newEntry = episode
-      ? {
+      ? //If submitting to episode-specific journal
+        {
           date: new Date().toDateString(),
           text: newEntryText,
           show: {
             id: show.id,
             name: show.name,
-            image: show.image?.medium,
+            image: showImage,
           },
           episode: {
             id: episode.id,
@@ -77,13 +87,14 @@ const Journal = ({ episode, show }) => {
           },
         }
       : tag.id
-      ? {
+      ? //If tagging an episode
+        {
           date: new Date().toDateString(),
           text: newEntryText,
           show: {
             id: show.id,
             name: show.name,
-            image: show.image?.medium,
+            image: showImage,
           },
           episode: {
             id: tag.id,
@@ -92,13 +103,14 @@ const Journal = ({ episode, show }) => {
             name: tag.name,
           },
         }
-      : {
+      : //If not tagging an episode
+        {
           date: new Date().toDateString(),
           text: newEntryText,
           show: {
             id: show.id,
             name: show.name,
-            image: show.image?.medium,
+            image: showImage,
           },
         };
     const res = await axios.post("/api/entries/", newEntry);
