@@ -206,16 +206,26 @@ export default function Home() {
             <p className="fs-4 mb-5">
               Keep a journal on your viewing experiences.
             </p>
-            <Button
-              onClick={(e) => {
-                e.preventDefault();
-                signIn();
-              }}
-              href={"api/auth/signin"}
-              className="mt-5 px-4 fs-4 font-weight-bold shadow"
-            >
-              Sign In
-            </Button>
+            <div className="mt-4 d-flex justify-content-center gap-3 flex-wrap">
+              <Button
+                onClick={(e) => {
+                  e.preventDefault();
+                  signIn();
+                }}
+                href={"api/auth/signin"}
+                className="px-4 fs-4 font-weight-bold shadow"
+              >
+                Sign In
+              </Button>
+              <Link href={"about"} passHref>
+                <Button
+                  variant="outline-secondary"
+                  className="px-4 fs-4 font-weight-bold shadow"
+                >
+                  About This Website
+                </Button>
+              </Link>
+            </div>
           </div>
         ) : null}
       </main>
