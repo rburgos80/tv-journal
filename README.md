@@ -1,7 +1,5 @@
 ![TV Journal Home Page](https://user-images.githubusercontent.com/54997456/157777050-6e31ee0d-ab6f-46da-9c01-1a024d5c80de.png)
 
-This website is hosted on https://tv-journal.vercel.app
-
 All information on shows is retreived from the [TVmaze](https://www.tvmaze.com/) API
 ## TV Journal
 
