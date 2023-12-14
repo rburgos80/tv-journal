@@ -1,6 +1,6 @@
 ![TV Journal Home Page](https://user-images.githubusercontent.com/54997456/157777050-6e31ee0d-ab6f-46da-9c01-1a024d5c80de.png)
 
-All information on shows is retreived from the [TVmaze](https://www.tvmaze.com/) API
+All information on shows is retrieved from the [TVmaze](https://www.tvmaze.com/) API
 ## TV Journal
 
 TV Journal is a tool that lets users write down their thoughts during their viewings of shows in order for them to later self-reflect on their viewing experiences. It can also be used as a way for them to note down smaller things, such as possible foreshadowing and subtle storyline events.
